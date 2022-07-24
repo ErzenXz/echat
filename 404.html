@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="apple-mobile-web-app-title" content="eChat">
+<meta name="application-name" content="eChat">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="msapplication-TileImage" content="images/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+    <h1 onclick="error404()">404</h1>
+    <p>The page that you are looking for can’t be found.</p>
+</body>
+
+<style>
+    body {
+        background-color: floralwhite;
+    }
+
+    h1 {
+        font-size: 58px;
+        text-align: center;
+        font-weight: 700;
+        color: crimson;
+        transition: all 0.7s ease-in-out;
+    }
+
+    h1:hover {
+        font-size: 68px;
+        cursor: pointer;
+    }
+
+    p {
+
+        font-size: 24px;
+        text-align: center;
+        font-weight: 100;
+
+    }
+</style>
+
+<script>
+
+
+    function error404() {
+        location.replace('https://en.wikipedia.org/wiki/HTTP_404');
+    }
+
+</script>
+
+</html>

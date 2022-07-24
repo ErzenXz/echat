@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eChat • Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="register.css">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="apple-mobile-web-app-title" content="eChat">
+<meta name="application-name" content="eChat">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="msapplication-TileImage" content="images/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+</head>
+
+<body>
+
+
+    <div class="main" id="main">
+        <h1>Register on eChat</h1>
+
+        <input type="text" id="name" placeholder="You're name">
+        <br />
+        <br />
+        <input type="email" id="email" placeholder="You're email">
+        <br />
+        <br />
+        <input type="password" id="password" placeholder="You're password">
+        <br />
+        <br />
+
+
+        <button type="button" id="okButton" class="waves-effect waves-light btn" onclick="login()">Login</button>
+        <button type="button" id="okButton" class="waves-effect waves-light btn" onclick="register()">Register</button>
+        <br>
+        <p onclick="forgotPassword()">Forgot password?</p>
+
+    </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-database.js"></script>
+
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+
+    <script>
+        // Your web app's Firebase configuration
+         const firebaseConfig = {
+        apiKey: "AIzaSyAeJo_Z0PKXdoatxyRVRcdDG9jW2GuzlZw",
+        authDomain: "erzenchat.firebaseapp.com",
+        databaseURL: "https://erzenchat-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "erzenchat",
+        storageBucket: "erzenchat.appspot.com",
+        messagingSenderId: "54736724241",
+        appId: "1:54736724241:web:33c0d456b00c415804ecb0"
+  };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="register.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" defer></script>
+    <script src="https://cdn-erzen.netlify.app/js/alert.js" defer></script>
+</body>
+
+</html>

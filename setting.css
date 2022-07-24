@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+}
+
+.settingsDIV {
+  background-color: #f0f2f5;
+  margin: 10px;
+  height: fit-content;
+  border-radius: 10px;
+  padding: 30px;
+  padding-bottom: 40px;
+}
+
+#chat-title {
+  font-size: 38px;
+  margin-left: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+
+.pstyle {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.item button,
+.settingsDIV button {
+  padding: 17px 40px;
+  border-radius: 50px;
+  border: 0;
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+.item button:hover,
+.settingsDIV button:hover {
+  letter-spacing: 3px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+}
+
+.item button:active,
+.settingsDIV button:active {
+  letter-spacing: 3px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-basis: auto;
+  gap: 25px;
+  /* align-content: center; */
+}
+
+.item {
+  width: 320px;
+}
+
+.version {
+  font-size: 12px;
+}
+
+.fa {
+  margin-right: 15px;
+}
+
+.fi {
+  margin-left: 5px;
+}

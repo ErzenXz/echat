@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>eChat • Contact</title>
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="apple-mobile-web-app-title" content="eChat">
+<meta name="application-name" content="eChat">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="msapplication-TileImage" content="images/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+    </head>
+    <body>
+        <div class="container">
+            <form action="POST" name="contact" netlify data-netlify="true">
+                <p>
+                    <label>
+                        Name
+                        <input type="text" name="name" required />
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        Email
+                        <input type="email" name="email" required />
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        Message
+                        <input type="text" name="text" required />
+                    </label>
+                </p>
+                <p>
+                    <div data-netlify-recaptcha="true"></div>
+                </p>
+                <p>
+                    <input type="submit">
+                </p>
+            </form>
+        </div>
+
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                width: 50%;
+                margin: auto;
+                margin-top: 10vh;
+            }
+            * {
+                box-sizing: border-box;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            select,
+            textarea {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-top: 6px;
+                margin-bottom: 16px;
+                resize: vertical;
+            }
+
+            input[type="submit"] {
+                background-color: #04aa6d;
+                color: white;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+
+            .container {
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                padding: 20px;
+            }
+        </style>
+    </body>
+</html>

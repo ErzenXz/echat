@@ -1,0 +1,367 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Nunito", sans-serif;
+}
+
+:root {
+    --li-color: rgba(0, 0, 0, 0.85);
+    --li-background: #F1F0F0;
+    --li-chat-bubbles: #efefef;
+    --buttons: white;
+    --button-color: black;
+    --button-border: #E0E1E4;
+    --button-hover: #F2F2F2;
+}
+
+
+body {
+    background-color: #F0F2F5;
+}
+
+.main {
+    position: fixed;
+    width: 75%;
+    margin: auto;
+}
+
+#roomname,
+#join-room-name {
+    outline: none;
+    border: 0.5px solid #E0E1E4;
+    box-shadow: 0px 0px 20px -20px;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    width: fit-content;
+    height: fit-content;
+    max-height: 40px;
+    margin: 5px;
+}
+
+#roomname:focus,
+#join-room-name:focus {
+    transform: scale(1.025);
+}
+
+.hidden {
+    display: none;
+}
+
+#joinroom,
+#createroom {
+    padding: 10px;
+    outline: none;
+    border: 0.5px solid #E0E1E4;
+    box-shadow: 0px 0px 20px -20px;
+    border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
+    max-height: 50px;
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+#joinroom:hover,
+#createroom:hover {
+    background-color: #F2F2F2;
+    cursor: pointer;
+}
+
+::selection {
+    color: black;
+    background-color: #C1DAF3;
+}
+
+
+.link {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    height: 100px;
+    font-size: 18px;
+    text-align: center;
+}
+
+#chat-title {
+    font-size: 55px;
+}
+
+#total-chats {
+    color: rgba(0, 0, 0, 0.85);
+}
+
+#chatname {
+    margin-left: 10px;
+    margin-right: 2.5px;
+    transition: all 0.3s ease-in-out;
+    overflow-x: hidden;
+}
+
+#chatname:hover {
+    color: teal;
+    cursor: pointer;
+}
+
+.btn-info {
+    color: var(--button-color);
+    outline: none;
+    padding: 5px;
+    border: 1px solid var(--button-border);
+    box-shadow: 0px 0px 20px -20px;
+    border-radius: 10px;
+    height: 30px;
+    background-color: var(--buttons);
+    transition: all 0.3s ease-in-out;
+    user-select: none;
+    float: right;
+}
+
+.btn-info:hover {
+    background-color: #F2F2F2;
+    cursor: pointer;
+    color: #08967f;
+}
+
+.btn-share {
+    color: var(--button-color);
+    outline: none;
+    padding: 5px;
+    border: 1px solid var(--button-border);
+    box-shadow: 0px 0px 20px -20px;
+    border-radius: 10px;
+    height: 30px;
+    background-color: var(--buttons);
+    transition: all 0.3s ease-in-out;
+    user-select: none;
+}
+
+.btn-share:hover {
+    background-color: #F2F2F2;
+    cursor: pointer;
+    color: #08967f;
+}
+
+.btn-leave {
+    color: var(--button-color);
+    outline: none;
+    padding: 5px;
+    border: 1px solid var(--button-border);
+    box-shadow: 0px 0px 20px -20px;
+    border-radius: 10px;
+    height: 30px;
+    background-color: var(--buttons);
+    transition: all 0.3s ease-in-out;
+    user-select: none;
+}
+
+.btn-leave:hover {
+    background-color: #F2F2F2;
+    cursor: pointer;
+    color: #08967f;
+}
+
+.darkmode {
+    background-color: #18191A;
+}
+
+.darkchat {
+    border: 1px solid #101011;
+    background-color: white;
+}
+
+
+.chatold {
+    width: 125%;
+    height: 525px;
+    padding: 5px;
+    border: 0.5px solid #E0E1E4;
+    box-shadow: 0px 0px 20px -20px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.chat {
+    min-width: 300px;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    border: 0.5px solid #E0E1E4;
+    box-shadow: 0px 0px 20px -20px;
+    border-radius: 10px;
+
+}
+
+ul {
+    list-style: none;
+    height: 425px;
+    max-height: 500px;
+    overflow-y: scroll;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+}
+
+
+#message {
+    outline: none;
+    border: 1px solid #E0E1E4;
+    box-shadow: 0px 0px 20px -20px;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+    width: 70%;
+    height: 25px;
+    font-size: 16px;
+    border-radius: 20px;
+
+    display: inline-block;
+}
+
+#message:focus {
+    transform: scale(1.025);
+
+}
+
+#btn-send {
+    padding: 10px;
+    outline: none;
+    border: 1px solid #E0E1E4;
+    box-shadow: 0px 0px 20px -20px;
+    border-radius: 10px;
+    width: 20%;
+    height: 45px;
+    background-color: var(--buttons);
+    transition: all 0.3s ease-in-out;
+    font-size: 16px;
+    user-select: none;
+}
+
+#btn-send:hover {
+    background-color: var(--button-hover);
+    cursor: pointer;
+}
+
+
+
+li {
+    background-color: var(--li-background);
+    max-width: 375px;
+    min-width: 50px;
+    width: fit-content;
+    height: auto;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 7px;
+    margin-bottom: 25px;
+    color: var(--li-color);
+    font-size: 14px;
+    overflow-wrap: break-word;
+    position: relative;
+}
+
+li::after {
+    border-right: 20px solid transparent;
+    border-top: 20px solid var(--li-chat-bubbles);
+    bottom: -20px;
+    content: "";
+    position: absolute;
+    left: 10px;
+}
+
+
+
+.no-password-email {
+    outline: none;
+    border: 1px solid #01b69e;
+    box-shadow: 0px 0px 20px -20px;
+    padding: 25px;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    width: fit-content;
+    height: fit-content;
+    margin: 5px;
+    font-size: 16px;
+    background-color: #00BFA5;
+    font-weight: 500;
+    color: white;
+    user-select: none;
+    box-shadow: 0px 0px 20px -20px;
+}
+
+.notify {
+    transition: all 0.2s ease-in-out 0ms;
+    border: 0.5px solid #eeeff1;
+}
+
+.notify:hover {
+    border: 0.5px solid #DD4132;
+    cursor: pointer;
+}
+
+.usernameColor {
+
+    width: fit-content;
+    background-color: #0099FF;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.share-menu {
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    border-radius: 10px;
+    border: 0.5px solid #E0E1E4;
+    box-shadow: 0px 0px 20px -20px;
+    z-index: 25;
+    background-color: white;
+    padding: 10px;
+    margin-top: 25px;
+}
+
+.dark {
+    background-color: rgba(0, 0, 0, 0.70);
+}
+
+.share-p {
+    float: left;
+    font-size: 16px;
+    user-select: none;
+}
+
+.x-button {
+    float: right;
+    font-size: 22px;
+    padding-right: 10px;
+    transition: all 0.3s ease-in-out 0ms;
+    border-radius: 5px;
+    color: black;
+}
+
+.x-button:hover {
+    color: red;
+    cursor: pointer;
+    user-select: none;
+}
+
+.share {
+    width: 75%;
+    background-color: #1771E6;
+    transition: all 0.4s ease-in-out;
+    height: 75px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: whitesmoke;
+    font-weight: 500;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    margin: 5px;
+    margin-left: 10%;
+}
+
+.share:hover {
+    background-color: rgba(23, 113, 230, 0.85);
+    transform: scale(1.05);
+}
