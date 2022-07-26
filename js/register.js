@@ -140,7 +140,7 @@ function login() {
 }
 
 function register() {
-    const names = document.getElementById("name").value;
+    const names = document.getElementById("name1").value;
     if (names === null || undefined) {
         return false;
     }
@@ -161,8 +161,8 @@ function register() {
         e.dismiss, Swal.DismissReason.timer
     });
 
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
+    let email = document.getElementById('email1').value;
+    let password = document.getElementById('password1').value;
 
     let uid;
     firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
