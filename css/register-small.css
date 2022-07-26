@@ -1,0 +1,104 @@
+:root {
+    --h1-font-size: 40px;
+}
+
+h1 {
+    font-size: var(--h1-font-size);
+    padding: 10px;
+}
+
+label {
+    margin-right: 60vw;
+    width: 50vw;
+}
+
+.login {
+    width: 90vw;
+    margin: auto;
+    height: fit-content;
+    margin-top: 7vh;
+    padding: 10px;
+    background-color: aliceblue;
+    border: 1px solid lightblue;
+    border-radius: 10px;
+}
+
+
+.register {
+    width: 90vw;
+    margin: auto;
+    height: fit-content;
+    margin-top: 1vh;
+    overflow: scroll;
+    padding: 30px;
+    background-color: aliceblue;
+    border: 1px solid lightblue;
+    border-radius: 10px;
+
+}
+
+input[type="email"], input[type="password"], input[type="text"], input[type="file"]{
+    width: 100%;
+    height: 40px;
+    outline: none;
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out 0ms;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus, input[type="file"]:focus{
+    transform: scale(1.025);
+}
+
+.btn {
+    width: 100%;
+    height: 45px;
+    margin-top: 2vh;
+    cursor: pointer;
+    background-color: white;
+    border: 2px solid lightblue;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out 0ms;
+    margin-bottom: 20px;
+}
+
+.btn:hover {
+    background-color: lightblue;
+    color: white;
+}
+
+.hidden {
+    display: none;
+    pointer-events: none;
+}
+
+p {
+    text-align: center;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    user-select: none;
+}
+  
+p:hover {
+    color:#297e97;
+}
+
+.mini {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: space-between;
+}
+
+.lg {
+    margin-right: 25px;
+}
+
+.or {
+    margin-top: 10px;
+}

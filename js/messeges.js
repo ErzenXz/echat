@@ -9,6 +9,7 @@ const query = firebase.database().ref("rooms/" + room + "/chats").limitToLast(50
 const rooms = firebase.database().ref("rooms/");
 const roomName = firebase.database().ref("rooms/" + room);
 const bannedwords = ["ahole", "anus", "ash0le", "ash0les", "asholes", "ass", "Ass Monkey", "Assface", "assh0le", "assh0lez", "asshole", "assholes", "assholz", "asswipe", "azzhole", "bassterds", "bastard", "bastards", "bastardz", "basterds", "basterdz", "Biatch", "bitch", "bitches", "Blow Job", "boffing", "butthole", "buttwipe", "c0ck", "c0cks", "c0k", "Carpet Muncher", "cawk", "cawks", "Clit", "cnts", "cntz", "cock", "cockhead", "cock-head", "cocks", "CockSucker", "cock-sucker", "crap", "cum", "cunt", "cunts", "cuntz", "dick", "dild0", "dild0s", "dildo", "dildos", "dilld0", "dilld0s", "dominatricks", "dominatrics", "dominatrix", "dyke", "enema", "f u c k", "f u c k e r", "fag", "fag1t", "faget", "fagg1t", "faggit", "faggot", "fagg0t", "fagit", "fags", "fagz", "faig", "faigs", "fart", "flipping the bird", "fuck", "fucker", "fuckin", "fucking", "fucks", "Fudge Packer", "fuk", "Fukah", "Fuken", "fuker", "Fukin", "Fukk", "Fukkah", "Fukken", "Fukker", "Fukkin", "g00k", "God-damned", "h00r", "h0ar", "h0re", "hells", "hoar", "hoor", "hoore", "jackoff", "jap", "japs", "jerk-off", "jisim", "jiss", "jizm", "jizz", "knob", "knobs", "knobz", "kunt", "kunts", "kuntz", "Lezzian", "Lipshits", "Lipshitz", "masochist", "masokist", "massterbait", "masstrbait", "masstrbate", "masterbaiter", "masterbate", "masterbates", "Motha Fucker", "Motha Fuker", "Motha Fukkah", "Motha Fukker", "Mother Fucker", "Mother Fukah", "Mother Fuker", "Mother Fukkah", "Mother Fukker", "mother-fucker", "Mutha Fucker", "Mutha Fukah", "Mutha Fuker", "Mutha Fukkah", "Mutha Fukker", "n1gr", "nastt", "nigger;", "nigur;", "niiger;", "niigr;", "orafis", "orgasim;", "orgasm", "orgasum", "oriface", "orifice", "orifiss", "packi", "packie", "packy", "paki", "pakie", "paky", "pecker", "peeenus", "peeenusss", "peenus", "peinus", "pen1s", "penas", "penis", "penis-breath", "penus", "penuus", "Phuc", "Phuck", "Phuk", "Phuker", "Phukker", "polac", "polack", "polak", "Poonani", "pr1c", "pr1ck", "pr1k", "pusse", "pussee", "pussy", "puuke", "puuker", "queer", "queers", "queerz", "qweers", "qweerz", "qweir", "recktum", "rectum", "retard", "sadist", "scank", "schlong", "screwing", "semen", "sex", "sexy", "Sh!t", "sh1t", "sh1ter", "sh1ts", "sh1tter", "sh1tz", "shit", "shits", "shitter", "Shitty", "Shity", "shitz", "Shyt", "Shyte", "Shytty", "Shyty", "skanck", "skank", "skankee", "skankey", "skanks", "Skanky", "slag", "slut", "sluts", "Slutty", "slutz", "son-of-a-bitch", "turd", "va1jina", "vag1na", "vagiina", "vagina", "vaj1na", "vajina", "vullva", "vulva", "w0p", "wh00r", "wh0re", "whore", "xrated", "xxx", "b!+ch", "bitch", "blowjob", "clit", "arschloch", "fuck", "shit", "ass", "asshole", "b!tch", "b17ch", "b1tch", "bastard", "bi+ch", "boiolas", "buceta", "c0ck", "cawk", "chink", "cipa", "clits", "cock", "cum", "cunt", "dildo", "dirsa", "ejakulate", "fatass", "fcuk", "fuk", "fux0r", "hoer", "hore", "jism", "kawk", "l3itch", "l3i+ch", "lesbian", "masturbate", "masterbat*", "masterbat3", "motherfucker", "s.o.b.", "mofo", "nazi", "nigga", "nigger", "nutsack", "phuck", "pimpis", "pusse", "pussy", "scrotum", "sh!t", "shemale", "shi+", "sh!+", "slut", "smut", "teets", "boobs", "b00bs", "teez", "testical", "testicle", "w00se", "jackoff", "wank", "whoar", "whore", "*damn", "*dyke", "*fuck*", "*shit*", "@$$", "amcik", "andskota", "arse*", "assrammer", "ayir", "bi7ch", "bitch*", "bollock*", "breasts", "butt-pirate", "cabron", "cazzo", "chraa", "chuj", "Cock*", "cunt*", "d4mn", "daygo", "dego", "dick*", "dike*", "dupa", "dziwka", "ejackulate", "Ekrem*", "Ekto", "enculer", "faen", "fag*", "fanculo", "fanny", "feces", "feg", "Felcher", "ficken", "fitt*", "Flikker", "foreskin", "Fotze", "Fu(*", "fuk*", "futkretzn", "gook", "guiena", "h0r", "h4x0r", "helvete", "hoer*", "honkey", "Huevon", "hui", "injun", "jizz", "kanker*", "kike", "klootzak", "kraut", "knulle", "kuk", "kuksuger", "Kurac", "kurwa", "kusi*", "kyrpa*", "lesbo", "mamhoon", "masturbat*", "merd*", "mibun", "monkleigh", "mouliewop", "muie", "mulkku", "muschi", "nazis", "nepesaurio", "nigger*", "orospu", "paska*", "perse", "picka", "pierdol*", "pillu*", "pimmel", "piss*", "pizda", "poontsee", "poop", "porn", "p0rn", "pr0n", "preteen", "pula", "pule", "puta", "puto", "qahbeh", "queef*", "rautenberg", "schaffer", "scheiss*", "schlampe", "schmuck", "screw", "sh!t*", "sharmuta", "sharmute", "shipal", "shiz", "skribz", "skurwysyn", "sphencter", "spic", "spierdalaj", "splooge", "suka", "b00b*", "testicle*", "twat", "vittu", "wank*", "wetback*", "wichser", "wop*", "yed", "zabourah", "pidhi", "pirdhu", "pidh", "pidhuc", "kari", "kar", "karuc", "piqk", "piqken", "muti", "mut", "pshurq", "shurr", "karlesh", "qirje", "gay", "bitch", "snitch", "qifsha", "gojore", "hanksh mutin", "mutin", "qifsha nanen", "qifsha motren", "qifsha familjen", "ta qifsha", "qifsha", "hanksh karin", "qifsha ropt", "seks", "sex", "porn", "xnxx", "x n x x", "x nxx", "pornhub", "kaka", "seksi", "qihemi", "qihem", "qifsha", "xvideos", ];
+
 const characterLimit = 30; // 30 characters limit
 let theme = localStorage.getItem("user-theme") ?? false;
 
@@ -114,7 +115,7 @@ function openMenu() {
 }
 //                  Check if the user has been registred
 if (userAdded === null || undefined) {
-    location.replace("register.html");
+    location.replace("account.html");
 } else {
     console.log("You are currently logged in.");
 }
@@ -550,9 +551,10 @@ roomName.on("value", function (snapshot) {
         }
         if (done) {} else {
             let html = ``;
-            html += `<button id="infoButton" class="btn-info" title="Info" onclick="chatInfo()"><i
-            class="fas fa-info-circle"></i></button>`;
-            document.getElementById("controls").innerHTML += html;
+            html2 = `<span id="chatname" onclick="chatInfo()">${chatname}</span>`;
+            // html += `<button id="infoButton" class="btn-info" title="Info" onclick="chatInfo()"><i
+            // class="fas fa-info-circle"></i></button>`;
+            document.getElementById("chatname").innerHTML = html2;
             done = true;
         }
     }
@@ -946,6 +948,7 @@ function copyText() {
         timer: 1500,
     });
 }
+
 window.addEventListener("load", function (e) {
     if (navigator.onLine) {
         this.document.getElementById("chatname").style.color = "green";
@@ -955,22 +958,28 @@ window.addEventListener("load", function (e) {
         disableChat();
     }
 }, false);
+
 window.addEventListener("online", function (e) {
     this.document.getElementById("chatname").style.color = "green";
     this.document.getElementById("wifi").classList.add("hidden");
     this.document.getElementById("page").classList.remove("hidden");
     enableChat();
 }, false);
+
 window.addEventListener("offline", function (e) {
     this.document.getElementById("chatname").style.color = "red";
     this.document.getElementById("wifi").classList.remove("hidden");
     this.document.getElementById("page").classList.add("hidden");
     disableChat();
 }, false);
+
 var speech = false;
+
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
 const recognition = new SpeechRecognition();
 recognition.interimResults = true;
+
 recognition.addEventListener("result", (e) => {
     const transcript = Array.from(e.results).map((result) => result[0]).map((result) => result.transcript).join("");
     speech = false;
@@ -978,6 +987,7 @@ recognition.addEventListener("result", (e) => {
     document.getElementById("message").value = transcript;
     console.log(transcript);
 });
+
 if (speech == true) {
     recognition.addEventListener("end", () => {
         playAudio("myAudio");
@@ -999,6 +1009,7 @@ function startMic() {
         document.getElementById("speechToText").style.color = "red";
     }
 }
+
 // Use a closure to keep vars out of global scope
 (function () {
     var ID = "tooltip",
@@ -1016,19 +1027,23 @@ function startMic() {
                 left: nleft,
             }).show();
         };
+
     $(document).on("mouseenter", "#controls [title]", function (e) {
         $(this).data(DATA, $(this).attr("title"));
         $(this).removeAttr("title").addClass(CLS_ON);
         $("<div id='" + ID + "' />").appendTo("body");
         showAt(e);
     });
+
     $(document).on("mouseleave", "." + CLS_ON, function (e) {
         $(this).attr("title", $(this).data(DATA)).removeClass(CLS_ON);
         $("#" + ID).remove();
     });
+
     if (FOLLOW) {
         $(document).on("mousemove", "." + CLS_ON, showAt);
     }
+
 })();
 
 var ID = "tooltip"; // The ID of the styleable tooltip
@@ -1037,6 +1052,7 @@ var FOLLOW = true; // TRUE to enable mouse following, FALSE to have static toolt
 var DATA = "_tooltip"; // Does not matter, make it somewhat unique
 var OFFSET_X = 20,
     OFFSET_Y = 10; // Tooltip's distance to the cursor
+
 const antiMalwareKEY = "3734f688d11cfb4eb2b5f724a62ac37d2b3516e1085139f25317de1a30ea5732";
 const requestSERVER = "https://www.virustotal.com/api/v3/urls/";
 
@@ -1135,33 +1151,32 @@ function closeUnsafeLink() {
 }
 
 function shortenURL(url) {
-    const options3 = {
-        method: "GET",
-        headers: {
-            Accept: "application/json"
-        }
-    };
-    let i = Math.floor(Math.random() * 1000000000);
-    const req = `${proxy}http://erz.rf.gd/api?api=8e5f5ce453703d84e191b64aed63b1edf2d10385&url=${url}&alias=room-${i}&format=text`;
-    fetch(req, options3).then((response) => {
-        let dt;
-        response.toString();
-        dt = response.trim();
-        dt.toString();
-        data = JSON.parse(dt);
+    // const options3 = {
+    //     method: "GET",
+    //     headers: {
+    //         Accept: "application/json"
+    //     }
+    // };
+    // let i = Math.floor(Math.random() * 1000000000);
+    // const req = `${proxy}http://erz.rf.gd/api?api=8e5f5ce453703d84e191b64aed63b1edf2d10385&url=${url}&alias=room-${i}&format=text`;
+
+    // fetch(req, options3).then((response) => {
+    //     let dt;
+    //     response.toString();
+    //     dt.toString();
+    //     data = JSON.parse(dt);
 
 
-    }).then((data) => {
-        console.log(data)
-        // if (response.status == "success") {
-        //     return response.shortenedUrl;
-        // } else {
-        //     return false;
-        // }
-    }).catch((error) => {
-        console.log(error);
-    });
-
+    // }).then((data) => {
+    //     console.log(data)
+    //     // if (response.status == "success") {
+    //     //     return response.shortenedUrl;
+    //     // } else {
+    //     //     return false;
+    //     // }
+    // }).catch((error) => {
+    //     console.log(error);
+    // });
 }
 
 function goContact() {
@@ -1171,5 +1186,22 @@ function goContact() {
 function goPrivacy() {
     location.href = "https://erzenchat.tk/privacy";
 }
+
+
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    //location.replace("../");
+    // ...
+  } else {
+    // User is signed out
+    // ...
+
+    location.href = "account.html";
+  }
+});
+
 
 setInterval(checkFocus, 200);

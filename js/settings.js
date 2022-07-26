@@ -4,14 +4,16 @@ firebase.auth().useDeviceLanguage();
 
 let log = console.log;
 firebase.auth().onAuthStateChanged(function (e) {
-  e || (location.replace("../register.html"), log("User is not logged in!"));
+  e || (location.replace("../account.html"), log("User is not logged in!"));
 });
 
 const uName = localStorage.getItem("username");
 const uEmail = localStorage.getItem("uName");
 const uID = localStorage.getItem("uID");
+const image = localStorage.getItem("image")
 
 function loadInformation() {
+  document.getElementById("img").src = image;
   document.getElementById(
     "userEmailUsername"
   ).textContent = `${uName} (${uEmail})`;

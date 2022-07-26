@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eChat • Settings</title>
-    <link rel="stylesheet" href="setting.css" />
+    <link rel="stylesheet" href="css/setting.css" />
 <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png">
@@ -31,8 +31,19 @@
 
         <h3>MY ACCOUNT</h3>
 
-        <div class="container">
+        <div class="imgs">
+            <div class="item">
+                <img src="" class="img" id="img"> 
+            </div>
 
+            <div class="item">
+                Your profile picture
+            </div>
+        </div>
+
+                    
+
+        <div class="container">
 
             <div class="item">
                 <p id="userEmailUsername" class="pstyle">Loading...</p>
@@ -86,22 +97,11 @@
         <p id="version" class="version">Version: 2.2 Beta</p>
 
 
-
-
-        <!-- Compiled and minified CSS
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
-
-
         <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-database.js"></script>
-        <script src="https://kit.fontawesome.com/f45cd9c28c.js" crossorigin="anonymous"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 
-
-        <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
+      <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+        <script defer src="https://kit.fontawesome.com/f45cd9c28c.js" crossorigin="anonymous"></script>
 
 
         <script>
@@ -119,8 +119,8 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         </script>
-        <script src="settings.js"></script>
-        <script src="https://cdn-erzen.netlify.app/js/alert.js"></script>
+        <script defer src="js/settings.js"></script>
+        <script defer src="https://cdn-erzen.netlify.app/js/alert.js"></script>
 </body>
 
 </html>
