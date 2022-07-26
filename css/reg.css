@@ -33,89 +33,6 @@ header {
   }
   
   
-.blur {
-    background-color: var(--blur-color);
-    backdrop-filter: blur(3px);
-    user-select: none;
-    border-bottom: 0.5px solid #E0E1E4;
-    box-shadow: 0px 0px 20px -20px;
-    z-index: 100;
-  }
-  
-  
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    transition: all 0.7s ease-in-out;
-  }
-  
-.list-left {
-    float: left;
-  }
-  
-  
-.list-right {
-    float: right;
-    cursor: pointer;
-  }
-
-
-  /* Erzen Krasniqi */
-  
-li a {
-    display: block;
-    font-weight: grey;
-    color: var(--li-color);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    margin-right: 15px;
-    margin-left: 15px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-radius: 100px;
-    background-color: var(--background-li);
-    transition: all 0.3s ease-in-out;
-  }
-  
-li a:hover:not(.active) {
-    background-color: #F2F2F2;
-    color: black;
-  }
- 
-.active {
-    background-color: var(--li-activated-color);
-    color: var(--li-selected-color);
-    transition: all 0.3s ease-in-out;
-  }
-  
-.active:hover {
-    background-color: rgba(41, 125, 151, 0.80);
-    color: whitesmoke;
-  }
-  
-.menu {
-    transition: all 0.25s ease-in-out 0ms;
-    position: fixed;
-    top: 100px;
-    left: 25vw;
-    right: 25vw;
-    width: 50vw;
-    background-color: var(--menu-background-color);
-    border: 1px solid grey;
-    border-radius: 10px;
-    height: 600px;
-    padding: 20px;
-  
-    pointer-events: all;
-    animation-name: popup;
-    animation-duration: 0.4s;
-  }
   
 @keyframes popup {
     0% {
@@ -130,31 +47,7 @@ li a:hover:not(.active) {
   
     }
   }
-  
-label {
-    width: 40vw;
-    font-size: 15px;
-  }
-  
-select {
-    color: var(--select-color);
-    padding: 10px;
-    width: 100%;
-    border-radius:  5px;
-    transition: all 0.5s ease-in-out;
-    outline: none;
-    cursor: pointer;
-    margin-top: 10px;
-    
-  }
-  
-select:hover {
-  transform: scale(1.02);
-  }
-option {
-    color: var(--select-color);
-    padding: 7px;
-  }
+
   
 .darkmode {
     transition: all 0.3s ease-in-out;
@@ -179,29 +72,6 @@ option {
     padding: 15px;
   }
   
-  
-.cards {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-  
-.card {
-    flex: 1 0 21%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: all 0.3s ease-in-out 0ms;
-    width: 25%;
-    border-radius: 5px;
-    margin: 10px;
-    border: 1.5px solid lightgrey;
-    padding: 10px;
-    min-width: 225px;
-  }
-  
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    transform: scale(1.025);
-  }
   
 b {
     color: var(--li-activated-color);
@@ -246,9 +116,7 @@ img {
 
 
 .teksti {
-  margin-left: 75px;
-  margin-right: 75px;
-  font-size: 18px;
+  font-size: 12px;
   text-align: center;
   margin-bottom: 25px;
   color: white;
