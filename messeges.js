@@ -515,6 +515,8 @@ query.on("child_added", function (snapshot) {
     $("#ulist").animate({
         scrollTop: $("#ulist").prop("scrollHeight")
     }, 0);
+    document.getElementById('ulist').scrollTop =  document.getElementById('ulist').scrollHeight
+
 });
 
 rooms.on("child_added", function (snapshot) {
