@@ -17,7 +17,7 @@ function uploadImage(name, email, key, uid) {
     // Set a random name
     const time = new Date();
     const ms = time.getTime();
-    const namez = uid;
+    const namez = uid + file.name;
     let em = email.replace(".", "@");
 
     // Upload image
