@@ -4,20 +4,27 @@ var errorCodeStatus = false;
 
 
 const storage = firebase.storage();
+const userAdded = localStorage.getItem("uStatusAdded");
 
 var storageRef = storage.ref();
 var imagesRef = storageRef.child('images');
 let photo_url;
 let donePhoto = false;
 
+
+
+
 function uploadImage(name, email, key, uid) {
+    showAlert("Creating an account", "This wont take a long time!");
     let t;
     // Get the file
     const file = document.querySelector("#photo").files[0];
     // Set a random name
     const time = new Date();
+    let today = new Date();
     const ms = time.getTime();
     const namez = uid + file.name;
+    let browser = fnBrowserDetect();
     let em = email.replace(".", "@");
 
     // Upload image
@@ -29,7 +36,10 @@ function uploadImage(name, email, key, uid) {
             localStorage.setItem("image", url);
 
         firebase.database().ref("user/" + em + "/").set({
-                "image": url
+                "image": url,
+                "username": name,
+                "creationDate": today,
+                "browser": browser
         }).then(() => {
             donePhoto = true;
             localStorage.setItem("new", "yes");
@@ -51,7 +61,7 @@ function uploadImage(name, email, key, uid) {
         }
     }, function (error) {
         // Handle unsuccessful uploads
-                Swal.fire(
+            Swal.fire(
             'File',
             'Your image has not been uploaded!',
             'error'
@@ -67,9 +77,9 @@ function uploadImage(name, email, key, uid) {
     });
 }
 
+let myName;
 
 function login() {
-    const names = document.getElementById("name").value;
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
     if (names === null || undefined) {
@@ -82,12 +92,6 @@ function login() {
     if (password === null || password === undefined || password == "" || password.length < 1){
        return false; 
     }
-
-    if (names === null || names === undefined || names == "" || names.length < 1){
-       return false; 
-    }
-
-
 
     let times = new Date();
     let uuid = times.getTime() + names + times.getUTCMilliseconds();
@@ -117,9 +121,12 @@ function login() {
         const query = firebase.database().ref("user/" + em);
         query.on("child_added", function (snapshot) {
         img = snapshot.val();
+        myName = snapshot.val();
         localStorage.setItem("image", img);
+        localStorage.setItem("username", myName);
         location.replace("../");
     });
+    console.log("Name   " + name);
     
     }).catch(function (error) {
         var errorCode = error.code;
@@ -130,7 +137,6 @@ function login() {
     })
     if (errorCodeStatus == true) {
     } else {
-        localStorage.setItem("username", names);
         localStorage.setItem("uName", email);
         localStorage.setItem("uID", uuid);
         localStorage.setItem("uStatusAdded", "added");
@@ -189,7 +195,6 @@ function register() {
 
 
 // Authentication check
-const userAdded = localStorage.getItem("uStatusAdded");
 const loginCheck = localStorage.getItem("uLogged");
 
 function forgotPassword() {
@@ -265,6 +270,15 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
+//                  Check if the user has been registred
+if (userAdded === null || undefined) {
+    console.log("You are currently logged out.");
+} else {
+    console.log("You are currently logged in.");
+    location.replace("./");
+
+}
+
 
 function toggleLogin(value){
     let login = document.querySelector("#login");
@@ -279,3 +293,41 @@ function toggleLogin(value){
     }
 }
 
+function showAlert(title, text){
+        Swal.fire({
+        title: title,
+        html: text,
+        timer: 1e3,
+        timerProgressBar: !0,
+        onBeforeOpen: () => {
+            Swal.showLoading(), timerInterval = setInterval(() => { }, 100)
+        },
+        onClose: () => {
+            clearInterval(timerInterval)
+        }
+    }).then(e => {
+        e.dismiss, Swal.DismissReason.timer
+    });
+}
+
+function fnBrowserDetect(){
+                 
+         let userAgent = navigator.userAgent;
+         let browserName;
+         
+         if(userAgent.match(/chrome|chromium|crios/i)){
+             browserName = "Chrome";
+           }else if(userAgent.match(/firefox|fxios/i)){
+             browserName = "Firefox";
+           }  else if(userAgent.match(/safari/i)){
+             browserName = "Safari";
+           }else if(userAgent.match(/opr\//i)){
+             browserName = "Opera";
+           } else if(userAgent.match(/edg/i)){
+             browserName = "Edge";
+           }else{
+             browserName="No browser detection";
+           }
+         
+        return browserName + " browser";
+  }

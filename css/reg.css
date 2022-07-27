@@ -10,7 +10,7 @@
     --background-color: white;
     --menu-background-color: white;
     --h1-font-size: 30px;
-    --p-font-size: 16px;
+    --p-font-size: 12px;
     --h4-font-size: 18px;
   }
   
@@ -76,10 +76,6 @@ header {
 b {
     color: var(--li-activated-color);
     font-size: var(--h4-font-size);
-  }
-  
-p {
-    font-size: var(--p-font-size);
   }
   
 a {

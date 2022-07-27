@@ -77,7 +77,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 
 p {
     text-align: center;
-    font-size: 15px;
+    font-size: 12px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     user-select: none;

@@ -16,6 +16,7 @@ let theme = localStorage.getItem("user-theme") ?? false;
 let t = false;
 let u;
 
+
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         uuid = user.uid;
@@ -113,12 +114,14 @@ for (let i = 2; i < roomsArray.length; i++) {
 function openMenu() {
     console.log(event.target.id);
 }
+
 //                  Check if the user has been registred
 if (userAdded === null || undefined) {
     location.replace("account.html");
 } else {
     console.log("You are currently logged in.");
 }
+
 //                  Variables that can be changed
 let roomID = [];
 let darkIndex = 0;
@@ -138,10 +141,11 @@ function showEmoji() {
 ePicker.on("emoji", (emoji) => {
     document.getElementById("message").value += emoji;
 });
+
 // Check the user system theme and aplies it
 if (localStorage.getItem("room") == null) {} else {
     if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        changeTheme();
+        changeTheme("dark");
     }
 }
 
@@ -469,14 +473,23 @@ function sendMessage() {
         if (message === "") {
             return false;
         }
-        for (let i = 0; i < bannedwords.length; i++) {
+
+        const arrayBad = bannedwords.length;
+
+        for (let i = 0; i < arrayBad; i++) {
             if (bannedwords[i] == name) {
                 message = message.replace(new RegExp(bannedwords[i], "g"), "****");
+                if(browserName == "Safari"){
+                    return false;
+                }
             }
         }
-        for (let i = 0; i < bannedwords.length; i++) {
+        for (let i = 0; i < arrayBad; i++) {
             if (name.includes(bannedwords[i])) {
                 message = message.replace(new RegExp(bannedwords[i], "g"), "****");
+                if(browserName == "Safari"){
+                    return false;
+                }
             }
         }
         if (message.length >= messageLenght) {
@@ -501,6 +514,30 @@ function sendMessage() {
     }
 }
 
+let browserName;
+fnBrowserDetect();
+
+function fnBrowserDetect(){
+                 
+         let userAgent = navigator.userAgent;
+
+         
+         if(userAgent.match(/chrome|chromium|crios/i)){
+             browserName = "Chrome";
+           }else if(userAgent.match(/firefox|fxios/i)){
+             browserName = "Firefox";
+           }  else if(userAgent.match(/safari/i)){
+             browserName = "Safari";
+           }else if(userAgent.match(/opr\//i)){
+             browserName = "Opera";
+           } else if(userAgent.match(/edg/i)){
+             browserName = "Edge";
+           }else{
+             browserName="No browser detection";
+           }
+         
+        return browserName + " browser";
+  }
 
 function scrollWin() {
     window.scrollTo(300, 5000);
@@ -1203,5 +1240,83 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
+let old;
+
+document.getElementById("translate").addEventListener("click", () => {
+    let t = document.getElementById("messageMessage").textContent;
+    if (t.length > 500){
+        showAlert("Error!", "The maximum length to translate is 500 characters!");
+        return false;
+    }
+    old = t;
+    translate(t);
+});
+
+
+function translate(text){
+    const api = `https://api.mymemory.translated.net/get?q=${text}&langpair=Autodetect|${getLanguage()}`
+    fetch(proxy + api).then((response) => response.json()).then((data) => {
+        document.getElementById("messageMessage").textContent = data.responseData.translatedText;
+        return data.responseData.translatedText;
+    }).catch((error) => {
+        return text;
+    });
+}
+
+var getFirstBrowserLanguage = function () {
+    var nav = window.navigator,
+    browserLanguagePropertyKeys = ['language', 'browserLanguage', 'systemLanguage', 'userLanguage'],
+    i,
+    language;
+
+    // support for HTML 5.1 "navigator.languages"
+    if (Array.isArray(nav.languages)) {
+      for (i = 0; i < nav.languages.length; i++) {
+        language = nav.languages[i];
+        if (language && language.length) {
+          return language;
+        }
+      }
+    }
+
+    // support for other well known properties in browsers
+    for (i = 0; i < browserLanguagePropertyKeys.length; i++) {
+      language = nav[browserLanguagePropertyKeys[i]];
+      if (language && language.length) {
+        return language;
+      }
+    }
+
+    return null;
+  };
+
+
+function getLanguage(){
+    let shortLang = getFirstBrowserLanguage();
+    if (shortLang.indexOf('-') !== -1)
+        shortLang = shortLang.split('-')[0];
+
+    if (shortLang.indexOf('_') !== -1)
+        shortLang = shortLang.split('_')[0];
+        return shortLang;
+  }
+
+
+function showAlert(title, text){
+        Swal.fire({
+        title: title,
+        html: text,
+        timer: 1e3,
+        timerProgressBar: !0,
+        onBeforeOpen: () => {
+            Swal.showLoading(), timerInterval = setInterval(() => { }, 100)
+        },
+        onClose: () => {
+            clearInterval(timerInterval)
+        }
+    }).then(e => {
+        e.dismiss, Swal.DismissReason.timer
+    });
+}
 
 setInterval(checkFocus, 200);
