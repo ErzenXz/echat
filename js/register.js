@@ -90,7 +90,7 @@ function login() {
     }
 
     let times = new Date();
-    let uuid = times.getTime() + names + times.getUTCMilliseconds();
+    let uuid = times.getTime() + times.getUTCMilliseconds();
     let time = new Date();
     localStorage.setItem("pswrd-changed-data-now", time.getTime());
     Swal.fire({
