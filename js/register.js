@@ -82,10 +82,6 @@ let myName;
 function login() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
-    if (names === null || undefined) {
-        return false;
-    }
-
     if (email === null || email === undefined || email == "" || email.length < 1){
         return false;
     }
