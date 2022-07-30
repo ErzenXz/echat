@@ -75,6 +75,10 @@ body {
     cursor: pointer;
 }
 
+#btn-send:active {
+ transform: scale(0.95);
+}
+
 .btn-share {
     width: 5%;
     padding: 5px;
@@ -96,6 +100,10 @@ body {
     background-color: var(--button-hover);
     cursor: pointer;
     color: #08967f;
+}
+
+.btn-share:active {
+ transform: scale(0.95);
 }
 
 .btn-info {
@@ -141,6 +149,10 @@ body {
     color: #08967f;
 }
 
+.btn-settings:active {
+    transform: scale(0.95);
+}
+
 .btn-emoji {
     color: var(--button-color);
     padding: 5px;
@@ -160,6 +172,10 @@ body {
     background-color: #f2f2f2;
     cursor: pointer;
     color: #08967f;
+}
+
+.btn-emoji:active {
+    transform: scale(0.95);
 }
 
 .hidden {
@@ -306,6 +322,12 @@ li:hover, li:active {
     cursor: pointer;
     color: black;
 }
+
+#joinroom:active,
+#createroom:active {
+ transform: scale(0.95);
+}
+
 
 ::selection {
     color: black;

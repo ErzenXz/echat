@@ -409,7 +409,8 @@ li::after {
     margin-right: 10vw;
     margin-top: 10px;
     margin-bottom: 10px;
-
+    color: var(--li-color);
+    background-color: var(--li-background);
     padding: 20px;
     border: 1px solid black;
 }

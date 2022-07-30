@@ -170,6 +170,15 @@ function createRoom() {
             return false;
         }
         let realName = document.getElementById("roomname").value;
+        realName = removeTags(realName);
+
+        let newText = realName.replace("." , "-");
+        newText = realName.replace("#", "-");
+        newText = realName.replace("$", "-");
+        newText = realName.replace("[", "-");
+        newText = realName.replace("]", "-");
+        
+        realName = newText;
         if (realName.length >= characterLimit) {
             return false;
         }
@@ -213,6 +222,18 @@ function createRoom() {
             return false;
         }
         let realName = document.getElementById("roomname").value;
+
+        realName = removeTags(realName);
+
+        let newText = realName.replace("." , "-");
+        newText = realName.replace("#", "-");
+        newText = realName.replace("$", "-");
+        newText = realName.replace("[", "-");
+        newText = realName.replace("]", "-");
+        
+        realName = newText;
+
+
         if (realName.length >= characterLimit) {
             return false;
         }

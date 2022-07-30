@@ -35,7 +35,7 @@ function uploadImage(name, email, key, uid) {
             photo_url = url;
             localStorage.setItem("image", url);
 
-        firebase.database().ref("user/" + em + "/").set({
+        firebase.database().ref("user/" + em + "/data").set({
                 "image": url,
                 "username": name,
                 "creationDate": today,
@@ -62,7 +62,7 @@ function uploadImage(name, email, key, uid) {
     }, function (error) {
         // Handle unsuccessful uploads
             Swal.fire(
-            'File',
+            'Image',
             'Your image has not been uploaded!',
             'error'
         );
@@ -70,7 +70,7 @@ function uploadImage(name, email, key, uid) {
     }, function () {
         // Handle successful uploads on complete
         Swal.fire(
-            'File',
+            'Account',
             'Your account has been created!',
             'success'
         );        
@@ -116,11 +116,14 @@ function login() {
     firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
         const query = firebase.database().ref("user/" + em);
         query.on("child_added", function (snapshot) {
-        img = snapshot.val();
-        myName = snapshot.val();
+        img = snapshot.val().image;
+        myName = snapshot.val().username;
+        console.log(snapshot);
         localStorage.setItem("image", img);
         localStorage.setItem("username", myName);
-        location.replace("../");
+        setTimeout(() => {
+            location.replace("../");
+        },  1000);
     });
     console.log("Name   " + name);
     
