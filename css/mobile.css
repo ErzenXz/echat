@@ -72,6 +72,11 @@ body {
     cursor: pointer;
 }
 
+#joinroom:active,
+#createroom:active {
+    transform: scale(0.95);
+}
+
 ::selection {
     color: black;
     background-color: #c1daf3;
@@ -192,6 +197,10 @@ li::after {
     cursor: pointer;
 }
 
+.btn-send:active {
+    transform: scale(0.95);
+}
+
 .btn-share {
     padding: 5px;
     color: var(--button-color);
@@ -214,6 +223,10 @@ li::after {
     color: #08967f;
 }
 
+.btn-share:active {
+    transform: scale(0.95);
+}
+
 .btn-info {
     color: var(--button-color);
     padding: 5px;
@@ -233,6 +246,10 @@ li::after {
     background-color: #f2f2f2;
     cursor: pointer;
     color: #08967f;
+}
+
+.btn-info:active {
+    transform: scale(0.95);
 }
 
 .btn-settings {
@@ -257,6 +274,10 @@ li::after {
     color: #08967f;
 }
 
+.btn-settings:active {
+    transform: scale(0.95);
+}
+
 .btn-emoji {
     color: var(--button-color);
     padding: 5px;
@@ -276,6 +297,10 @@ li::after {
     background-color: #f2f2f2;
     cursor: pointer;
     color: #08967f;
+}
+
+.btn-emoji:active {
+    transform: scale(0.95);
 }
 
 ::selection {
@@ -501,9 +526,9 @@ li::after {
 .item {
     margin: 25px;
     padding: 15px;
-    width: 650px;
-    height: 80vh;
-    max-height: 80vh;
+    width: 80vw;
+    height: fit-content;
+    max-height: 95vh;
     background-color: white;
     border: 1px solid grey;
     border-radius: 10px;
@@ -661,15 +686,20 @@ iframe {
     z-index: 25000;
 }
 
+.butt {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
 #menuItems {
-    width: fit-content;
+    width: 25vw;
     height: 50px;
     background-color: transparent;
     color: var(--li-color);
     border: 1px solid var(--button-border);
     border-radius: 10px;
     padding: 10px;
-    margin-right: 10px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -679,17 +709,19 @@ iframe {
     cursor: pointer;
 }
 
+#menuItems:active {
+    transform: scale(0.95);
+}
+
 .te {
     margin-left: 10px;
 }
 
 .wifi {
     font-size: 150px;
-    width: 25%;
+    width: 80vw;
     margin: auto;
-    margin-top: 35vh;
-    margin-left: 35vw;
-    margin-right: 35vw;
+    margin-top: 20vh;
     z-index: 100000000;
     border: 1px solid var(--button-border);
     border-radius: 10px;

@@ -1262,7 +1262,7 @@ firebase.auth().onAuthStateChanged((user) => {
 });
 
 let old;
-
+/*
 document.getElementById("translate").addEventListener("click", () => {
     let t = document.getElementById("messageMessage").textContent;
     if (t.length > 500){
@@ -1283,7 +1283,7 @@ function translate(text){
         return text;
     });
 }
-
+*/
 var getFirstBrowserLanguage = function () {
     var nav = window.navigator,
     browserLanguagePropertyKeys = ['language', 'browserLanguage', 'systemLanguage', 'userLanguage'],

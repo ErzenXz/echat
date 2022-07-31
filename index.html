@@ -111,7 +111,7 @@
             <div class="make-room mk" id="make-room">
               <h1 id="chat-title">eChat</h1>
               <h3 id="total-chats" class="hidden"></h3>
-              <h3>Join or create a room, its free, secure and fast.</h3>
+              <h3>Join or make a room, its free, secure and quick.</h3>
               <br />
               <br />
               <input
@@ -306,10 +306,10 @@
 
       <input type="text" class="hidden" id="tt" />
 
-      <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-app.min.js"></script>
 
-      <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-      <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+      <script defer src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-auth.min.js"></script>
+      <script defer src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-database.js"></script>
       <!-- <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script> -->
 
       <script>
@@ -387,9 +387,6 @@
         <button onclick="copyText()" class="buttonMenu">Copy</button>
         <button onclick="printMessage('printarea')" class="buttonMenu">
           Print
-        </button>
-        <button id="translate" class="buttonMenu">
-          Translate
         </button>
         <button onclick="closeMenu()" class="buttonMenu">Close</button>
       </div>
