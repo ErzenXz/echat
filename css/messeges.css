@@ -3,6 +3,7 @@
     margin: 0;
     box-sizing: border-box;
     font-family: "Nunito", sans-serif, system-ui;
+    font-display: swap;
 }
 
 :root {
@@ -14,6 +15,8 @@
     --button-border: #e0e1e4;
     --button-hover: #f2f2f2;
 }
+
+
 
 body {
     background-color: #f0f2f5;

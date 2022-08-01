@@ -19,6 +19,7 @@
     padding: 0;
     font-family: 'Nunito', sans-serif;
     box-sizing: border-box;
+    font-display: swap;
     color: var(--color);
     z-index: 1;
   }
