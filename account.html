@@ -22,7 +22,16 @@
     <link rel="stylesheet" media="screen and (max-width: 1199px)" href="css/register-small.css">
     <link rel="stylesheet" href="css/reg.css">
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-app.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-auth.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-database.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-storage.min.js"></script>
+    <script defer src="js/register.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
 </head>
 
 <body>
@@ -75,17 +84,6 @@
         <pre class="teksti">XENBit               Të gjitha të drejtat janë të rezervuara.               2022</pre>
 
 
-       <!-- The core Firebase JS SDK is always required and must be listed first -->
-      <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-      <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-      <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
-      <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
-
-
     <script>
         // Your web app's Firebase configuration
          const firebaseConfig = {
@@ -100,8 +98,7 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
     </script>
-    <script defer src="js/register.js"></script>
-    <script defer src="https://cdn-erzen.netlify.app/js/alert.js" defer></script>
+
 </body>
 
 </html>
