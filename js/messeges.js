@@ -395,6 +395,7 @@ function createText(user, message, time, username1, key) {
     let attribute5 = document.createAttribute("class");
     let attribute6 = document.createAttribute("oncontextmenu");
     let attribute7 = document.createAttribute("data-key");
+    let attribute8 = document.createAttribute("class");
     let info = `${user} \n\n ${time}`;
     attribute1.value = `message-id-${key}`;
     attribute2.value = "message-class animate__bounceIn";
@@ -403,12 +404,15 @@ function createText(user, message, time, username1, key) {
     attribute5.value = "notify";
     attribute6.value = `showMenu("${user}","${message}","${time}", "${username1}", "${key}"); return false;`;
     attribute7.value = key;
+    attribute8.value = "myMessage";
     li.setAttributeNode(attribute1);
     li.setAttributeNode(attribute2);
     li.setAttributeNode(attribute3);
     li.setAttributeNode(attribute6);
     li.setAttributeNode(attribute7);
-    if (username === username1) {} else {
+    if (username == username1) {
+        li.setAttributeNode(attribute8);
+    } else {
         let n = message.includes("@" + username);
         if (n) {
             playAudio("myAudio");

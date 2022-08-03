@@ -127,8 +127,8 @@ ul {
 
 li {
     background-color: var(--li-background);
-    max-width: 375px;
-    min-width: 150px;
+    max-width: 80vw;
+    min-width: 35vw;
     width: fit-content;
     height: auto;
     border-radius: 10px;
@@ -694,7 +694,7 @@ iframe {
 }
 
 #menuItems {
-    width: 25vw;
+    width: 30vw;
     height: 50px;
     background-color: transparent;
     color: var(--li-color);
@@ -702,6 +702,8 @@ iframe {
     border-radius: 10px;
     padding: 10px;
     transition: all 0.3s ease-in-out;
+    margin-left: 3vw;
+    margin-bottom: 2.25vh;
 }
 
 #menuItems:hover {
@@ -732,4 +734,9 @@ iframe {
 
 .wifi p {
     font-size: 55px;
+}
+
+
+.myMessage::first-line {
+ color: #023E8A;
 }
