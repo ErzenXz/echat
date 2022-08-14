@@ -33,6 +33,31 @@ if (t) {
     uuid = localStorage.getItem("uID");
 }
 
+let items = 50;
+let others = [];
+
+function doDynamic(){
+    items = items + 8;
+    firebase.database().ref("rooms/" + room + "/chats").limitToLast(1 * items).on('child_added', function (snapshot) {
+    // Get the messages
+
+    let owner = snapshot.val().user;
+    let message = snapshot.val().message;
+    let username = snapshot.val().username;
+    let times = snapshot.val().time;
+    let postKey = snapshot.key;
+    let ms = snapshot.val().timespan;
+
+    if(others.includes(postKey)){
+        return false;
+    }
+    others.push(postKey);
+    createText2(owner, message, times, username, postKey, ms);
+
+    })
+}
+
+
 var network = navigator.onLine;
 let chatCreated = localStorage.getItem("chat-time");
 const userAdded = localStorage.getItem("uStatusAdded");
@@ -196,7 +221,8 @@ function createRoom() {
             owner: uuid,
             time: time,
             joins: 0,
-            roomRealName: realName
+            roomRealName: realName,
+            ms: t.getTime()
         });
 
         firebase.database().ref("user_information/" + roomName).set({
@@ -213,10 +239,12 @@ function createRoom() {
                 dt: time + " " + t.getHours() + ":" + t.getMinutes() + ":" + t.getSeconds()
             }
         });
-        alert("This is your room code:                    " + roomName);
+        Swal.fire("This is your room code:                    " + roomName);
         localStorage.setItem("room", roomName);
         addRoom(realName, roomName);
-        location.reload();
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
     } else {
         if (uuid !== u.uid) {
             return false;
@@ -251,7 +279,8 @@ function createRoom() {
             owner: uuid,
             time: time,
             joins: 0,
-            roomRealName: realName
+            roomRealName: realName,
+            ms: t.getTime()
         });
 
         alert("This is your room code:                    " + roomName);
@@ -262,6 +291,7 @@ function createRoom() {
 }
 
 function joinRoom(code) {
+    const image = localStorage.getItem("image");
     if (typeof code === "undefined") {
         let realName = document.getElementById("join-room-name").value;
         let t = new Date();
@@ -278,6 +308,8 @@ function joinRoom(code) {
                     time: time,
                     user: localStorage.getItem("uName"),
                     username: username,
+                    "timespan": t.getTime(),
+                    image
                 });
                 Swal.fire(`You successfully joined the chat room!`);
                 location.reload();
@@ -304,6 +336,8 @@ function joinRoom(code) {
                     time: time,
                     user: localStorage.getItem("uName"),
                     username: username,
+                    "timespan": t.getTime(),
+                    image
                 });
                 Swal.fire(`You successfully joined the chat room!`);
                 location.reload();
@@ -381,13 +415,132 @@ function urlify(text) {
     });
 }
 
-function createText(user, message, time, username1, key) {
-    let messageFirst = `${urlify(message)}`;
+function time_ago(time) {
+
+  switch (typeof time) {
+    case 'number':
+      break;
+    case 'string':
+      time = +new Date(time);
+      break;
+    case 'object':
+      if (time.constructor === Date) time = time.getTime();
+      break;
+    default:
+      time = +new Date();
+  }
+  var time_formats = [
+    [60, 'seconds', 1], // 60
+    [120, '1 minute ago', '1 minute from now'], // 60*2
+    [3600, 'minutes', 60], // 60*60, 60
+    [7200, '1 hour ago', '1 hour from now'], // 60*60*2
+    [86400, 'hours', 3600], // 60*60*24, 60*60
+    [172800, 'Yesterday', 'Tomorrow'], // 60*60*24*2
+    [604800, 'days', 86400], // 60*60*24*7, 60*60*24
+    [1209600, 'Last week', 'Next week'], // 60*60*24*7*4*2
+    [2419200, 'weeks', 604800], // 60*60*24*7*4, 60*60*24*7
+    [4838400, 'Last month', 'Next month'], // 60*60*24*7*4*2
+    [29030400, 'months', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
+    [58060800, 'Last year', 'Next year'], // 60*60*24*7*4*12*2
+    [2903040000, 'years', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
+    [5806080000, 'Last century', 'Next century'], // 60*60*24*7*4*12*100*2
+    [58060800000, 'centuries', 2903040000] // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
+  ];
+  var seconds = (+new Date() - time) / 1000,
+    token = 'ago',
+    list_choice = 1;
+
+  if (seconds == 0) {
+    return 'Just now'
+  }
+  if (seconds < 0) {
+    seconds = Math.abs(seconds);
+    token = 'from now';
+    list_choice = 2;
+  }
+  var i = 0,
+    format;
+  while (format = time_formats[i++])
+    if (seconds < format[0]) {
+      if (typeof format[2] == 'string')
+        return format[list_choice];
+      else
+        return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token;
+    }
+  return time;
+}
+
+
+function createText(user, message, time, username1, key, ms, image) {
+    let messageFirst = `${urlify(message)} \n <p class="timemin">${time_ago(ms)}</p>`;
+    darkIndex++;
+    let li = document.createElement("li");
+    let text = `<!-- <div class="first"><div class="circular--portrait"> <img src="${image}" class="img" alt="Profile picture of ${user}"> </div> </div> --> ${username1} <br> ${messageFirst}`;
+    li.innerHTML = text;
+    ul.appendChild(li);
+    let attribute1 = document.createAttribute("id");
+    let attribute2 = document.createAttribute("class");
+    let attribute3 = document.createAttribute("title");
+    let attribute4 = document.createAttribute("title");
+    let attribute5 = document.createAttribute("class");
+    let attribute6 = document.createAttribute("oncontextmenu");
+    let attribute7 = document.createAttribute("data-key");
+    let attribute8 = document.createAttribute("class");
+    let info = `${user} \n\n ${time}`;
+    attribute1.value = `message-id-${key}`;
+    attribute2.value = "message-class animate__bounceIn";
+    attribute3.value = `${user} \n\n ${time}`;
+    attribute4.value = `You are mentioned in this message!\n\n ${info}`;
+    attribute5.value = "notify";
+    attribute6.value = `showMenu("${user}","${message}","${time}", "${username1}", "${key}", "${image}", "${ms}"); return false;`;
+    attribute7.value = key;
+    attribute8.value = "myMessage";
+    li.setAttributeNode(attribute1);
+    li.setAttributeNode(attribute2);
+    li.setAttributeNode(attribute3);
+    li.setAttributeNode(attribute6);
+    li.setAttributeNode(attribute7);
+    if (username == username1) {
+        li.setAttributeNode(attribute8);
+    } else {
+        let n = message.includes("@" + username);
+        if (n) {
+            playAudio("myAudio");
+            document.getElementById(`message-id-${darkIndex}`).style.color = "#DD4132";
+            li.setAttributeNode(attribute4);
+            li.setAttributeNode(attribute5);
+        }
+    }
+    if (inWebsite === true) {} else {
+        messagesNotSeen++;
+        document.title = `(${messagesNotSeen}) unread messeges!`;
+        setTimeout(() => {
+            if (inWebsite) {
+                playAudio("newMessage");
+            } else {}
+        }, 750);
+        if (music) {
+            if (localStorage.getItem(`message-${message}`) === true) {} else {
+                var notify = new Notification(`New message from ${username1}`, {
+                    body: message,
+                });
+                localStorage.setItem(`message-${message}`, true);
+            }
+        } else {}
+    }
+    $("#ulist").animate({
+        scrollTop: $("#ulist").prop("scrollHeight")
+    }, 0);
+    document.getElementById('ulist').scrollTop =  document.getElementById('ulist').scrollHeight;
+}
+
+function createText2(user, message, time, username1, key, ms) {
+    let messageFirst = `${urlify(message)} \n <p class="timemin">${time_ago(ms)}</p>`;
     darkIndex++;
     let li = document.createElement("li");
     let text = `${username1} <br> ${messageFirst}`;
     li.innerHTML = text;
-    ul.appendChild(li);
+    ul.prepend(li);
     let attribute1 = document.createAttribute("id");
     let attribute2 = document.createAttribute("class");
     let attribute3 = document.createAttribute("title");
@@ -438,10 +591,6 @@ function createText(user, message, time, username1, key) {
             }
         } else {}
     }
-    $("#ulist").animate({
-        scrollTop: $("#ulist").prop("scrollHeight")
-    }, 0);
-    document.getElementById('ulist').scrollTop =  document.getElementById('ulist').scrollHeight;
 }
 
 function checkRoom() {
@@ -465,6 +614,7 @@ function hideRoomControls() {
 }
 
 function sendMessage() {
+    const image = localStorage.getItem("image");
     if (chat === true) {
         let message = document.getElementById("message").value;
         let name = message.toLowerCase();
@@ -531,6 +681,8 @@ function sendMessage() {
                 time: time,
                 user: localStorage.getItem("uName"),
                 username: username,
+                "timespan": t.getTime(),
+                image: image
             });
             document.getElementById("message").value = "";
             playAudio("sendMessage");
@@ -588,7 +740,10 @@ query.on("child_added", function (snapshot) {
     let username = snapshot.val().username;
     let times = snapshot.val().time;
     let postKey = snapshot.key;
-    createText(owner, message, times, username, postKey);
+    let ms = snapshot.val().timespan;
+    let image = snapshot.val().image;
+    others.push(postKey);
+    createText(owner, message, times, username, postKey, ms, image);
 });
 
 rooms.on("child_added", function (snapshot) {
@@ -596,6 +751,7 @@ rooms.on("child_added", function (snapshot) {
     let postKey = snapshot.key;
     roomID.push(postKey);
 });
+
 rooms.on("child_removed", function (snapshot) {
     if (snapshot.key === room) {
         alert("This chat room has been deleted!");
@@ -606,6 +762,7 @@ rooms.on("child_removed", function (snapshot) {
     }
 });
 let done = false;
+
 roomName.on("value", function (snapshot) {
     // Get the messages
     if (localStorage.getItem("room") === null) {
@@ -616,6 +773,7 @@ roomName.on("value", function (snapshot) {
         localStorage.setItem("chatOwner", snapshot.val().owner);
         localStorage.setItem("chat-joins", snapshot.val().joins);
         localStorage.setItem("chat-time", snapshot.val().time);
+        localStorage.setItem("chat-ms", snapshot.val().ms);
         localStorage.setItem("roomname", chatname);
         if (uuid === localStorage.getItem("chatOwner")) {
             // Only chat owner can do!
@@ -845,9 +1003,10 @@ function notifyMe() {
     }
 }
 const chatnameUSER = localStorage.getItem("roomname");
+const timeCreatetAgo = time_ago(Number(localStorage.getItem("chat-ms")));
 
 function chatInfo() {
-    Swal.fire(`${chatnameUSER}`, `This chat room has been created on ${chatCreated}`, `info`);
+    Swal.fire(`${chatnameUSER}`, `This chat room has been created on ${chatCreated} \n This was created ${timeCreatetAgo}`, `info`);
 }
 
 
@@ -916,7 +1075,7 @@ function changeSettings() {
 }
 let em, mess, tim, use, keyy;
 
-function showMenu(email, message, time, username, key) {
+function showMenu(email, message, time, username, key, image, ms) {
     let uu = firebase.auth().currentUser;
     let menu = document.querySelector(".menus");
     menu.classList.remove("hidden");
@@ -924,6 +1083,8 @@ function showMenu(email, message, time, username, key) {
     document.getElementById("emailMessage").innerText = `(${email})`;
     document.getElementById("usernameMessage").innerText = username;
     document.getElementById("timeMessage").innerText = time;
+    document.getElementById("secondsAgo").innerText = time_ago(ms);
+    document.getElementById("profileIMG").src = image;
     let mm = urlify(message);
     document.getElementById("messageMessage").innerHTML = mm;
     let messLenght = message.length * 2;
@@ -1354,3 +1515,4 @@ function showAlert(title, text){
 }
 
 setInterval(checkFocus, 200);
+

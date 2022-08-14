@@ -1,322 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>eChat • Messeges</title>
-    <link
-      rel="stylesheet"
-      media="screen and (min-width: 1400px)"
-      href="css/messeges.css"
-    />
-    <link
-      rel="stylesheet"
-      media="screen and (max-width: 1399px)"
-      href="css/mobile.css"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js" defer></script>
 
-    <link rel="stylesheet" href="css/lightbox.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>eChat • Messeges</title>
+  <link rel="stylesheet" media="screen and (min-width: 1400px)" href="css/messeges.css" />
+  <link rel="stylesheet" media="screen and (max-width: 1399px)" href="css/mobile.css" />
 
-    <!-- Primary Meta Tags -->
-    <meta
-      name="title"
-      content="eChat - Free group chat - Chat with your friends"
-    />
-    <meta
-      name="description"
-      content="eChat is a group chat app that you can use to create group chats, it has a simple yet beautiful UI designed for you."
-    />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito&family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js" defer></script>
+  <link rel="stylesheet" href="css/lightbox.css" />
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-      <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-      <script src="https://kit.fontawesome.com/f45cd9c28c.js" crossorigin="anonymous" defer ></script>
-      <script src="js/lightbox.js" defer></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-app.min.js"></script>
 
-      <script defer src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-auth.min.js"></script>
-      <script defer src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-database.js"></script>
-      <!-- <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script> -->
-            <script defer src="js/messeges.js"></script>
-      <!-- Cookie Consent by TermsFeed Privacy Policy and Consent Generator https://www.TermsFeed.com -->
-      <script
-        type="text/javascript"
-        src="https://www.termsfeed.com/public/cookie-consent/4.0.0/cookie-consent.js"
-        charset="UTF-8" defer
-      ></script>
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="eChat - Free group chat - Chat with your friends" />
+  <meta name="description"
+    content="eChat is a group chat app that you can use to create group chats, it has a simple yet beautiful UI designed for you." />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://kit.fontawesome.com/f45cd9c28c.js" crossorigin="anonymous" defer></script>
+  <script src="js/lightbox.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-app.min.js"></script>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-auth.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-database.js"></script>
+  <script defer src="js/messeges.js"></script>
+  <script type="text/javascript" src="https://www.termsfeed.com/public/cookie-consent/4.0.0/cookie-consent.js"
+    charset="UTF-8" defer></script>
 
 
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://metatags.io/" />
-    <meta
-      property="og:title"
-      content="eChat - Free group chat - Chat with your friends"
-    />
-    <meta
-      property="og:description"
-      content="eChat is a group chat app that you can use to create group chats, it has a simple yet beautiful UI designed for you."
-    />
-    <meta
-      property="og:image"
-      content="s.erzenchat.tk/images/eChat.png"
-    />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://metatags.io/" />
+  <meta property="og:title" content="eChat - Free group chat - Chat with your friends" />
+  <meta property="og:description"
+    content="eChat is a group chat app that you can use to create group chats, it has a simple yet beautiful UI designed for you." />
+  <meta property="og:image" content="s.erzenchat.tk/images/eChat.png" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://metatags.io/" />
-    <meta
-      property="twitter:title"
-      content="eChat - Free group chat - Chat with your friends"
-    />
-    <meta
-      property="twitter:description"
-      content="eChat is a group chat app that you can use to create group chats, it has a simple yet beautiful UI designed for you."
-    />
-    <meta
-      property="twitter:image"
-      content="s.erzenchat.tk/images/eChat.png"
-    />
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://metatags.io/" />
+  <meta property="twitter:title" content="eChat - Free group chat - Chat with your friends" />
+  <meta property="twitter:description"
+    content="eChat is a group chat app that you can use to create group chats, it has a simple yet beautiful UI designed for you." />
+  <meta property="twitter:image" content="s.erzenchat.tk/images/eChat.png" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="apple-mobile-web-app-title" content="eChat">
-    <meta name="application-name" content="eChat">
-    <meta name="msapplication-TileColor" content="#2d89ef">
-    <meta name="msapplication-TileImage" content="images/mstile-144x144.png">
-    <meta name="theme-color" content="#ffffff">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="apple-mobile-web-app-title" content="eChat">
+  <meta name="application-name" content="eChat">
+  <meta name="msapplication-TileColor" content="#2d89ef">
+  <meta name="msapplication-TileImage" content="images/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
 
 
-  </head>
+</head>
 
-  <body onload="allowMusic()">
-      <div class="wifi hidden" id="wifi">
-          <i class="fa-solid fa-wifi fa-fade"></i><p fa-fade>No Connection</p>
-      </div>
-    <div class="page" id="page">
-      <div id="roomSelection" class="roomSelection">
-        <div class="container">
-          <div class="item">
-            <div class="make-room mk" id="make-room">
-              <h1 id="chat-title">eChat</h1>
-              <h3 id="total-chats" class="hidden"></h3>
-              <h3>Join or make a room, its free, secure and quick.</h3>
-              <br />
-              <br />
-              <input
-                type="text"
-                id="roomname"
-                required
-                placeholder="Room name"
-              />
-              <button type="button" id="createroom" onclick="createRoom()">
-                Create room
-              </button>
-            </div>
-
+<body onload="allowMusic()">
+  <div class="wifi hidden" id="wifi">
+    <i class="fa-solid fa-wifi fa-fade"></i>
+    <p fa-fade>No Connection</p>
+  </div>
+  <div class="page" id="page">
+    <div id="roomSelection" class="roomSelection">
+      <div class="container">
+        <div class="item">
+          <div class="make-room mk" id="make-room">
+            <h1 id="chat-title">eChat</h1>
+            <h3 id="total-chats" class="hidden"></h3>
+            <h3>Join or make a room, its free, secure and quick.</h3>
             <br />
+            <br />
+            <input type="text" id="roomname" required placeholder="Room name" />
+            <button type="button" id="createroom" onclick="createRoom()">
+              Create room
+            </button>
+          </div>
 
-            <div class="join-room" id="join-room">
-              <input
-                type="text"
-                id="join-room-name"
-                required
-                placeholder="Room code"
-              />
-              <button type="button" id="joinroom" onclick="joinRoom()">
-                Join room
-              </button>
-                          <div class="video-call" id="video-call">
+          <br />
+
+          <div class="join-room" id="join-room">
+            <input type="text" id="join-room-name" required placeholder="Room code" />
+            <button type="button" id="joinroom" onclick="joinRoom()">
+              Join room
+            </button>
+            <div class="video-call" id="video-call">
               <button type="button" id="menuItems" onclick="joinVideo()">
                 Video <i class="fa-solid fa-video te"></i>
               </button>
               <button type="button" id="menuItems" onclick="goContact()">
                 Contact <i class="fa-solid fa-inbox te"></i>
-              </button>            
+              </button>
               <button type="button" id="menuItems" onclick="goPrivacy()">
                 Privacy <i class="fa-solid fa-shield te"></i>
               </button>
               <button type="button" id="menuItems" onclick="changeSettings()">
-                Settings <i
-                class="fas fa-cog fa-spin te"
-                style="
+                Settings <i class="fas fa-cog fa-spin te" style="
                   --fa-animation-duration: 10s;
                   --fa-animation-iteration-count: 100;
-                "
-              ></i>
+                "></i>
               </button>
               <br>
             </div>
-            </div>
-
-
           </div>
-          <br><Br>
-          <div class="item">
-            <h1 id="chat-title">My rooms</h1>
-            <h3>All your rooms saved in a secure place.</h3>
-            <br />
 
-            <ul id="list1" class="list-1"></ul>
-          </div>
+
+        </div>
+        <br><Br>
+        <div class="item">
+          <h1 id="chat-title">My rooms</h1>
+          <h3>All your rooms saved in a secure place.</h3>
+          <br />
+
+          <ul id="list1" class="list-1"></ul>
         </div>
       </div>
+    </div>
 
-      <div class="main" id="main">
-        <div class="chat hidden" id="chat">
-          <div class="controls" id="controls">
-            <button
-              id="leaveButton"
-              title="Leave"
-              class="btn-share"
-              onclick="leaveRoom()"
-            >
-              <i class="fas fa-sign-out-alt"></i>
-            </button>
-            <button
-              id="shareButton"
-              class="btn-share"
-              title="Share"
-              onclick="shareRoom()"
-            >
-              <i class="fas fa-share"></i>
-            </button>
-            <button
-              id="themeButton"
-              class="btn-share"
-              title="Change theme"
-              onclick="setUserTheme()"
-            >
-              <i class="fas fa-moon"></i>
-            </button>
-            <button
-              id="speechToText"
-              class="btn-share"
-              title="Speech to text"
-              onclick="startMic()"
-            >
-              <i class="fa-solid fa-microphone"></i>
-            </button>
+    <div class="main" id="main">
+      <div class="chat hidden" id="chat">
+        <div class="controls" id="controls">
+          <button id="leaveButton" title="Leave" class="btn-share" onclick="leaveRoom()">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+          <button id="shareButton" class="btn-share" title="Share" onclick="shareRoom()">
+            <i class="fas fa-share"></i>
+          </button>
+          <button id="themeButton" class="btn-share" title="Change theme" onclick="setUserTheme()">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button id="speechToText" class="btn-share" title="Speech to text" onclick="startMic()">
+            <i class="fa-solid fa-microphone"></i>
+          </button>
 
-            <button
-              id="settingButton"
-              class="btn-settings"
-              title="Settings"
-              onclick="changeSettings()"
-            >
-              <i
-                class="fas fa-cog fa-spin"
-                style="
+          <button id="settingButton" class="btn-settings" title="Settings" onclick="changeSettings()">
+            <i class="fas fa-cog fa-spin" style="
                   --fa-animation-duration: 10s;
                   --fa-animation-iteration-count: 100;
-                "
-              ></i>
-            </button>
-            <button
-              id="emoji-button"
-              class="btn-emoji"
-              title="Emojis"
-              onclick="showEmoji()"
-            >
-              <i class="fas fa-icons"></i>
-            </button>
+                "></i>
+          </button>
+          <button id="emoji-button" class="btn-emoji" title="Emojis" onclick="showEmoji()">
+            <i class="fas fa-icons"></i>
+          </button>
 
-            <span id="chatname">Loading</span>
-          </div>
-          <ul id="ulist">
-            <li class="no-password-email">
-              The chat rooms are public, please do not send any login or banking
-              informations because you're accounts might get compromised or
-              terminated.
-            </li>
-          </ul>
-          <div class="user" id="user">
-            <input
-              type="text"
-              name="Message..."
-              id="message"
-              placeholder="Message..."
-            />
-            <button type="button" id="btn-send" onclick="sendMessage()">
-              Send <i class="far fa-paper-plane"></i>
-            </button>
-          </div>
+          <span id="chatname">Loading</span>
+        </div>
+        <ul id="ulist">
+          <li class="no-password-email" onclick="doDynamic()">
+            The chat rooms are public, please do not send any login or banking
+            informations because you're accounts might get compromised or
+            terminated.
+            Click this to load older messeges.
+          </li>
+        </ul>
+        <div class="user" id="user">
+          <input type="text" name="Message..." id="message" placeholder="Message..." />
+          <button type="button" id="btn-send" onclick="sendMessage()">
+            Send <i class="far fa-paper-plane"></i>
+          </button>
         </div>
       </div>
+    </div>
 
-      <div class="iframe hidden" id="iframeBody">
-          <span class="z-button" id="new-tab"><a href="#" id="newTab" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></i
-        ></span>
-          <span class="x-button" id="close-link" onclick="closeLinkMenu()"
-          ><i class="fa-solid fa-xmark"></i
-        ></span>
-        <iframe src="" frameborder="0" id="iframe" class="iframe" allowpaymentrequest="false" loading="lazy" referrerpolicy="origin"></iframe>
+    <div class="iframe hidden" id="iframeBody">
+      <span class="z-button" id="new-tab"><a href="#" id="newTab" target="_blank"><i
+            class="fa-solid fa-arrow-up-right-from-square"></i></a></i></span>
+      <span class="x-button" id="close-link" onclick="closeLinkMenu()"><i class="fa-solid fa-xmark"></i></span>
+      <iframe src="" frameborder="0" id="iframe" class="iframe" allowpaymentrequest="false" loading="lazy"
+        referrerpolicy="origin"></iframe>
+    </div>
+
+    <audio id="myAudio" class="hidden">
+      <source src="audio/mentioned.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <audio id="newMessage" class="hidden">
+      <source src="audio/notification.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <audio id="sendMessage" class="hidden">
+      <source src="audio/send.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <div class="share-menu hidden animate__jello" id="share-menu">
+      <span class="share-p">Share</span>
+      <span class="x-button" id="close-share" onclick="closeShareMenu()"><i class="fa-solid fa-xmark"></i></span>
+      <br />
+      <br />
+      <p>Share your room and chat with all your friends.</p>
+      <br />
+      <br />
+      <button class="share twitter" onclick="shareTwitter()">
+        Twitter <i class="fa-brands fa-twitter f"></i>
+      </button>
+      <button class="share facebook" onclick="shareFacebook()">
+        Facebook <i class="fa-brands fa-facebook f"></i>
+      </button>
+      <button class="share" onclick="shareLink()" id="shareLink">
+        Copy Link <i class="fa-solid fa-link f"></i>
+      </button>
+      <br />
+      <div class="qr-code">
+        <img src="" alt="qr-code" />
       </div>
+      <br />
+      <input type="text" id="link" class="link hidden" placeholder="Link" />
+    </div>
 
-      <audio id="myAudio" class="hidden">
-        <source src="audio/mentioned.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-
-      <audio id="newMessage" class="hidden">
-        <source src="audio/notification.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-
-      <audio id="sendMessage" class="hidden">
-        <source src="audio/send.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-
-      <div class="share-menu hidden animate__jello" id="share-menu">
-        <span class="share-p">Share</span>
-        <span class="x-button" id="close-share" onclick="closeShareMenu()"
-          ><i class="fa-solid fa-xmark"></i
-        ></span>
-        <br />
-        <br />
-        <p>Share your room and chat with all your friends.</p>
-        <br />
-        <br />
-        <button class="share twitter" onclick="shareTwitter()">
-          Twitter <i class="fa-brands fa-twitter f"></i>
-        </button>
-        <button class="share facebook" onclick="shareFacebook()">
-          Facebook <i class="fa-brands fa-facebook f"></i>
-        </button>
-        <button class="share" onclick="shareLink()" id="shareLink">
-          Copy Link <i class="fa-solid fa-link f"></i>
-        </button>
-        <br />
-        <div class="qr-code">
-          <img src="" alt="qr-code" />
-        </div>
-        <br />
-        <input type="text" id="link" class="link hidden" placeholder="Link" />
-      </div>
+    <input type="text" class="hidden" id="tt" />
 
 
-     
-
-      <input type="text" class="hidden" id="tt" />
-
-
-
-      <script>
-        // Your web app's Firebase configuration
-         const firebaseConfig = {
+    <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
         apiKey: "AIzaSyAeJo_Z0PKXdoatxyRVRcdDG9jW2GuzlZw",
         authDomain: "erzenchat.firebaseapp.com",
         databaseURL: "https://erzenchat-default-rtdb.europe-west1.firebasedatabase.app",
@@ -324,74 +233,72 @@
         storageBucket: "erzenchat.appspot.com",
         messagingSenderId: "54736724241",
         appId: "1:54736724241:web:33c0d456b00c415804ecb0"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-      </script>
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
 
 
 
-
-      <script type="text/javascript" charset="UTF-8">
-        document.addEventListener("DOMContentLoaded", function () {
-          cookieconsent.run({
-            notice_banner_type: "headline",
-            consent_type: "implied",
-            palette: "dark",
-            language: "en",
-            page_load_consent_levels: [
-              "strictly-necessary",
-              "functionality",
-              "tracking",
-              "targeting",
-            ],
-            notice_banner_reject_button_hide: false,
-            preferences_center_close_button_hide: false,
-            page_refresh_confirmation_buttons: false,
-            website_name: "eChat",
-          });
+    <script type="text/javascript" charset="UTF-8">
+      document.addEventListener("DOMContentLoaded", function () {
+        cookieconsent.run({
+          notice_banner_type: "headline",
+          consent_type: "implied",
+          palette: "dark",
+          language: "en",
+          page_load_consent_levels: [
+            "strictly-necessary",
+            "functionality",
+            "tracking",
+            "targeting",
+          ],
+          notice_banner_reject_button_hide: false,
+          preferences_center_close_button_hide: false,
+          page_refresh_confirmation_buttons: false,
+          website_name: "eChat",
         });
-      </script>
+      });
+    </script>
 
-      <noscript
-        >ePrivacy and GPDR Cookie Consent management by
-        <a href="https://www.TermsFeed.com/" rel="nofollow"
-          >TermsFeed Privacy Policy and Consent Generator</a
-        ></noscript
-      >
-      <!-- End Cookie Consent by TermsFeed Privacy Policy and Consent Generator https://www.TermsFeed.com -->
-    </div>
+    <noscript>ePrivacy and GPDR Cookie Consent management by
+      <a href="https://www.TermsFeed.com/" rel="nofollow">TermsFeed Privacy Policy and Consent Generator</a></noscript>
+    <!-- End Cookie Consent by TermsFeed Privacy Policy and Consent Generator https://www.TermsFeed.com -->
+  </div>
 
-    <div class="menus hidden" id="menus">
-      <div class="printarea" id="printarea">
-        <div class="info">
-          <strong>
-            <p id="usernameMessage"></p>
-          </strong>
-          <p id="emailMessage"></p>
-          <p id="timeMessage"></p>
-          <p id="messageSize"></p>
-        </div>
-        <p id="messageMessage"></p>
+  <div class="menus hidden" id="menus">
+    <div class="printarea" id="printarea">
+      <div class="info">
+        <span class="circular--portrait">
+          <img src="#" alt="Profile picture" class="img" id="profileIMG">
+        </span>
+        <strong>
+          <p id="usernameMessage"></p>
+        </strong>
+        <p id="emailMessage"></p>
       </div>
-      <br />
-      <div class="controls">
-        <button onclick="ttsMessage()" class="buttonMenu">
-          Text to Speech
-        </button>
-        <button
-          onclick="deleteChat()"
-          class="buttonMenu hidden"
-          id="deleteMessageButton"
-        >
-          Delete
-        </button>
-        <button onclick="copyText()" class="buttonMenu">Copy</button>
-        <button onclick="printMessage('printarea')" class="buttonMenu">
-          Print
-        </button>
-        <button onclick="closeMenu()" class="buttonMenu">Close</button>
+      <div class="time">
+        <p id="timeMessage"></p>
+        <p id="messageSize"></p>
+        <p id="secondsAgo"></p>
       </div>
+      <p id="messageMessage"></p>
     </div>
-  </body>
+    <br />
+    <div class="controls">
+      <button onclick="ttsMessage()" class="buttonMenu">
+        Text to Speech
+      </button>
+      <button onclick="deleteChat()" class="buttonMenu hidden" id="deleteMessageButton">
+        Delete
+      </button>
+      <button onclick="copyText()" class="buttonMenu">Copy</button>
+      <button onclick="printMessage('printarea')" class="buttonMenu">
+        Print
+      </button>
+      <button onclick="closeMenu()" class="buttonMenu">Close</button>
+    </div>
+  </div>
+</body>
+
 </html>

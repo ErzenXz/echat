@@ -228,7 +228,7 @@ ul {
 li {
     background-color: var(--li-background);
     max-width: 375px;
-    min-width: 150px;
+    min-width: 200px;
     width: fit-content;
     height: auto;
     border-radius: 10px;
@@ -549,13 +549,25 @@ li:hover, li:active {
 }
 
 .info {
-    display: grid;
-    grid-template-columns: auto auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     margin-bottom: 15px;
+    flex-wrap: wrap;
 }
 
 #emailMessage {
     font-size: 14px;
+    transition: all 0.3s ease-in-out 0ms;
+}
+
+.time {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    font-size: 12px;
     transition: all 0.3s ease-in-out 0ms;
 }
 
@@ -843,4 +855,28 @@ iframe {
 
 .myMessage::first-line {
  color: #023E8A;
+}
+
+.timemin {
+    font-size: 12px;
+}
+
+
+.circular--portrait {
+     position: relative;
+     width: 50px; 
+     height: 50px; 
+     overflow: hidden; 
+     border-radius: 50%; 
+     margin-right: 25px;
+} .circular--portrait img { 
+    width: 100%; 
+    height: auto; 
+}
+
+.first {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }

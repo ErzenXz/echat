@@ -10,7 +10,7 @@ firebase.auth().onAuthStateChanged(function (e) {
 const uName = localStorage.getItem("username");
 const uEmail = localStorage.getItem("uName");
 const uID = localStorage.getItem("uID");
-const image = localStorage.getItem("image")
+const image = localStorage.getItem("image");
 
 function loadInformation() {
   document.getElementById("img").src = image;
