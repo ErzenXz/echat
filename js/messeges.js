@@ -618,6 +618,7 @@ function sendMessage() {
     if (chat === true) {
         let message = document.getElementById("message").value;
         let name = message.toLowerCase();
+        message = message.replace(/["']/g, ""); // Remove quotes
         let t = new Date();
         let time;
         if (t.getMonth() < 10) {
@@ -1083,7 +1084,7 @@ function showMenu(email, message, time, username, key, image, ms) {
     document.getElementById("emailMessage").innerText = `(${email})`;
     document.getElementById("usernameMessage").innerText = username;
     document.getElementById("timeMessage").innerText = time;
-    document.getElementById("secondsAgo").innerText = time_ago(ms);
+    document.getElementById("secondsAgo").innerText = time_ago(Number(ms));
     document.getElementById("profileIMG").src = image;
     let mm = urlify(message);
     document.getElementById("messageMessage").innerHTML = mm;
