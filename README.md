@@ -20,4 +20,4 @@ To create a room you need to be logged in, if you don't have an account you have
 ### Step 3
     - Click create room
     
-Congratulations you have succesefully create a room, you can click the share button and  share it in Facebook, Twitter, or send it as a link or QR code.
+Congratulations you have succesefully created a room, you can click the share button and share it in Facebook, Twitter, or send it as a link or QR code.
