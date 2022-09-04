@@ -12,7 +12,6 @@ const bannedwords = ["ahole", "anus", "ash0le", "ash0les", "asholes", "ass", "As
 
 const characterLimit = 30; // 30 characters limit
 let theme = localStorage.getItem("user-theme") ?? false;
-
 let t = false;
 let u;
 
@@ -66,11 +65,19 @@ const proxy = "https://erproxy.herokuapp.com/";
 
 var usedBannedWords = [];
 var swearCount = 0;
+
+/*
+
+            Adding and managing rooms in the My Rooms tab.
+
+*/
+
+
 var roomsList = 1;
 const messageLenght = 10000;
 let roomsArray = [];
 
-
+// Functions to set from string to object
 Storage.prototype.setObj = function (key, obj) {
     return this.setItem(key, JSON.stringify(obj));
 };
@@ -141,6 +148,7 @@ function openMenu() {
 }
 
 //                  Check if the user has been registred
+
 if (userAdded === null || undefined) {
     location.replace("account.html");
 } else {
@@ -148,6 +156,7 @@ if (userAdded === null || undefined) {
 }
 
 //                  Variables that can be changed
+
 let roomID = [];
 let darkIndex = 0;
 let joined = localStorage.getItem("joined");
@@ -168,6 +177,7 @@ ePicker.on("emoji", (emoji) => {
 });
 
 // Check the user system theme and aplies it
+
 if (localStorage.getItem("room") == null) {} else {
     if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
         changeTheme("dark");
@@ -853,11 +863,26 @@ function checkURL(url) {
     if (b === undefined || b === null || b == localStorage.getItem("room")) {
         return false;
     }
-    let ask = confirm("Do you want to join this room " + b);
-    if (ask) {
-        joinRoom(b);
-        location.replace(c);
-    }
+
+    Swal.fire({
+  title: 'Do you want to join this room?',
+  text: "You can always join back if you have the room code!",
+  icon: 'info',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Join!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire(
+      'Joined room!',
+      'Your have sucessfully join this room.',
+      'success'
+    );
+    joinRoom(b);
+    location.replace(c);
+  }
+})
 }
 
 function editRoom() {
