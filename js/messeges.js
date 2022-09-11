@@ -531,8 +531,10 @@ function createText(user, message, time, username1, key, ms, image) {
         }, 750);
         if (music) {
             if (localStorage.getItem(`message-${message}`) === true) {} else {
-                var notify = new Notification(`New message from ${username1}`, {
+                let notify = new Notification(`New message from ${username1}`, {
                     body: message,
+                    icon: image,
+                    tag: key
                 });
                 localStorage.setItem(`message-${message}`, true);
             }
@@ -629,6 +631,7 @@ function sendMessage() {
         let message = document.getElementById("message").value;
         let name = message.toLowerCase();
         message = message.replace(/["']/g, ""); // Remove quotes
+        message = removeTags(message);
         let t = new Date();
         let time;
         if (t.getMonth() < 10) {
@@ -755,6 +758,7 @@ query.on("child_added", function (snapshot) {
     let image = snapshot.val().image;
     others.push(postKey);
     createText(owner, message, times, username, postKey, ms, image);
+    document.getElementById("loading").style.display = "none";
 });
 
 rooms.on("child_added", function (snapshot) {
@@ -1541,4 +1545,5 @@ function showAlert(title, text){
 }
 
 setInterval(checkFocus, 200);
+
 
