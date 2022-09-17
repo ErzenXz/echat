@@ -24,6 +24,8 @@ firebase.auth().onAuthStateChanged((user) => {
     } else {
         // User is signed out
         // ...
+        location.replace("account.html");
+
     }
 });
 
@@ -59,7 +61,7 @@ function doDynamic(){
 
 var network = navigator.onLine;
 let chatCreated = localStorage.getItem("chat-time");
-const userAdded = localStorage.getItem("uStatusAdded");
+let userAdded = localStorage.getItem("uStatusAdded");
 
 const proxy = "https://erproxy.herokuapp.com/";
 
@@ -149,11 +151,11 @@ function openMenu() {
 
 //                  Check if the user has been registred
 
-if (userAdded === null || undefined) {
-    location.replace("account.html");
-} else {
-    console.log("You are currently logged in.");
-}
+// if (userAdded === null || undefined || userAdded == false) {
+//     location.replace("account.html");
+// } else {
+//     console.log("You are currently logged in.");
+// }
 
 //                  Variables that can be changed
 
@@ -163,6 +165,7 @@ let joined = localStorage.getItem("joined");
 let inWebsite = true;
 let messagesNotSeen = 0;
 let darkMode = false;
+
 //                  Emoji support
 const eButton = document.getElementById("#emoji-button");
 const ePicker = new EmojiButton({
@@ -513,7 +516,7 @@ function createText(user, message, time, username1, key, ms, image) {
     if (username == username1) {
         li.setAttributeNode(attribute8);
     } else {
-        let n = message.includes("@" + username);
+        let n = message.toString().includes("@" + username);
         if (n) {
             playAudio("myAudio");
             document.getElementById(`message-id-${darkIndex}`).style.color = "#DD4132";
