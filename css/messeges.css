@@ -8,19 +8,100 @@
 
 :root {
     --li-color: rgba(0, 0, 0, 0.85);
-    --li-background: #F1FAEE;
+    --li-background: #efefef;
     --li-chat-bubbles: #efefef;
     --buttons: white;
     --button-color: black;
     --button-border: #e0e1e4;
     --button-hover: #f2f2f2;
+    --background-color: #f0f2f5;
+    --message-input: transparent;
+    --chat-color: white;
+    --select-color: #000;
+    --select-background-color: #c1daf3;
+    --scrollbar-track: #eeeff1;
+    --scrollbar-thumb: #e0e1e4;
+    --scrollbar-thumb-hover: #b6b7b9;
 }
 
 
 
 body {
-    background-color: #f0f2f5;
+    background-color: var(--background-color);
+    color: var(--li-color);
 }
+
+body.dark{
+    --li-color: rgba(255, 255, 255, 0.77);
+    --li-background: rgba(36, 37, 38, 0.7);
+    --li-chat-bubbles: rgba(36, 37, 38, 0.7);
+    --buttons: #00ADB5;
+    --button-color: whitesmoke;
+    --button-border: none;
+    --button-hover: #18191A;
+    --background-color: #242526;
+    --message-input: #343536;
+    --chat-color: #3A3B3C;
+    --select-color: #000;
+    --select-background-color: #c1daf3;
+    --scrollbar-track: #343536;
+    --scrollbar-thumb: #242526;
+    --scrollbar-thumb-hover: #b6b7b9;
+
+
+    --box2-color: #3A3B3C;
+    --box3-color: #3A3B3C;
+    --title-icon-color: #CCC;
+    --input-color: #3A3B3C;
+}
+
+/* === Custom Scroll Bar CSS === */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+body.dark::-webkit-scrollbar-thumb:hover,
+body.dark .activity-data::-webkit-scrollbar-thumb:hover{
+    background: #3A3B3C;
+}
+
+
+::selection {
+    color: var(--select-color);
+    background-color: var(--select-background-color);
+}
+
+/*     Mobile Support     */
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 2.5px;
+    box-shadow: 0px 0px 20px -15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 2.5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2.5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+    border-radius: 2.55px;
+}
+
+
 
 .main {
     position: fixed;
@@ -42,7 +123,7 @@ body {
 #roomname,
 #join-room-name {
     outline: none;
-    border: 0.5px solid #e0e1e4;
+    border: 2px solid var(--input-color);
     box-shadow: 0px 0px 20px -20px;
     padding: 10px;
     border-radius: 10px;
@@ -51,6 +132,8 @@ body {
     height: 55px;
     margin: 5px;
     margin-top: 10px;
+    background-color: var(--input-color);
+    color: var(--li-color);
 }
 
 #roomname:focus,
@@ -200,6 +283,7 @@ body {
     margin-bottom: 5px;
     display: inline-block;
     color: var(--li-color);
+    background-color: var(--input-color);
 }
 
 #message:focus {
@@ -213,7 +297,7 @@ body {
     border: 0.5px solid #e0e1e4;
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
-    background-color: white;
+    background-color: var(--chat-color);
 }
 
 ul {
@@ -259,62 +343,24 @@ li:hover, li:active {
     box-shadow: 0px 0px 12.5px -10px;
 }
 
-/* @keyframes rainboxAnimation {
-    0% {
-        color: black;
-    }
+#list1 {
+    cursor: pointer;
+}
 
-    10% {
-        color: lightgreen;
-    }
-
-    20% {
-        color: green;
-    }
-
-    30% {
-        color: darkgreen;
-    }
-
-    40% {
-        color: lightseagreen;
-    }
-
-    50% {
-        color: lightblue;
-    }
-
-    60% {
-        color: blue;
-    }
-
-    70% {
-        color: yellow;
-    }
-
-    80% {
-        color: orange;
-    }
-
-    90% {
-        color: orangered;
-    }
-
-    100% {
-        color: red;
-    }
-} */
+#list1 li:hover {
+    background-color: var(--button-hover);
+}
 
 #joinroom,
 #createroom {
   padding: 10px;
   outline: none;
-  border: 1px solid #e0e1e4;
+  border: 2px solid var(--input-color);
   box-shadow: 0px 0px 20px -18px;
   border-radius: 10px;
   width: 125px;
   height: 50px;
-  background-color: transparent;
+  background-color: var(--input-color);
   transition: all 0.3s ease-in-out 0ms;
   color: var(--li-color);
 }
@@ -333,37 +379,6 @@ li:hover, li:active {
 }
 
 
-::selection {
-    color: black;
-    background-color: #c1daf3;
-}
-
-/*     Mobile Support     */
-
-/* width */
-::-webkit-scrollbar {
-    width: 5px;
-    border-radius: 2.5px;
-    box-shadow: 0px 0px 20px -15px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: #eeeff1;
-    border-radius: 2.5px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #e0e1e4;
-    border-radius: 2.5px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #b6b7b9;
-    border-radius: 2.55px;
-}
 
 #chatname {
     margin-left: 1.5vw;
@@ -377,13 +392,13 @@ li:hover, li:active {
 }
 
 #chatname:hover {
-    color: teal;
+    color: rgb(31, 122, 122);
     cursor: pointer;
 }
 
 .no-password-email {
     outline: none;
-    border: 1px solid #01b69e;
+    border: 1px solid transparent;
     box-shadow: 0px 0px 20px -20px;
     padding: 20px;
     border-radius: 10px;
@@ -391,16 +406,17 @@ li:hover, li:active {
     width: 800px;
     height: 125px;
     margin: 5px;
+    margin-bottom: 10px;
     font-size: 16px;
-    background-color: #00bfa5;
+    background-color: var(--li-background);
     font-weight: 500;
-    color: white;
+    color: var(--li-color);
     user-select: none;
     box-shadow: 0px 0px 20px -20px;
 }
 
 .no-password-email:hover {
-    background-color: lightgrey;
+    background-color: var(--li-background);
     color: black;
     cursor: pointer;
 }
@@ -431,12 +447,13 @@ li:hover, li:active {
     border: 0.5px solid #e0e1e4;
     box-shadow: 0px 0px 20px -20px;
     z-index: 25;
-    background-color: white;
+    background-color: var(--chat-color);
+    color: var(--li-color);
     padding: 15px;
     margin-top: 25px;
 }
 
-.dark {
+.dark2 {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -452,7 +469,7 @@ li:hover, li:active {
     padding-right: 10px;
     transition: all 0.3s ease-in-out 0ms;
     border-radius: 5px;
-    color: black;
+    color: var(--li-color);
     margin: auto;
 }
 
@@ -527,6 +544,7 @@ li:hover, li:active {
 }
 
 #chat-title {
+    font-family: 'Poppins', sans-serif;
     font-size: 50px;
     margin-bottom: 15px;
 }
@@ -541,7 +559,7 @@ li:hover, li:active {
     margin: auto;
     margin-top: 100px;
     margin-bottom: 50px;
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 20px;
     border: 1px solid black;
     color: var(--li-color);
@@ -846,6 +864,7 @@ iframe {
     border-radius: 10px;
     padding: 5px;
     text-align: center;
+    color: var(--li-color);
 }
 
 .wifi p {
@@ -858,7 +877,7 @@ iframe {
 
 
 .myMessage::first-line {
- color: #023E8A;
+ color: #3b73bb;
 }
 
 .timemin {
@@ -873,7 +892,9 @@ iframe {
      overflow: hidden; 
      border-radius: 50%; 
      margin-right: 25px;
-} .circular--portrait img { 
+} 
+
+.circular--portrait img { 
     width: 100%; 
     height: auto; 
 }
@@ -885,15 +906,23 @@ iframe {
     align-items: center;
 }
 
-.lds-spinner {
-  color: official;
-  display: inline-block;
-  position: absolute;
-  top: 45%;
-  left: 45%;
-  transform: translate(0, -50%);
-  z-index: 100;
+#loading{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:100
 }
+
+.lds-spinner {
+    color:official;
+    display:inline-block;
+    position:relative;
+    width:80px;
+    height:80px;
+    z-index: 100;
+}
+
 .lds-spinner div {
   transform-origin: 40px 40px;
   animation: lds-spinner 1.2s linear infinite;
@@ -965,3 +994,10 @@ iframe {
     opacity: 0;
   }
 }
+
+
+/* :focus {
+    z-index: 10;
+    outline: 2px solid black;
+    outline-offset: 10px;
+} */

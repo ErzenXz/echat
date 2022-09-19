@@ -183,7 +183,7 @@ ePicker.on("emoji", (emoji) => {
 
 if (localStorage.getItem("room") == null) {} else {
     if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        changeTheme("dark");
+        //changeTheme("dark");
     }
 }
 
@@ -202,21 +202,24 @@ fetch(proxy + server).then(response => {
     userLocation = true;
 });
 
+function removeUnwantedChars(text){
+    let unwatedChars = [".", "#", "$", "[", "]"];
+    let newText = text;
+    for(let i = 0; i < unwatedChars.length; i++){
+        newText = String(newText.split(unwatedChars[i]).join("-"));
+    }
+    return newText;
+}
+
 function createRoom() {
     if (userLocation) {
         if (uuid !== u.uid) {
             return false;
         }
-        let realName = document.getElementById("roomname").value;
-        realName = removeTags(realName);
 
-        let newText = realName.replace("." , "-");
-        newText = realName.replace("#", "-");
-        newText = realName.replace("$", "-");
-        newText = realName.replace("[", "-");
-        newText = realName.replace("]", "-");
-        
-        realName = newText;
+        let realName = removeUnwantedChars(document.getElementById("roomname").value);
+        realName = removeTags(String(realName));
+
         if (realName.length >= characterLimit) {
             return false;
         }
@@ -227,6 +230,7 @@ function createRoom() {
         let time = t.getDate() + " " + t.getMonth() + " " + t.getFullYear();
         let roomNameOLD = "room-" + t.getTime() + uuid + "-" + document.getElementById("roomname").value + time + "-ww-server" + Math.floor(Math.random() * 10000000000);
         let roomName = roomNameOLD.replace(/\s+/g, "");
+        roomName = removeUnwantedChars(roomName);
         let private_date;
 
         // Create the room
@@ -262,25 +266,17 @@ function createRoom() {
         if (uuid !== u.uid) {
             return false;
         }
-        let realName = document.getElementById("roomname").value;
 
-        realName = removeTags(realName);
-
-        let newText = realName.replace("." , "-");
-        newText = realName.replace("#", "-");
-        newText = realName.replace("$", "-");
-        newText = realName.replace("[", "-");
-        newText = realName.replace("]", "-");
-        
-        realName = newText;
-
+        let realName = removeUnwantedChars(document.getElementById("roomname").value);
 
         if (realName.length >= characterLimit) {
             return false;
         }
+
         if (realName.length === 0) {
             return false;
         }
+
         var t = new Date();
         let time = t.getDate() + " " + t.getMonth() + " " + t.getFullYear();
         let roomNameOLD = "room-" + t.getTime() + uuid + "-" + document.getElementById("roomname").value + time + "-ww-server" + Math.floor(Math.random() * 10000000000);
@@ -628,14 +624,8 @@ function hideRoomControls() {
     document.getElementById("chat").classList.remove("hidden");
 }
 
-function sendMessage() {
-    const image = localStorage.getItem("image");
-    if (chat === true) {
-        let message = document.getElementById("message").value;
-        let name = message.toLowerCase();
-        message = message.replace(/["']/g, ""); // Remove quotes
-        message = removeTags(message);
-        let t = new Date();
+function getTime(){
+    let t = new Date();
         let time;
         if (t.getMonth() < 10) {
             if (t.getHours() < 10) {
@@ -666,7 +656,51 @@ function sendMessage() {
                 }
             }
         }
-        if (message === "") {
+    return time;
+}
+
+function sendMessage() {
+    const image = localStorage.getItem("image");
+    if (chat === true) {
+        let message = document.getElementById("message").value;
+        let name = message.toLowerCase();
+        message = message.replace(/["']/g, ""); // Remove quotes
+        message = removeTags(message);
+        let t = new Date();
+        let time = getTime();
+        if (t.getMonth() < 10) {
+            if (t.getHours() < 10) {
+                if (t.getMinutes() < 10) {
+                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
+                } else {
+                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
+                }
+            } else {
+                if (t.getMinutes() < 10) {
+                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":0" + t.getMinutes();
+                } else {
+                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":" + t.getMinutes();
+                }
+            }
+        } else {
+            if (t.getHours() < 10) {
+                if (t.getMinutes() < 10) {
+                    time = t.getDate() + "/" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
+                } else {
+                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
+                }
+            } else {
+                if (t.getMinutes() < 10) {
+                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":0" + t.getMinutes();
+                } else {
+                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":" + t.getMinutes();
+                }
+            }
+        }
+
+
+        if (message == "") {
+            Swal.fire("You can't send empty messeges.");
             return false;
         }
 
@@ -676,6 +710,7 @@ function sendMessage() {
             if (bannedwords[i] == name) {
                 message = message.replace(new RegExp(bannedwords[i], "g"), "****");
                 if(browserName == "Safari"){
+                    Swal.fire("Your message has been blocked for using bad words. Please remove them.");
                     return false;
                 }
             }
@@ -938,8 +973,6 @@ function allowMusic() {
     setTimeout(() => {
         document.getElementById("total-chats").innerText = `Chats created ${roomID.length}`;
     }, 2500);
-
-    defaultTheme();
 }
 
 function playAudio(id) {
@@ -1068,40 +1101,40 @@ function setUserTheme(){
 }
 
 
-function changeTheme(mode) {
+// function changeTheme(mode) {
 
-    if(mode == "dark"){
-        // Enable Dark Mode
-        document.documentElement.style.setProperty("--li-color", "white");
-        document.documentElement.style.setProperty("--li-background", "#343536");
-        document.documentElement.style.setProperty("--li-chat-bubbles", "#343536");
-        document.documentElement.style.setProperty("--buttons", "#00ADB5");
-        document.documentElement.style.setProperty("--button-color", "white");
-        document.documentElement.style.setProperty("--button-border", "none");
-        document.documentElement.style.setProperty("--button-hover", "#18191A");
-        document.body.classList.toggle("darkmode");
-        document.getElementById("chat").style.backgroundColor = "#242526";
-        document.getElementById("chat").classList.add("darkchat");
-        document.getElementById("message").style.backgroundColor = "#343536";
-        document.getElementById("chat").style.color = "white";
+//     if(mode == "dark"){
+//         // Enable Dark Mode
+//         document.documentElement.style.setProperty("--li-color", "white");
+//         document.documentElement.style.setProperty("--li-background", "#343536");
+//         document.documentElement.style.setProperty("--li-chat-bubbles", "#343536");
+//         document.documentElement.style.setProperty("--buttons", "#00ADB5");
+//         document.documentElement.style.setProperty("--button-color", "white");
+//         document.documentElement.style.setProperty("--button-border", "none");
+//         document.documentElement.style.setProperty("--button-hover", "#18191A");
+//         document.body.classList.toggle("darkmode");
+//         document.getElementById("chat").style.backgroundColor = "#242526";
+//         document.getElementById("chat").classList.add("darkchat");
+//         document.getElementById("message").style.backgroundColor = "#343536";
+//         document.getElementById("chat").style.color = "white";
 
-    } else if (mode == "light"){
-        // Disable Dark Mode
-        document.documentElement.style.setProperty("--li-color", "rgba(0, 0, 0, 0.85)");
-        document.documentElement.style.setProperty("--li-background", "#F1F0F0");
-        document.documentElement.style.setProperty("--li-chat-bubbles", "#efefef");
-        document.documentElement.style.setProperty("--buttons", "white");
-        document.documentElement.style.setProperty("--button-color", "black");
-        document.documentElement.style.setProperty("--button-border", "#E0E1E4");
-        document.documentElement.style.setProperty("--button-hover", "#F2F2F2");
-        document.body.classList.remove("darkmode");
-        document.getElementById("chat").style.backgroundColor = "white";
-        document.getElementById("message").style.backgroundColor = "transparent";
-        document.getElementById("chat").style.color = "black";
-    } else {
-        return false;
-    }
-}
+//     } else if (mode == "light"){
+//         // Disable Dark Mode
+//         document.documentElement.style.setProperty("--li-color", "rgba(0, 0, 0, 0.85)");
+//         document.documentElement.style.setProperty("--li-background", "#F1F0F0");
+//         document.documentElement.style.setProperty("--li-chat-bubbles", "#efefef");
+//         document.documentElement.style.setProperty("--buttons", "white");
+//         document.documentElement.style.setProperty("--button-color", "black");
+//         document.documentElement.style.setProperty("--button-border", "#E0E1E4");
+//         document.documentElement.style.setProperty("--button-hover", "#F2F2F2");
+//         document.body.classList.remove("darkmode");
+//         document.getElementById("chat").style.backgroundColor = "white";
+//         document.getElementById("message").style.backgroundColor = "transparent";
+//         document.getElementById("chat").style.color = "black";
+//     } else {
+//         return false;
+//     }
+// }
 
 function changeSettings() {
     location.replace("settings.html");
@@ -1216,10 +1249,10 @@ function copyText() {
 
 window.addEventListener("load", function (e) {
     if (navigator.onLine) {
-        this.document.getElementById("chatname").style.color = "green";
+        this.document.getElementById("chatname").style.color = "rgb(90, 144, 90)";
         enableChat();
     } else {
-        this.document.getElementById("chatname").style.color = "red";
+        this.document.getElementById("chatname").style.color = "lightred";
         disableChat();
     }
 }, false);

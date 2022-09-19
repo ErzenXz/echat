@@ -10,7 +10,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito&family=Poppins&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js" defer></script>
   <link rel="stylesheet" href="css/lightbox.css" />
@@ -30,6 +31,7 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-auth.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-database.js"></script>
   <script defer src="js/messeges.js"></script>
+  <script defer src="js/theme.js"></script>
   <script type="text/javascript" src="https://www.termsfeed.com/public/cookie-consent/4.0.0/cookie-consent.js"
     charset="UTF-8" defer></script>
 
@@ -136,7 +138,7 @@
           <button id="shareButton" class="btn-share" title="Share" onclick="shareRoom()">
             <i class="fas fa-share"></i>
           </button>
-          <button id="themeButton" class="btn-share" title="Change theme" onclick="setUserTheme()">
+          <button id="themeButton" class="btn-share mode-toggle" title="Change theme">
             <i class="fas fa-moon"></i>
           </button>
           <button id="speechToText" class="btn-share" title="Speech to text" onclick="startMic()">

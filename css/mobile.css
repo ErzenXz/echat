@@ -8,31 +8,105 @@
 
 :root {
     --li-color: rgba(0, 0, 0, 0.85);
-    --li-background: #f1f0f0;
+    --li-background: #efefef;
     --li-chat-bubbles: #efefef;
     --buttons: white;
     --button-color: black;
     --button-border: #e0e1e4;
     --button-hover: #f2f2f2;
+    --background-color: #f0f2f5;
+    --message-input: transparent;
+    --chat-color: white;
+    --select-color: #000;
+    --select-background-color: #c1daf3;
+    --scrollbar-track: #eeeff1;
+    --scrollbar-thumb: #e0e1e4;
+    --scrollbar-thumb-hover: #b6b7b9;
 }
+
+
 
 body {
-    background-color: #f0f2f5;
+    background-color: var(--background-color);
+    color: var(--li-color);
 }
 
-.darkmode {
-    background-color: #18191a;
+body.dark{
+    --li-color: rgba(255, 255, 255, 0.77);
+    --li-background: rgba(36, 37, 38, 0.7);
+    --li-chat-bubbles: rgba(36, 37, 38, 0.7);
+    --buttons: #00ADB5;
+    --button-color: whitesmoke;
+    --button-border: none;
+    --button-hover: #18191A;
+    --background-color: #242526;
+    --message-input: #343536;
+    --chat-color: #3A3B3C;
+    --select-color: #000;
+    --select-background-color: #c1daf3;
+    --scrollbar-track: #343536;
+    --scrollbar-thumb: #242526;
+    --scrollbar-thumb-hover: #b6b7b9;
+
+
+    --box2-color: #3A3B3C;
+    --box3-color: #3A3B3C;
+    --title-icon-color: #CCC;
+    --input-color: #3A3B3C;
 }
 
-.darkchat {
-    border: 1px solid #101011;
-    background-color: white;
+/* === Custom Scroll Bar CSS === */
+::-webkit-scrollbar {
+    width: 8px;
 }
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+body.dark::-webkit-scrollbar-thumb:hover,
+body.dark .activity-data::-webkit-scrollbar-thumb:hover{
+    background: #3A3B3C;
+}
+
+
+::selection {
+    color: var(--select-color);
+    background-color: var(--select-background-color);
+}
+
+/*     Mobile Support     */
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 2.5px;
+    box-shadow: 0px 0px 20px -15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 2.5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2.5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+    border-radius: 2.55px;
+}
+
+
 
 #roomname,
 #join-room-name {
     outline: none;
-    border: 0.5px solid #e0e1e4;
+    border: 2px solid var(--input-color);
     box-shadow: 0px 0px 20px -20px;
     padding: 20px;
     border-radius: 10px;
@@ -41,6 +115,8 @@ body {
     height: fit-content;
     max-height: 40px;
     margin-bottom: 10px;
+    background-color: var(--input-color);
+    color: var(--li-color);
 }
 
 #roomname:focus,
@@ -56,7 +132,7 @@ body {
 #createroom {
     padding: 10px;
     outline: none;
-    border: 0.5px solid #e0e1e4;
+    border: 2px solid var(--input-color);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     width: 100%;
@@ -65,6 +141,8 @@ body {
     background-color: transparent;
     transition: all 0.3s ease-in-out;
     margin-bottom: 50px;
+    background-color: var(--input-color);
+    color: var(--li-color);
 }
 
 #joinroom:hover,
@@ -78,17 +156,13 @@ body {
     transform: scale(0.95);
 }
 
-::selection {
-    color: black;
-    background-color: #c1daf3;
-}
 
 .roomSelection {
     padding: 10px;
     border: 0.5px solid #e0e1e4;
     margin: 10px;
     border-radius: 10px;
-    background-color: white;
+    background-color: var(--li-background);
 }
 
 #chat-title {
@@ -117,6 +191,7 @@ body {
     background-color: white;
     height: 97vh;
     min-height: 550px;
+    background-color: var(--chat-color);
 }
 
 ul {
@@ -175,6 +250,7 @@ li::after {
     border-radius: 20px;
     display: inline-block;
     color: var(--li-color);
+    background-color: var(--input-color);
 }
 
 #message:focus {
@@ -306,38 +382,6 @@ li::after {
     transform: scale(0.95);
 }
 
-::selection {
-    color: black;
-    background-color: #c1daf3;
-}
-
-/*     Mobile Support     */
-
-/* width */
-::-webkit-scrollbar {
-    width: 5px;
-    border-radius: 2.5px;
-    box-shadow: 0px 0px 20px -15px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: #eeeff1;
-    border-radius: 2.5px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #e0e1e4;
-    border-radius: 2.5px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #b6b7b9;
-    border-radius: 2.55px;
-}
-
 #chatname {
     transition: all 0.3s ease-in-out;
     display: none;
@@ -367,14 +411,12 @@ li::after {
     border: 0.5px solid #e0e1e4;
     box-shadow: 0px 0px 20px -20px;
     z-index: 25;
-    background-color: white;
+    background-color: var(--chat-color);
     padding: 15px;
     margin-top: 25px;
+    color: var(--li-color);
 }
 
-.dark {
-    background-color: rgba(0, 0, 0, 0.25);
-}
 
 .share-p {
     float: left;
@@ -388,7 +430,7 @@ li::after {
     padding-right: 10px;
     transition: all 0.3s ease-in-out 0ms;
     border-radius: 5px;
-    color: black;
+    color: var(--li-color);
 }
 
 .x-button:hover {
@@ -476,6 +518,7 @@ li::after {
     font-size: 12px;
 }
 /* From uiverse.io by @e-coders */
+
 .buttonMenu {
     appearance: none;
     background-color: #fafbfc;
@@ -558,7 +601,8 @@ li::after {
     width: 80vw;
     height: fit-content;
     max-height: 95vh;
-    background-color: white;
+    background-color: var(--li-background);
+    color: var(--li-color);
     border: 1px solid grey;
     border-radius: 10px;
 }
@@ -724,7 +768,7 @@ iframe {
 #menuItems {
     width: 30vw;
     height: 50px;
-    background-color: transparent;
+    background-color: var(--input-color);
     color: var(--li-color);
     border: 1px solid var(--button-border);
     border-radius: 10px;
@@ -766,7 +810,7 @@ iframe {
 
 
 .myMessage::first-line {
- color: #023E8A;
+ color: #3b73bb;
 }
 
 .timemin {
@@ -795,15 +839,23 @@ iframe {
     align-items: center;
 }
 
-.lds-spinner {
-  color: official;
-  display: inline-block;
-  position: absolute;
-  top: 45%;
-  left: 45%;
-  transform: translate(0, -50%);
-  z-index: 100;
+#loading{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:100
 }
+
+.lds-spinner {
+    color:official;
+    display:inline-block;
+    position:relative;
+    width:80px;
+    height:80px;
+    z-index: 100;
+}
+
 .lds-spinner div {
   transform-origin: 40px 40px;
   animation: lds-spinner 1.2s linear infinite;
