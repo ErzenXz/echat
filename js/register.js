@@ -256,26 +256,22 @@ function signWithGoogle() {
 
 function signWithFacebook(){
     let provider = new firebase.auth.FacebookAuthProvider();
-    provider.addScope('email');
-    provider.addScope('public_profile');
+    provider.addScope('email, public_profile');
 
-    firebase.auth().signInWithPopup(provider).then((result) => {
-    /** @type {firebase.auth.OAuthCredential} */
-    var credential = result.credential;
+    firebase.auth().signInWithPopup(provider).then(function (result) {
+    
+        let credential = result.credential;
+        let accessToken = credential.accessToken;
+        let user = result.user;
 
-    // The signed-in user info.
-    var user = result.user;
-    console.log(user);
+        console.log(user.email);
+        console.log(user.photoURL);
 
-    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-    var accessToken = credential.accessToken;
-
-    // ...
-  })
-  .catch((error) => {
+    }).catch((error) => {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
+    alert(errorMessage);
     // The email of the user's account used.
     var email = error.email;
     // The firebase.auth.AuthCredential type that was used.
@@ -284,8 +280,6 @@ function signWithFacebook(){
     // ...
   });
 
-
-
 }
 
 
@@ -293,7 +287,7 @@ firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
-    location.replace("./");
+    //location.replace("./");
     // ...
   } else {
     // User is signed out
