@@ -4,7 +4,6 @@ var errorCodeStatus = false;
 
 
 const storage = firebase.storage();
-const userAdded = localStorage.getItem("uStatusAdded");
 
 var storageRef = storage.ref();
 var imagesRef = storageRef.child('images');
@@ -15,7 +14,7 @@ let donePhoto = false;
 
 
 function uploadImage(name, email, key, uid) {
-    showAlert("Creating an account", "This wont take a long time!");
+    //showAlert("Creating an account", "This wont take a long time!");
     let t;
     // Get the file
     const file = document.querySelector("#photo").files[0];
@@ -138,7 +137,6 @@ function login() {
     } else {
         localStorage.setItem("uName", email);
         localStorage.setItem("uID", uuid);
-        localStorage.setItem("uStatusAdded", "added");
         localStorage.setItem("uLogged", "true")
         errorCodeStatus = false;
     }
@@ -185,7 +183,6 @@ function register() {
         localStorage.setItem("username", names);
         localStorage.setItem("uName", email);
         localStorage.setItem("uID", uid);
-        localStorage.setItem("uStatusAdded", "added");
         localStorage.setItem("uLogged", "true")
         errorCodeStatus = false;
 
@@ -224,7 +221,7 @@ function registerMe() {
 // Function to sign with google
 
 function signWithGoogle() {
-    var provider = new firebase.auth.GoogleAuthProvider();
+    let provider = new firebase.auth.GoogleAuthProvider();
 
     // Sign in with google
 
@@ -257,26 +254,52 @@ function signWithGoogle() {
 }
 
 
+function signWithFacebook(){
+    let provider = new firebase.auth.FacebookAuthProvider();
+    provider.addScope('email');
+    provider.addScope('public_profile');
+
+    firebase.auth().signInWithPopup(provider).then((result) => {
+    /** @type {firebase.auth.OAuthCredential} */
+    var credential = result.credential;
+
+    // The signed-in user info.
+    var user = result.user;
+    console.log(user);
+
+    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+    var accessToken = credential.accessToken;
+
+    // ...
+  })
+  .catch((error) => {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+
+    // ...
+  });
+
+
+
+}
+
+
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
-    //location.replace("../");
+    //location.replace("./");
     // ...
   } else {
     // User is signed out
     // ...
   }
 });
-
-//                  Check if the user has been registred
-if (userAdded === null || undefined) {
-    console.log("You are currently logged out.");
-} else {
-    console.log("You are currently logged in.");
-    location.replace("./");
-
-}
 
 
 function toggleLogin(value){

@@ -61,7 +61,7 @@ function doDynamic(){
 
 var network = navigator.onLine;
 let chatCreated = localStorage.getItem("chat-time");
-let userAdded = localStorage.getItem("uStatusAdded");
+
 
 const proxy = "https://erproxy.herokuapp.com/";
 
@@ -148,14 +148,6 @@ for (let i = 2; i < roomsArray.length; i++) {
 function openMenu() {
     console.log(event.target.id);
 }
-
-//                  Check if the user has been registred
-
-// if (userAdded === null || undefined || userAdded == false) {
-//     location.replace("account.html");
-// } else {
-//     console.log("You are currently logged in.");
-// }
 
 //                  Variables that can be changed
 
@@ -998,7 +990,7 @@ function shareFacebook() {
 function shareTwitter() {
     let url = location.href;
     const datatoshare1 = url + "?url=" + localStorage.getItem("room");
-    const texttoshow1 = `Hello, join my chat room here using this link : \n \n  in this website `;
+    const texttoshow1 = `Hello, i just created a room in eChat : \n \n Join my room by clicking this link `;
     const url1 = `https://twitter.com/intent/tweet?text=${texttoshow1}${datatoshare1}`;
     window.open(url1, "MsgWindow", "width=700,height=500");
 }
@@ -1482,24 +1474,24 @@ function goContact() {
 }
 
 function goPrivacy() {
-    location.href = "https://erzenchat.tk/privacy";
+    location.href = "../privacy";
 }
 
 
 
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    //location.replace("../");
-    // ...
-  } else {
-    // User is signed out
-    // ...
+// firebase.auth().onAuthStateChanged((user) => {
+//   if (user) {
+//     // User is signed in, see docs for a list of available properties
+//     // https://firebase.google.com/docs/reference/js/firebase.User
+//     //location.replace("../");
+//     // ...
+//   } else {
+//     // User is signed out
+//     // ...
 
-    location.href = "account.html";
-  }
-});
+//     location.href = "account.html";
+//   }
+// });
 
 let old;
 /*
