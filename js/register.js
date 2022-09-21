@@ -263,7 +263,8 @@ function signWithFacebook(){
         let credential = result.credential;
         let accessToken = credential.accessToken;
         let user = result.user;
-        console.log(user);
+        console.table(user);
+        alert(user);
 
         console.log(user.email);
         console.log(user.photoURL);
