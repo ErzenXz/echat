@@ -51,12 +51,13 @@
             <br>
             <button class="btn" name="Login" type="submit" id="bt1" onclick="login?.()">Login</button>
             <div class="mini">
-            <p class="lg" onclick="forgotPassword()">Forgot your password</p>
-            <p onclick="toggleLogin(true)">Or create an account.</p>
+                <p class="lg" onclick="forgotPassword()">Forgot your password</p>
+                <p onclick="toggleLogin(true)">Or create an account.</p>
 
             </div>
             <p class="or">or</p>
             <button onclick="signWithGoogle()" class="btn">Sign in with Google</button>
+            <button onclick="signWithFacebook()" class="btn">Sign in with Facebook</button>
         </div>
 
 
@@ -74,7 +75,8 @@
             <label for="password" name="password1">Password</label>
             <input type="password" name="password1" id="password1" placeholder="Password...">
             <br>
-            <button class="btn" name="Register" for="register" type="submit" id="bt2" onclick="register?.()">Register</button>
+            <button class="btn" name="Register" for="register" type="submit" id="bt2"
+                onclick="register?.()">Register</button>
             <p class="loginRegisterToggle" onclick="toggleLogin(false)">Already have an account?</p>
         </div>
 
@@ -82,20 +84,20 @@
 
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-        <pre class="teksti">XENBit               Të gjitha të drejtat janë të rezervuara.               2022</pre>
+    <pre class="teksti">XENBit               Të gjitha të drejtat janë të rezervuara.               2022</pre>
 
 
     <script>
         // Your web app's Firebase configuration
-         const firebaseConfig = {
-        apiKey: "AIzaSyAeJo_Z0PKXdoatxyRVRcdDG9jW2GuzlZw",
-        authDomain: "erzenchat.firebaseapp.com",
-        databaseURL: "https://erzenchat-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "erzenchat",
-        storageBucket: "erzenchat.appspot.com",
-        messagingSenderId: "54736724241",
-        appId: "1:54736724241:web:33c0d456b00c415804ecb0"
-  };
+        const firebaseConfig = {
+            apiKey: "AIzaSyAeJo_Z0PKXdoatxyRVRcdDG9jW2GuzlZw",
+            authDomain: "erzenchat.firebaseapp.com",
+            databaseURL: "https://erzenchat-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "erzenchat",
+            storageBucket: "erzenchat.appspot.com",
+            messagingSenderId: "54736724241",
+            appId: "1:54736724241:web:33c0d456b00c415804ecb0"
+        };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
     </script>

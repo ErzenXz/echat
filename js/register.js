@@ -263,11 +263,13 @@ function signWithFacebook(){
         let credential = result.credential;
         let accessToken = credential.accessToken;
         let user = result.user;
-        console.table(user);
-        alert(user);
-
-        console.log(user.email);
-        console.log(user.photoURL);
+        localStorage.setItem("username", user.displayName);
+        localStorage.setItem("uName", user.email);
+        localStorage.setItem("uID", user.uid);
+        localStorage.setItem("uStatusAdded", "added");
+        localStorage.setItem("uLogged", "true")
+        localStorage.setItem("image", user.photoURL);
+        location.replace("../");
 
     }).catch((error) => {
     // Handle Errors here.
