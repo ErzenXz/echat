@@ -201,6 +201,7 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover{
 ul {
     list-style: none;
     height: 80vh;
+    height: 80dvh;
     overflow-y: scroll;
     padding-top: 10px;
     padding-bottom: 10px;
