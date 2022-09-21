@@ -275,7 +275,7 @@ function signWithFacebook(){
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
-    alert(errorMessage);
+    Swal.fire(errorMessage);
     // The email of the user's account used.
     var email = error.email;
     // The firebase.auth.AuthCredential type that was used.
