@@ -3,9 +3,16 @@ const body = document.querySelector("body"),
 
 
 let getMode = localStorage.getItem("mode");
-if(getMode && getMode ==="dark" || window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches){
-    body.classList.toggle("dark");
+
+if(getMode && getMode ==="dark"){
+    //body.classList.toggle("dark");
     //body.classList.toggle("dark2");
+}
+
+if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches && getMode === "light"){
+    //
+} else {
+    body.classList.toggle("dark");
 }
 
 

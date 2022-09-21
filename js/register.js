@@ -120,9 +120,10 @@ function login() {
         console.log(snapshot);
         localStorage.setItem("image", img);
         localStorage.setItem("username", myName);
+        document.body.style.cursor = "wait";
         setTimeout(() => {
             location.replace("../");
-        },  1000);
+        },  1200);
     });
     console.log("Name   " + name);
     
@@ -244,7 +245,7 @@ function signWithGoogle() {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            alert(error.message);
+            Swal.fire(error.message);
             // The email of the user's account used.
             var email = error.email;
             // The firebase.auth.AuthCredential type that was used.
@@ -291,7 +292,7 @@ firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
-    location.replace("./");
+    //location.replace("./");
     // ...
   } else {
     // User is signed out

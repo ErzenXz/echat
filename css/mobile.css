@@ -6,6 +6,10 @@
     font-display: swap;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 :root {
     --li-color: rgba(0, 0, 0, 0.85);
     --li-background: #efefef;
@@ -190,7 +194,7 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover{
     border-radius: 10px;
     background-color: white;
     height: 97vh;
-    min-height: 550px;
+    min-height: 97vh;
     background-color: var(--chat-color);
 }
 
@@ -204,8 +208,8 @@ ul {
 
 li {
     background-color: var(--li-background);
-    max-width: 80vw;
-    min-width: 35vw;
+    max-width: 75vw;
+    min-width: 40vw;
     width: fit-content;
     height: auto;
     border-radius: 10px;
@@ -225,7 +229,6 @@ li::first-line {
 
 li:hover {
     box-shadow: 0px 0px 12.5px -10px;
-    cursor: pointer;
 }
 
 li::after {
