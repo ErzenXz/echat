@@ -209,6 +209,11 @@ function createRoom() {
             return false;
         }
 
+        if(String(document.getElementById("roomname").value) == ""){
+            Swal.fire("You  can't create rooms without adding a name!");
+            return false;
+        }
+
         let realName = removeUnwantedChars(document.getElementById("roomname").value);
         realName = removeTags(String(realName));
 
@@ -218,6 +223,9 @@ function createRoom() {
         if (realName.length === 0) {
             return false;
         }
+
+
+
         var t = new Date();
         let time = t.getDate() + " " + t.getMonth() + " " + t.getFullYear();
         let roomNameOLD = "room-" + t.getTime() + uuid + "-" + document.getElementById("roomname").value + time + "-ww-server" + Math.floor(Math.random() * 10000000000);
@@ -256,6 +264,11 @@ function createRoom() {
         }, 2000);
     } else {
         if (uuid !== u.uid) {
+            return false;
+        }
+
+        if(String(document.getElementById("roomname").value) == ""){
+            Swal.fire("You  can't create rooms without adding a name!");
             return false;
         }
 
@@ -789,6 +802,7 @@ query.on("child_added", function (snapshot) {
     others.push(postKey);
     createText(owner, message, times, username, postKey, ms, image);
     document.getElementById("loading").style.display = "none";
+    enableChat();
 });
 
 rooms.on("child_added", function (snapshot) {
