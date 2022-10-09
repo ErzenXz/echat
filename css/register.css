@@ -1,0 +1,105 @@
+:root {
+    --h1-font-size: 40px;
+}
+
+
+h1 {
+    font-size: var(--h1-font-size);
+    padding: 10px;
+}
+
+
+.login {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    background-color: transparent;
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    width: 30vw;
+    height: fit-content;
+    box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
+}
+
+
+.register {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    background-color: aliceblue;
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    width: 30%;
+    height: fit-content;
+    box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
+}
+  
+input[type="email"], input[type="password"], input[type="text"], input[type="file"]{
+    width: 25vw;
+    height: 40px;
+    outline: none;
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out 0ms;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus, input[type="file"]:focus{
+    transform: scale(1.025);
+}
+
+.btn {
+    width: 25vw;
+    height: 5vh;
+    margin-top: 2vh;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid #15d4e8;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out 0ms;
+    margin-bottom: 10px;
+}
+
+.btn:hover {
+    background-color: #15d4e8;
+    color: white;
+}
+
+.hidden {
+    display: none;
+    pointer-events: none;
+}
+
+p {
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    user-select: none;
+}
+  
+p:hover {
+    color:#297e97;
+}
+
+.mini {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: space-between;
+}
+
+.lg {
+    margin-right: 25px;
+}
+
+.or {
+    margin-top: 10px;
+}
