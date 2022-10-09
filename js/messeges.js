@@ -1609,13 +1609,14 @@ function sendReply(){
     let message = document.getElementById("replyMessage").value;
     let name = message.toLowerCase();
 
+    message = message.replace(/["']/g, ""); // Remove quotes
+    message = removeTags(message); // Remove tags
+
     if(message == "" || message.length < 0){
         Swal.fire("You can't send empty messages.")
         return false;
     }
-
-    message = message.replace(/["']/g, ""); // Remove quotes
-    message = removeTags(message); // Remove tags
+    
     let t = new Date();
     let time = getTime();
     if (t.getMonth() < 10) {
@@ -1704,7 +1705,7 @@ function createReply(user, message, time, username, postKey, ms, image) {
 
     let ul = document.getElementById("replies");
 
-    let messageFirst = `${urlify(message)} \n <p class="timemin">${time_ago(ms)}</p>`;
+    let messageFirst = `${urlify(String(message))} \n <p class="timemin">${time_ago(ms)}</p>`;
     replyIndex++;
 
     let imageP = image ?? "https://studenti.uni-pr.edu/Images/users/male-empty-user.jpg";
