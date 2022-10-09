@@ -1755,10 +1755,10 @@ function createReply(user, message, time, username, postKey, ms, image) {
         } else {}
     }
     // No scrolling
-    // $("#replies").animate({
-    //     scrollTop: $("#replies").prop("scrollHeight")
-    // }, 0);
-    // document.getElementById('replies').scrollTop =  document.getElementById('replies').scrollHeight;
+    $("#replies").animate({
+        scrollTop: $("#replies").prop("scrollHeight")
+    }, 0);
+    document.getElementById('replies').scrollTop =  document.getElementById('replies').scrollHeight;
 }
 
 setInterval(checkFocus, 200);
