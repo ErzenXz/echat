@@ -14,7 +14,7 @@ const characterLimit = 30; // 30 characters limit
 let theme = localStorage.getItem("user-theme") ?? false;
 let t = false;
 let u;
-
+let messageKEY = false;
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -153,6 +153,7 @@ function openMenu() {
 
 let roomID = [];
 let darkIndex = 0;
+let replyIndex = 0;
 let joined = localStorage.getItem("joined");
 let inWebsite = true;
 let messagesNotSeen = 0;
@@ -161,7 +162,7 @@ let darkMode = false;
 //                  Emoji support
 const eButton = document.getElementById("#emoji-button");
 const ePicker = new EmojiButton({
-    theme: "light"
+    theme: localStorage.getItem("mode") ?? "light"
 });
 
 function showEmoji() {
@@ -486,10 +487,14 @@ function time_ago(time) {
 
 
 function createText(user, message, time, username1, key, ms, image) {
-    let messageFirst = `${urlify(message)} \n <p class="timemin">${time_ago(ms)}</p>`;
+    let messageFirst = `${urlify(message)} \n <div class="miniText"><p class="timemin">${time_ago(ms)}</p> <p onclick="showMenu('${user}','${message}','${time}', '${username1}', '${key}', '${image}', '${ms}'); return false;" class="replyText"><i class="fa-solid fa-reply"></i></p>  </div>`;
     darkIndex++;
+    if(image == "" || image == undefined || image == null || image.length == 0){
+    console.log(image);
+    }
+    let imageP = image ?? "https://studenti.uni-pr.edu/Images/users/male-empty-user.jpg";
     let li = document.createElement("li");
-    let text = `<!-- <div class="first"><div class="circular--portrait"> <img src="${image}" class="img" alt="Profile picture of ${user}"> </div> </div> --> ${username1} <br> ${messageFirst}`;
+    let text = `<!-- <div class="first"><div class="circular--portrait"> <img src="${imageP}" class="img" alt="Profile picture of ${user}"> </div> </div> --> ${username1} <br> ${messageFirst}`;
     li.innerHTML = text;
     ul.appendChild(li);
     let attribute1 = document.createAttribute("id");
@@ -500,6 +505,7 @@ function createText(user, message, time, username1, key, ms, image) {
     let attribute6 = document.createAttribute("oncontextmenu");
     let attribute7 = document.createAttribute("data-key");
     let attribute8 = document.createAttribute("class");
+    let attribute9 = document.createAttribute("ontouchend");
     let info = `${user} \n\n ${time}`;
     attribute1.value = `message-id-${key}`;
     attribute2.value = "message-class animate__bounceIn";
@@ -509,11 +515,13 @@ function createText(user, message, time, username1, key, ms, image) {
     attribute6.value = `showMenu("${user}","${message}","${time}", "${username1}", "${key}", "${image}", "${ms}"); return false;`;
     attribute7.value = key;
     attribute8.value = "myMessage";
+    attribute9.value = `showMenu("${user}","${message}","${time}", "${username1}", "${key}", "${image}", "${ms}"); return false;`;
     li.setAttributeNode(attribute1);
     li.setAttributeNode(attribute2);
     li.setAttributeNode(attribute3);
     li.setAttributeNode(attribute6);
     li.setAttributeNode(attribute7);
+    li.setAttributeNode(attribute9);
     if (username == username1) {
         li.setAttributeNode(attribute8);
     } else {
@@ -582,7 +590,7 @@ function createText2(user, message, time, username1, key, ms) {
     if (username == username1) {
         li.setAttributeNode(attribute8);
     } else {
-        let n = message.includes("@" + username);
+        let n = message.toString().includes("@" + username);
         if (n) {
             playAudio("myAudio");
             document.getElementById(`message-id-${darkIndex}`).style.color = "#DD4132";
@@ -669,6 +677,8 @@ function sendMessage() {
     if (chat === true) {
         let message = document.getElementById("message").value;
         let name = message.toLowerCase();
+
+
         message = message.replace(/["']/g, ""); // Remove quotes
         message = removeTags(message);
         let t = new Date();
@@ -712,7 +722,7 @@ function sendMessage() {
         const arrayBad = bannedwords.length;
 
         for (let i = 0; i < arrayBad; i++) {
-            if (bannedwords[i] == name) {
+            if (bannedwords[i].toLowerCase() == name || bannedwords[i].toUpperCase() == name) {
                 message = message.replace(new RegExp(bannedwords[i], "g"), "****");
                 if(browserName == "Safari"){
                     Swal.fire("Your message has been blocked for using bad words. Please remove them.");
@@ -721,7 +731,7 @@ function sendMessage() {
             }
         }
         for (let i = 0; i < arrayBad; i++) {
-            if (name.includes(bannedwords[i])) {
+            if (name.includes(bannedwords[i].toLowerCase()) || bannedwords[i].toUpperCase() == name) {
                 message = message.replace(new RegExp(bannedwords[i], "g"), "****");
                 if(browserName == "Safari"){
                     return false;
@@ -1148,6 +1158,7 @@ function changeSettings() {
 let em, mess, tim, use, keyy;
 
 function showMenu(email, message, time, username, key, image, ms) {
+    messageKEY = key;
     let uu = firebase.auth().currentUser;
     let menu = document.querySelector(".menus");
     menu.classList.remove("hidden");
@@ -1177,6 +1188,9 @@ function showMenu(email, message, time, username, key, image, ms) {
     tim = time;
     use = username;
     keyy = key;
+
+    document.getElementById("replies").innerHTML = "";
+    showReply(key);
 }
 
 function closeMenu() {
@@ -1332,7 +1346,7 @@ function startMic() {
             }).show();
         };
 
-    $(document).on("mouseenter", "#controls [title]", function (e) {
+    $(document).on("mouseenter", ".titleBIG [title]", function (e) {
         $(this).data(DATA, $(this).attr("title"));
         $(this).removeAttr("title").addClass(CLS_ON);
         $("<div id='" + ID + "' />").appendTo("body");
@@ -1584,6 +1598,167 @@ function showAlert(title, text){
     }).then(e => {
         e.dismiss, Swal.DismissReason.timer
     });
+}
+
+
+function sendReply(){
+    if(messageKEY == false){
+        return false;
+    }
+
+    let message = document.getElementById("replyMessage").value;
+    let name = message.toLowerCase();
+
+    if(message == "" || message.length < 0){
+        Swal.fire("You can't send empty messages.")
+        return false;
+    }
+
+    message = message.replace(/["']/g, ""); // Remove quotes
+    message = removeTags(message); // Remove tags
+    let t = new Date();
+    let time = getTime();
+    if (t.getMonth() < 10) {
+        if (t.getHours() < 10) {
+            if (t.getMinutes() < 10) {
+                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
+            } else {
+                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
+            }
+        } else {
+            if (t.getMinutes() < 10) {
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":0" + t.getMinutes();
+            } else {
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":" + t.getMinutes();
+            }
+        }
+    } else {
+            if (t.getHours() < 10) {
+                if (t.getMinutes() < 10) {
+                    time = t.getDate() + "/" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
+                } else {
+                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
+                }
+            } else {
+                if (t.getMinutes() < 10) {
+                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":0" + t.getMinutes();
+                } else {
+                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":" + t.getMinutes();
+                }
+            }
+        }
+
+        const arrayBad = bannedwords.length;
+
+        for (let i = 0; i < arrayBad; i++) {
+            if (bannedwords[i] == name) {
+                message = message.replace(new RegExp(bannedwords[i], "g"), "****");
+                if(browserName == "Safari"){
+                    Swal.fire("Your message has been blocked for using bad words. Please remove them.");
+                    return false;
+                }
+            }
+        }
+        for (let i = 0; i < arrayBad; i++) {
+            if (name.includes(bannedwords[i])) {
+                message = message.replace(new RegExp(bannedwords[i], "g"), "****");
+                if(browserName == "Safari"){
+                    return false;
+                }
+            }
+        }
+        if (message.length >= messageLenght) {
+            Swal.fire(`You reached the maximun length limit of ${messageLenght} characters! (${message.length})`);
+            document.getElementById("message").value = "";
+            return false;
+        } else {
+            firebase.database().ref("rooms/" + room + "/chats/" + messageKEY + "/reply").push().set({
+                message: message,
+                time: time,
+                user: localStorage.getItem("uName"),
+                username: username,
+                "timespan": t.getTime(),
+                image: localStorage.getItem("image") ?? "https://studenti.uni-pr.edu/Images/users/male-empty-user.jpg"
+            });
+            document.getElementById("replyMessage").value = "";
+        }
+}
+
+
+function showReply(key){
+    firebase.database().ref("rooms/" + room + "/chats/" + key + "/reply").orderByChild("ms").on("child_added", function (snapshot) {
+        // Get the messages
+        let owner = snapshot.val().user;
+        let message = snapshot.val().message;
+        let username = snapshot.val().username;
+        let times = snapshot.val().time;
+        let postKey = snapshot.key;
+        let ms = snapshot.val().timespan;
+        let image = snapshot.val().image;
+        createReply(owner, message, times, username, postKey, ms, image);
+    });
+}
+
+
+function createReply(user, message, time, username, postKey, ms, image) {
+
+    let ul = document.getElementById("replies");
+
+    let messageFirst = `${urlify(message)} \n <p class="timemin">${time_ago(ms)}</p>`;
+    replyIndex++;
+
+    let imageP = image ?? "https://studenti.uni-pr.edu/Images/users/male-empty-user.jpg";
+    let li = document.createElement("li");
+    let text = `<div class="first"><div><div class="circular--portrait"><img src="${imageP}" class="img" alt="Profile picture of ${user}"></div></div><div>${username} <br> ${messageFirst}</div></div>`;
+    li.innerHTML = text;
+    ul.appendChild(li);
+    let attribute1 = document.createAttribute("id");
+    let attribute2 = document.createAttribute("class");
+    let attribute3 = document.createAttribute("title");
+    let attribute4 = document.createAttribute("title");
+    let attribute5 = document.createAttribute("class");
+    let attribute7 = document.createAttribute("data-key");
+    let attribute8 = document.createAttribute("class");
+    let info = `${user} \n\n ${time}`;
+    attribute1.value = `message-id-reply-${key}`;
+    attribute2.value = "message-class animate__bounceIn";
+    attribute3.value = `${user} \n\n ${time}`;
+    attribute4.value = `You are mentioned in this message!\n\n ${info}`;
+    attribute5.value = "notify";
+    attribute7.value = key;
+    attribute8.value = "myMessage";
+    li.setAttributeNode(attribute1);
+    li.setAttributeNode(attribute2);
+    li.setAttributeNode(attribute3);
+    li.setAttributeNode(attribute7);
+    if (username == username) {
+        li.setAttributeNode(attribute8);
+    } else {
+        let n = message.toString().includes("@" + username);
+        if (n) {
+            // playAudio("myAudio");
+            // document.getElementById(`message-id-${darkIndex}`).style.color = "#DD4132";
+            // li.setAttributeNode(attribute4);
+            // li.setAttributeNode(attribute5);
+        }
+    }
+    if (inWebsite === true) {} else {
+        messagesNotSeen++;
+        document.title = `(${messagesNotSeen}) unread messeges!`;
+        setTimeout(() => {
+            if (inWebsite) {
+                playAudio("newMessage");
+            } else {}
+        }, 750);
+        if (music) {
+            //
+        } else {}
+    }
+    // No scrolling
+    // $("#replies").animate({
+    //     scrollTop: $("#replies").prop("scrollHeight")
+    // }, 0);
+    // document.getElementById('replies').scrollTop =  document.getElementById('replies').scrollHeight;
 }
 
 setInterval(checkFocus, 200);

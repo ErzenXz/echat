@@ -131,7 +131,7 @@
 
     <div class="main" id="main">
       <div class="chat hidden" id="chat">
-        <div class="controls" id="controls">
+        <div class="controls titleBIG" id="controls">
           <button id="leaveButton" title="Leave" class="btn-share" onclick="leaveRoom()">
             <i class="fas fa-sign-out-alt"></i>
           </button>
@@ -301,18 +301,31 @@
       <p id="messageMessage"></p>
     </div>
     <br />
-    <div class="controls">
-      <button onclick="ttsMessage()" class="buttonMenu">
-        Text to Speech
+    <div class="controls titleBIG">
+      <button onclick="ttsMessage()" class="buttonMenu" title="Text-to-Speech">
+        <i class="fa-solid fa-volume-high"></i>
       </button>
-      <button onclick="deleteChat()" class="buttonMenu hidden" id="deleteMessageButton">
-        Delete
+      <button onclick="deleteChat()" class="buttonMenu hidden" id="deleteMessageButton" title="Delete">
+        <i class="fa-solid fa-trash"></i>
       </button>
-      <button onclick="copyText()" class="buttonMenu">Copy</button>
-      <button onclick="printMessage('printarea')" class="buttonMenu">
-        Print
+      <button onclick="copyText()" class="buttonMenu" title="Copy">
+        <i class="fa-solid fa-copy"></i>
       </button>
-      <button onclick="closeMenu()" class="buttonMenu">Close</button>
+      <button onclick="printMessage('printarea')" class="buttonMenu" title="Print">
+        <i class="fa-solid fa-print"></i>
+      </button>
+      <button onclick="closeMenu()" class="buttonMenu" title="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="sendREPLAY">
+      <input type="text" name="reply" id="replyMessage" placeholder="Message...">
+      <button onclick="sendReply()" id="btn-send-reply">Send</button>
+    </div>
+
+    <div class="replies" id="replyDIV">
+      <ul id="replies"></ul>
     </div>
   </div>
 </body>
