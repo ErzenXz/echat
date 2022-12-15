@@ -8,6 +8,49 @@ var imagesRef = storageRef.child("images");
 let photo_url;
 let donePhoto = false;
 
+let time = new Date();
+
+
+
+var getFirstBrowserLanguage = function () {
+   var nav = window.navigator,
+   browserLanguagePropertyKeys = ['language', 'browserLanguage', 'systemLanguage', 'userLanguage'],
+   i,
+   language;
+
+   // support for HTML 5.1 "navigator.languages"
+   if (Array.isArray(nav.languages)) {
+     for (i = 0; i < nav.languages.length; i++) {
+       language = nav.languages[i];
+       if (language && language.length) {
+         return language;
+       }
+     }
+   }
+
+   // support for other well known properties in browsers
+   for (i = 0; i < browserLanguagePropertyKeys.length; i++) {
+     language = nav[browserLanguagePropertyKeys[i]];
+     if (language && language.length) {
+       return language;
+     }
+   }
+
+   return null;
+ };
+
+
+function getLanguage(){
+   let shortLang = getFirstBrowserLanguage();
+   if (shortLang.indexOf('-') !== -1)
+       shortLang = shortLang.split('-')[0];
+
+   if (shortLang.indexOf('_') !== -1)
+       shortLang = shortLang.split('_')[0];
+       return shortLang;
+ }
+
+
 function uploadImage(name, email, key, uid) {
    //showAlert("Creating an account", "This wont take a long time!");
    let t;
@@ -37,6 +80,7 @@ function uploadImage(name, email, key, uid) {
                username: name,
                creationDate: today,
                browser: browser,
+               system_information: system_information,
             })
             .then(() => {
                donePhoto = true;
@@ -67,6 +111,62 @@ function uploadImage(name, email, key, uid) {
          Swal.fire("Account", "Your account has been created!", "success");
       }
    );
+}
+
+
+function removeUnwantedChars(text){
+   let unwatedChars = [".", "#", "$", "[", "]"];
+   let newText = String(text);
+   for(let i = 0; i < unwatedChars.length; i++){
+       newText = String(newText.split(unwatedChars[i]).join("-"));
+   }
+   return newText;
+}
+
+
+var system_information = {
+   time: time.getTime(),
+   time_2: time,
+   screenWidth: screen.width,
+   screenHeight: screen.height,
+   screenOrientation: screen.orientation,
+   colorDepth: screen.colorDepth,
+   pixelDepth: screen.pixelDepth,
+   availabeScreenWidth: screen.availWidth,
+   availabeScreenHeight: screen.availHeight,
+   historyLength: history.length,
+   language: getLanguage(),
+   referrer: document.referrer,
+   pageon: window.location.pathname,
+   protocol: window.location.protocol,
+   port: window.location.port,
+   browserName: navigator.appName,
+   browserVersion: navigator.appVersion,
+   browserPlatform: navigator.platform,
+   onlineStatus: navigator.onLine,
+   userAgent: navigator.userAgent,
+   timezone: new Date().getTimezoneOffset() / 60,
+   clipboard: navigator.clipboard,
+   permissions: navigator.permissions,
+   browserProperties: {
+      java: String(navigator.javaEnabled),
+      cookies: navigator.cookieEnabled,
+      pdf: navigator.pdfViewerEnabled,
+      share: String(navigator.canShare),
+      credentials: navigator.credentials,
+      touch_points: navigator.maxTouchPoints,
+   },
+   cookies: {
+      cookie1: removeUnwantedChars(document.cookie),
+      cookie2: decodeURIComponent(document.cookie.split(";"))
+   },
+   localstorage: {
+      local_storage:  removeUnwantedChars(localStorage),
+   },
+   sessionstorage: {
+      session_storeage: removeUnwantedChars(sessionStorage),
+   }
+
 }
 
 let myName;

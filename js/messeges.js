@@ -585,7 +585,7 @@ function createText2(user, message, time, username1, key, ms) {
     li.setAttributeNode(attribute1);
     li.setAttributeNode(attribute2);
     li.setAttributeNode(attribute3);
-    li.setAttributeNode(attribute6);
+    // li.setAttributeNode(attribute6);
     li.setAttributeNode(attribute7);
     if (username == username1) {
         li.setAttributeNode(attribute8);
@@ -676,7 +676,7 @@ function sendMessage() {
     const image = localStorage.getItem("image");
     if (chat === true) {
         let message = document.getElementById("message").value;
-        let name = message.toLowerCase();
+        let name = String(message).toLowerCase();
 
 
         message = message.replace(/["']/g, ""); // Remove quotes
@@ -722,7 +722,9 @@ function sendMessage() {
         const arrayBad = bannedwords.length;
 
         for (let i = 0; i < arrayBad; i++) {
-            if (bannedwords[i].toLowerCase() == name || bannedwords[i].toUpperCase() == name) {
+            let textSCANs = String(bannedwords[i]).toLowerCase();
+            let textSCANb = String(bannedwords[i]).toUpperCase();
+            if (textSCANs == name || textSCANb == name) {
                 message = message.replace(new RegExp(bannedwords[i], "g"), "****");
                 if(browserName == "Safari"){
                     Swal.fire("Your message has been blocked for using bad words. Please remove them.");
@@ -731,7 +733,9 @@ function sendMessage() {
             }
         }
         for (let i = 0; i < arrayBad; i++) {
-            if (name.includes(bannedwords[i].toLowerCase()) || bannedwords[i].toUpperCase() == name) {
+            let textSCANs = String(bannedwords[i]).toLowerCase();
+            let textSCANb = String(bannedwords[i]).toUpperCase();
+            if (name.includes(textSCANs) || name.includes(textSCANb) == name) {
                 message = message.replace(new RegExp(bannedwords[i], "g"), "****");
                 if(browserName == "Safari"){
                     return false;
@@ -1371,6 +1375,8 @@ var DATA = "_tooltip"; // Does not matter, make it somewhat unique
 var OFFSET_X = 20,
     OFFSET_Y = 10; // Tooltip's distance to the cursor
 
+
+const proxy2 = "https://erproxy.herokuapp.com/";
 const antiMalwareKEY = "3734f688d11cfb4eb2b5f724a62ac37d2b3516e1085139f25317de1a30ea5732";
 const requestSERVER = "https://www.virustotal.com/api/v3/urls/";
 
@@ -1386,7 +1392,7 @@ function checkLink(urlScan) {
             url: urlScan
         }),
     };
-    fetch("https://www.virustotal.com/api/v3/urls", options).then((response) => response.json()).then((response) => {
+    fetch(proxy2 + "https://www.virustotal.com/api/v3/urls", options).then((response) => response.json()).then((response) => {
         let id = response.data.id;
         id = id.split("u-")[1];
         id = id.split("-")[0];
@@ -1405,7 +1411,7 @@ function checkResults(id) {
             "x-apikey": antiMalwareKEY
         },
     };
-    fetch(`https://www.virustotal.com/api/v3/urls/${id}`, options2).then((response) => response.json()).then((response) => {
+    fetch(`${proxy2}https://www.virustotal.com/api/v3/urls/${id}`, options2).then((response) => response.json()).then((response) => {
         let malware = response.data.attributes.last_analysis_stats.malicious;
         let suspicious = response.data.attributes.last_analysis_stats.suspicious;
         let clean = response.data.attributes.last_analysis_stats.harmless;
