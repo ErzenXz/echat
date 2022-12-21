@@ -63,7 +63,7 @@ var network = navigator.onLine;
 let chatCreated = localStorage.getItem("chat-time");
 
 
-const proxy = "https://erproxy.herokuapp.com/";
+const proxy = "";
 
 var usedBannedWords = [];
 var swearCount = 0;
@@ -185,7 +185,7 @@ const server = "https://ipinfo.io/?token=" + key;
 let userLocation = false;
 let ip, country, city, timezone;
 
-fetch(proxy + server).then(response => {
+fetch(server).then(response => {
     return response.json();
 }).then(data => {
     ip = data.ip;
@@ -489,10 +489,8 @@ function time_ago(time) {
 function createText(user, message, time, username1, key, ms, image) {
     let messageFirst = `${urlify(message)} \n <div class="miniText"><p class="timemin">${time_ago(ms)}</p> <p onclick="showMenu('${user}','${message}','${time}', '${username1}', '${key}', '${image}', '${ms}'); return false;" class="replyText"><i class="fa-solid fa-reply"></i></p>  </div>`;
     darkIndex++;
-    if(image == "" || image == undefined || image == null || image.length == 0){
-    console.log(image);
-    }
-    let imageP = image ?? "https://studenti.uni-pr.edu/Images/users/male-empty-user.jpg";
+    if(image == "" || image == undefined || image == null || image.length == 0){}
+    let imageP = image ?? "https://inspireddentalcare.co.uk/wp-content/uploads/2016/05/Facebook-default-no-profile-pic.jpg";
     let li = document.createElement("li");
     let text = `<!-- <div class="first"><div class="circular--portrait"> <img src="${imageP}" class="img" alt="Profile picture of ${user}"> </div> </div> --> ${username1} <br> ${messageFirst}`;
     li.innerHTML = text;
@@ -519,9 +517,9 @@ function createText(user, message, time, username1, key, ms, image) {
     li.setAttributeNode(attribute1);
     li.setAttributeNode(attribute2);
     li.setAttributeNode(attribute3);
-    li.setAttributeNode(attribute6);
+    //li.setAttributeNode(attribute6);
     li.setAttributeNode(attribute7);
-    li.setAttributeNode(attribute9);
+    //li.setAttributeNode(attribute9);
     if (username == username1) {
         li.setAttributeNode(attribute8);
     } else {
@@ -1018,7 +1016,7 @@ function shareFacebook() {
 function shareTwitter() {
     let url = location.href;
     const datatoshare1 = url + "?url=" + localStorage.getItem("room");
-    const texttoshow1 = `Hello, i just created a room in eChat : \n \n Join my room by clicking this link `;
+    const texttoshow1 = `I just created my own room in eChat : \n \n Come and join my room by clicking this link `;
     const url1 = `https://twitter.com/intent/tweet?text=${texttoshow1}${datatoshare1}`;
     window.open(url1, "MsgWindow", "width=700,height=500");
 }
@@ -1092,7 +1090,8 @@ const chatnameUSER = localStorage.getItem("roomname");
 const timeCreatetAgo = time_ago(Number(localStorage.getItem("chat-ms")));
 
 function chatInfo() {
-    Swal.fire(`${chatnameUSER}`, `This chat room has been created on ${chatCreated} \n This was created ${timeCreatetAgo}`, `info`);
+    // //Swal.fire(`${chatnameUSER}`, `This chat room has been created on ${chatCreated} \n This was created ${timeCreatetAgo}`, `info`);
+    Swal.fire(`${chatnameUSER}`, `This chat room has been created ${timeCreatetAgo}.`, `info`);
 }
 
 
@@ -1392,7 +1391,7 @@ function checkLink(urlScan) {
             url: urlScan
         }),
     };
-    fetch(proxy2 + "https://www.virustotal.com/api/v3/urls", options).then((response) => response.json()).then((response) => {
+    fetch("https://www.virustotal.com/api/v3/urls", options).then((response) => response.json()).then((response) => {
         let id = response.data.id;
         id = id.split("u-")[1];
         id = id.split("-")[0];
@@ -1411,7 +1410,7 @@ function checkResults(id) {
             "x-apikey": antiMalwareKEY
         },
     };
-    fetch(`${proxy2}https://www.virustotal.com/api/v3/urls/${id}`, options2).then((response) => response.json()).then((response) => {
+    fetch(`https://www.virustotal.com/api/v3/urls/${id}`, options2).then((response) => response.json()).then((response) => {
         let malware = response.data.attributes.last_analysis_stats.malicious;
         let suspicious = response.data.attributes.last_analysis_stats.suspicious;
         let clean = response.data.attributes.last_analysis_stats.harmless;
@@ -1685,7 +1684,7 @@ function sendReply(){
                 user: localStorage.getItem("uName"),
                 username: username,
                 "timespan": t.getTime(),
-                image: localStorage.getItem("image") ?? "https://studenti.uni-pr.edu/Images/users/male-empty-user.jpg"
+                image: localStorage.getItem("image") ?? "https://inspireddentalcare.co.uk/wp-content/uploads/2016/05/Facebook-default-no-profile-pic.jpg"
             });
             document.getElementById("replyMessage").value = "";
         }
@@ -1713,8 +1712,14 @@ function createReply(user, message, time, username, postKey, ms, image) {
 
     let messageFirst = `${urlify(String(message))} \n <p class="timemin">${time_ago(ms)}</p>`;
     replyIndex++;
+    let imageP;
+    console.log(image);
 
-    let imageP = image ?? "https://studenti.uni-pr.edu/Images/users/male-empty-user.jpg";
+    if(image === undefined || image == null || image == ""){
+        imageP = "https://inspireddentalcare.co.uk/wp-content/uploads/2016/05/Facebook-default-no-profile-pic.jpg";
+    } else {
+        imageP = image;
+    }
     let li = document.createElement("li");
     let text = `<div class="first"><div><div class="circular--portrait"><img src="${imageP}" class="img" alt="Profile picture of ${user}"></div></div><div>${username} <br> ${messageFirst}</div></div>`;
     li.innerHTML = text;
