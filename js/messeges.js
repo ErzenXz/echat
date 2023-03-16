@@ -8,7 +8,7 @@ const email = localStorage.getItem("uName"); // User Email Address
 const query = firebase.database().ref("rooms/" + room + "/chats").limitToLast(75);
 const rooms = firebase.database().ref("rooms/");
 const roomName = firebase.database().ref("rooms/" + room);
-const bannedwords = ["ahole", "anus", "ash0le", "ash0les", "asholes", "ass", "Ass Monkey", "Assface", "assh0le", "assh0lez", "asshole", "assholes", "assholz", "asswipe", "azzhole", "bassterds", "bastard", "bastards", "bastardz", "basterds", "basterdz", "Biatch", "bitch", "bitches", "Blow Job", "boffing", "butthole", "buttwipe", "c0ck", "c0cks", "c0k", "Carpet Muncher", "cawk", "cawks", "Clit", "cnts", "cntz", "cock", "cockhead", "cock-head", "cocks", "CockSucker", "cock-sucker", "crap", "cum", "cunt", "cunts", "cuntz", "dick", "dild0", "dild0s", "dildo", "dildos", "dilld0", "dilld0s", "dominatricks", "dominatrics", "dominatrix", "dyke", "enema", "f u c k", "f u c k e r", "fag", "fag1t", "faget", "fagg1t", "faggit", "faggot", "fagg0t", "fagit", "fags", "fagz", "faig", "faigs", "fart", "flipping the bird", "fuck", "fucker", "fuckin", "fucking", "fucks", "Fudge Packer", "fuk", "Fukah", "Fuken", "fuker", "Fukin", "Fukk", "Fukkah", "Fukken", "Fukker", "Fukkin", "g00k", "God-damned", "h00r", "h0ar", "h0re", "hells", "hoar", "hoor", "hoore", "jackoff", "jap", "japs", "jerk-off", "jisim", "jiss", "jizm", "jizz", "knob", "knobs", "knobz", "kunt", "kunts", "kuntz", "Lezzian", "Lipshits", "Lipshitz", "masochist", "masokist", "massterbait", "masstrbait", "masstrbate", "masterbaiter", "masterbate", "masterbates", "Motha Fucker", "Motha Fuker", "Motha Fukkah", "Motha Fukker", "Mother Fucker", "Mother Fukah", "Mother Fuker", "Mother Fukkah", "Mother Fukker", "mother-fucker", "Mutha Fucker", "Mutha Fukah", "Mutha Fuker", "Mutha Fukkah", "Mutha Fukker", "n1gr", "nastt", "nigger;", "nigur;", "niiger;", "niigr;", "orafis", "orgasim;", "orgasm", "orgasum", "oriface", "orifice", "orifiss", "packi", "packie", "packy", "paki", "pakie", "paky", "pecker", "peeenus", "peeenusss", "peenus", "peinus", "pen1s", "penas", "penis", "penis-breath", "penus", "penuus", "Phuc", "Phuck", "Phuk", "Phuker", "Phukker", "polac", "polack", "polak", "Poonani", "pr1c", "pr1ck", "pr1k", "pusse", "pussee", "pussy", "puuke", "puuker", "queer", "queers", "queerz", "qweers", "qweerz", "qweir", "recktum", "rectum", "retard", "sadist", "scank", "schlong", "screwing", "semen", "sex", "sexy", "Sh!t", "sh1t", "sh1ter", "sh1ts", "sh1tter", "sh1tz", "shit", "shits", "shitter", "Shitty", "Shity", "shitz", "Shyt", "Shyte", "Shytty", "Shyty", "skanck", "skank", "skankee", "skankey", "skanks", "Skanky", "slag", "slut", "sluts", "Slutty", "slutz", "son-of-a-bitch", "turd", "va1jina", "vag1na", "vagiina", "vagina", "vaj1na", "vajina", "vullva", "vulva", "w0p", "wh00r", "wh0re", "whore", "xrated", "xxx", "b!+ch", "bitch", "blowjob", "clit", "arschloch", "fuck", "shit", "ass", "asshole", "b!tch", "b17ch", "b1tch", "bastard", "bi+ch", "boiolas", "buceta", "c0ck", "cawk", "chink", "cipa", "clits", "cock", "cum", "cunt", "dildo", "dirsa", "ejakulate", "fatass", "fcuk", "fuk", "fux0r", "hoer", "hore", "jism", "kawk", "l3itch", "l3i+ch", "lesbian", "masturbate", "masterbat*", "masterbat3", "motherfucker", "s.o.b.", "mofo", "nazi", "nigga", "nigger", "nutsack", "phuck", "pimpis", "pusse", "pussy", "scrotum", "sh!t", "shemale", "shi+", "sh!+", "slut", "smut", "teets", "boobs", "b00bs", "teez", "testical", "testicle", "w00se", "jackoff", "wank", "whoar", "whore", "*damn", "*dyke", "*fuck*", "*shit*", "@$$", "amcik", "andskota", "arse*", "assrammer", "ayir", "bi7ch", "bitch*", "bollock*", "breasts", "butt-pirate", "cabron", "cazzo", "chraa", "chuj", "Cock*", "cunt*", "d4mn", "daygo", "dego", "dick*", "dike*", "dupa", "dziwka", "ejackulate", "Ekrem*", "Ekto", "enculer", "faen", "fag*", "fanculo", "fanny", "feces", "feg", "Felcher", "ficken", "fitt*", "Flikker", "foreskin", "Fotze", "Fu(*", "fuk*", "futkretzn", "gook", "guiena", "h0r", "h4x0r", "helvete", "hoer*", "honkey", "Huevon", "hui", "injun", "jizz", "kanker*", "kike", "klootzak", "kraut", "knulle", "kuk", "kuksuger", "Kurac", "kurwa", "kusi*", "kyrpa*", "lesbo", "mamhoon", "masturbat*", "merd*", "mibun", "monkleigh", "mouliewop", "muie", "mulkku", "muschi", "nazis", "nepesaurio", "nigger*", "orospu", "paska*", "perse", "picka", "pierdol*", "pillu*", "pimmel", "piss*", "pizda", "poontsee", "poop", "porn", "p0rn", "pr0n", "preteen", "pula", "pule", "puta", "puto", "qahbeh", "queef*", "rautenberg", "schaffer", "scheiss*", "schlampe", "schmuck", "screw", "sh!t*", "sharmuta", "sharmute", "shipal", "shiz", "skribz", "skurwysyn", "sphencter", "spic", "spierdalaj", "splooge", "suka", "b00b*", "testicle*", "twat", "vittu", "wank*", "wetback*", "wichser", "wop*", "yed", "zabourah", "pidhi", "pirdhu", "pidh", "pidhuc", "kari", "kar", "karuc", "piqk", "piqken", "muti", "mut", "pshurq", "shurr", "karlesh", "qirje", "gay", "bitch", "snitch", "qifsha", "gojore", "hanksh mutin", "mutin", "qifsha nanen", "qifsha motren", "qifsha familjen", "ta qifsha", "qifsha", "hanksh karin", "qifsha ropt", "seks", "sex", "porn", "xnxx", "x n x x", "x nxx", "pornhub", "kaka", "seksi", "qihemi", "qihem", "qifsha", "xvideos", ];
+const bannedwords = ["ahole", "anus", "ash0le", "ash0les", "asholes", "ass", "Ass Monkey", "Assface", "assh0le", "assh0lez", "asshole", "assholes", "assholz", "asswipe", "azzhole", "bassterds", "bastard", "bastards", "bastardz", "basterds", "basterdz", "Biatch", "bitch", "bitches", "Blow Job", "boffing", "butthole", "buttwipe", "c0ck", "c0cks", "c0k", "Carpet Muncher", "cawk", "cawks", "Clit", "cnts", "cntz", "cock", "cockhead", "cock-head", "cocks", "CockSucker", "cock-sucker", "crap", "cum", "cunt", "cunts", "cuntz", "dick", "dild0", "dild0s", "dildo", "dildos", "dilld0", "dilld0s", "dominatricks", "dominatrics", "dominatrix", "dyke", "enema", "f u c k", "f u c k e r", "fag", "fag1t", "faget", "fagg1t", "faggit", "faggot", "fagg0t", "fagit", "fags", "fagz", "faig", "faigs", "fart", "flipping the bird", "fuck", "fucker", "fuckin", "fucking", "fucks", "Fudge Packer", "fuk", "Fukah", "Fuken", "fuker", "Fukin", "Fukk", "Fukkah", "Fukken", "Fukker", "Fukkin", "g00k", "God-damned", "h00r", "h0ar", "h0re", "hells", "hoar", "hoor", "hoore", "jackoff", "jap", "japs", "jerk-off", "jisim", "jiss", "jizm", "jizz", "knob", "knobs", "knobz", "kunt", "kunts", "kuntz", "Lezzian", "Lipshits", "Lipshitz", "masochist", "masokist", "massterbait", "masstrbait", "masstrbate", "masterbaiter", "masterbate", "masterbates", "Motha Fucker", "Motha Fuker", "Motha Fukkah", "Motha Fukker", "Mother Fucker", "Mother Fukah", "Mother Fuker", "Mother Fukkah", "Mother Fukker", "mother-fucker", "Mutha Fucker", "Mutha Fukah", "Mutha Fuker", "Mutha Fukkah", "Mutha Fukker", "n1gr", "nastt", "nigger;", "nigur;", "niiger;", "niigr;", "orafis", "orgasim;", "orgasm", "orgasum", "oriface", "orifice", "orifiss", "packi", "packie", "packy", "paki", "pakie", "paky", "pecker", "peeenus", "peeenusss", "peenus", "peinus", "pen1s", "penas", "penis", "penis-breath", "penus", "penuus", "Phuc", "Phuck", "Phuk", "Phuker", "Phukker", "polac", "polack", "polak", "Poonani", "pr1c", "pr1ck", "pr1k", "pusse", "pussee", "pussy", "puuke", "puuker", "queer", "queers", "queerz", "qweers", "qweerz", "qweir", "recktum", "rectum", "retard", "sadist", "scank", "schlong", "screwing", "semen", "sex", "sexy", "Sh!t", "sh1t", "sh1ter", "sh1ts", "sh1tter", "sh1tz", "shit", "shits", "shitter", "Shitty", "Shity", "shitz", "Shyt", "Shyte", "Shytty", "Shyty", "skanck", "skank", "skankee", "skankey", "skanks", "Skanky", "slag", "slut", "sluts", "Slutty", "slutz", "son-of-a-bitch", "turd", "va1jina", "vag1na", "vagiina", "vagina", "vaj1na", "vajina", "vullva", "vulva", "w0p", "wh00r", "wh0re", "whore", "xrated", "xxx", "b!+ch", "bitch", "blowjob", "clit", "arschloch", "fuck", "shit", "ass", "asshole", "b!tch", "b17ch", "b1tch", "bastard", "bi+ch", "boiolas", "buceta", "c0ck", "cawk", "chink", "cipa", "clits", "cock", "cum", "cunt", "dildo", "dirsa", "ejakulate", "fatass", "fcuk", "fuk", "fux0r", "hoer", "hore", "jism", "kawk", "l3itch", "l3i+ch", "lesbian", "masturbate", "masterbat*", "masterbat3", "motherfucker", "s.o.b.", "mofo", "nazi", "nigga", "nigger", "nutsack", "phuck", "pimpis", "pusse", "pussy", "scrotum", "sh!t", "shemale", "shi+", "sh!+", "slut", "smut", "teets", "boobs", "b00bs", "teez", "testical", "testicle", "w00se", "jackoff", "wank", "whoar", "whore", "*damn", "*dyke", "*fuck*", "*shit*", "@$$", "amcik", "andskota", "arse*", "assrammer", "ayir", "bi7ch", "bitch*", "bollock*", "breasts", "butt-pirate", "cabron", "cazzo", "chraa", "chuj", "Cock*", "cunt*", "d4mn", "daygo", "dego", "dick*", "dike*", "dupa", "dziwka", "ejackulate", "Ekrem*", "Ekto", "enculer", "faen", "fag*", "fanculo", "fanny", "feces", "feg", "Felcher", "ficken", "fitt*", "Flikker", "foreskin", "Fotze", "Fu(*", "fuk*", "futkretzn", "gook", "guiena", "h0r", "h4x0r", "helvete", "hoer*", "honkey", "Huevon", "hui", "injun", "jizz", "kanker*", "kike", "klootzak", "kraut", "knulle", "kuk", "kuksuger", "Kurac", "kurwa", "kusi*", "kyrpa*", "lesbo", "mamhoon", "masturbat*", "merd*", "mibun", "monkleigh", "mouliewop", "muie", "mulkku", "muschi", "nazis", "nepesaurio", "nigger*", "orospu", "paska*", "perse", "picka", "pierdol*", "pillu*", "pimmel", "piss*", "pizda", "poontsee", "poop", "porn", "p0rn", "pr0n", "preteen", "pula", "pule", "puta", "puto", "qahbeh", "queef*", "rautenberg", "schaffer", "scheiss*", "schlampe", "schmuck", "screw", "sh!t*", "sharmuta", "sharmute", "shipal", "shiz", "skribz", "skurwysyn", "sphencter", "spic", "spierdalaj", "splooge", "suka", "b00b*", "testicle*", "twat", "vittu", "wank*", "wetback*", "wichser", "wop*", "yed", "zabourah", "pidhi", "pirdhu", "pidh", "pidhuc", "kari", "kar", "karuc", "piqk", "piqken", "muti", "mut", "pshurq", "shurr", "karlesh", "qirje", "gay", "bitch", "snitch", "qifsha", "gojore", "hanksh mutin", "mutin", "qifsha nanen", "qifsha motren", "qifsha familjen", "ta qifsha", "qifsha", "hanksh karin", "qifsha ropt", "seks", "sex", "porn", "xnxx", "x n x x", "x nxx", "pornhub", "kaka", "seksi", "qihemi", "qihem", "qifsha", "xvideos",];
 
 const characterLimit = 30; // 30 characters limit
 let theme = localStorage.getItem("user-theme") ?? false;
@@ -37,23 +37,23 @@ if (t) {
 let items = 50;
 let others = [];
 
-function doDynamic(){
+function doDynamic() {
     items = items + 8;
     firebase.database().ref("rooms/" + room + "/chats").limitToLast(1 * items).on('child_added', function (snapshot) {
-    // Get the messages
+        // Get the messages
 
-    let owner = snapshot.val().user;
-    let message = snapshot.val().message;
-    let username = snapshot.val().username;
-    let times = snapshot.val().time;
-    let postKey = snapshot.key;
-    let ms = snapshot.val().timespan;
+        let owner = snapshot.val().user;
+        let message = snapshot.val().message;
+        let username = snapshot.val().username;
+        let times = snapshot.val().time;
+        let postKey = snapshot.key;
+        let ms = snapshot.val().timespan;
 
-    if(others.includes(postKey)){
-        return false;
-    }
-    others.push(postKey);
-    createText2(owner, message, times, username, postKey, ms);
+        if (others.includes(postKey)) {
+            return false;
+        }
+        others.push(postKey);
+        createText2(owner, message, times, username, postKey, ms);
 
     })
 }
@@ -62,6 +62,26 @@ function doDynamic(){
 var network = navigator.onLine;
 let chatCreated = localStorage.getItem("chat-time");
 
+
+
+// navigator.serviceWorker.register('./js/service-worker.js')
+//     .then(function(registration) {
+//       console.log('Service worker registered: ', registration);
+//     })
+//     .catch(function(error) {
+//       console.error('Error registering service worker: ', error);
+//     });
+
+
+//     var chatRoomRef = firebase.database().ref(`rooms/${room}/chats`);
+
+//     chatRoomRef.on('child_added', function(snapshot) {
+//       var message = snapshot.val();
+//       self.registration.showNotification(message.user, {
+//         body: message.message,
+//         icon: message.image
+//       });
+//     });
 
 const proxy = "";
 
@@ -174,7 +194,7 @@ ePicker.on("emoji", (emoji) => {
 
 // Check the user system theme and aplies it
 
-if (localStorage.getItem("room") == null) {} else {
+if (localStorage.getItem("room") == null) { } else {
     if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
         //changeTheme("dark");
     }
@@ -195,10 +215,10 @@ fetch(server).then(response => {
     userLocation = true;
 });
 
-function removeUnwantedChars(text){
+function removeUnwantedChars(text) {
     let unwatedChars = [".", "#", "$", "[", "]"];
     let newText = text;
-    for(let i = 0; i < unwatedChars.length; i++){
+    for (let i = 0; i < unwatedChars.length; i++) {
         newText = String(newText.split(unwatedChars[i]).join("-"));
     }
     return newText;
@@ -210,7 +230,7 @@ function createRoom() {
             return false;
         }
 
-        if(String(document.getElementById("roomname").value) == ""){
+        if (String(document.getElementById("roomname").value) == "") {
             Swal.fire("You  can't create rooms without adding a name!");
             return false;
         }
@@ -268,7 +288,7 @@ function createRoom() {
             return false;
         }
 
-        if(String(document.getElementById("roomname").value) == ""){
+        if (String(document.getElementById("roomname").value) == "") {
             Swal.fire("You  can't create rooms without adding a name!");
             return false;
         }
@@ -398,6 +418,7 @@ function urlify(text) {
     var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
     //var urlRegex = /(https?:\/\/[^\s]+)/g;
     let t = removeTags(text);
+    t = highlightCodeInText(t);
     return t.replace(urlRegex, function (url, b, c) {
         let isImageT = isImage(url);
         let isVideoT = isVideo(url);
@@ -432,64 +453,64 @@ function urlify(text) {
 
 function time_ago(time) {
 
-  switch (typeof time) {
-    case 'number':
-      break;
-    case 'string':
-      time = +new Date(time);
-      break;
-    case 'object':
-      if (time.constructor === Date) time = time.getTime();
-      break;
-    default:
-      time = +new Date();
-  }
-  var time_formats = [
-    [60, 'seconds', 1], // 60
-    [120, '1 minute ago', '1 minute from now'], // 60*2
-    [3600, 'minutes', 60], // 60*60, 60
-    [7200, '1 hour ago', '1 hour from now'], // 60*60*2
-    [86400, 'hours', 3600], // 60*60*24, 60*60
-    [172800, 'Yesterday', 'Tomorrow'], // 60*60*24*2
-    [604800, 'days', 86400], // 60*60*24*7, 60*60*24
-    [1209600, 'Last week', 'Next week'], // 60*60*24*7*4*2
-    [2419200, 'weeks', 604800], // 60*60*24*7*4, 60*60*24*7
-    [4838400, 'Last month', 'Next month'], // 60*60*24*7*4*2
-    [29030400, 'months', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
-    [58060800, 'Last year', 'Next year'], // 60*60*24*7*4*12*2
-    [2903040000, 'years', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
-    [5806080000, 'Last century', 'Next century'], // 60*60*24*7*4*12*100*2
-    [58060800000, 'centuries', 2903040000] // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
-  ];
-  var seconds = (+new Date() - time) / 1000,
-    token = 'ago',
-    list_choice = 1;
-
-  if (seconds == 0) {
-    return 'Just now'
-  }
-  if (seconds < 0) {
-    seconds = Math.abs(seconds);
-    token = 'from now';
-    list_choice = 2;
-  }
-  var i = 0,
-    format;
-  while (format = time_formats[i++])
-    if (seconds < format[0]) {
-      if (typeof format[2] == 'string')
-        return format[list_choice];
-      else
-        return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token;
+    switch (typeof time) {
+        case 'number':
+            break;
+        case 'string':
+            time = +new Date(time);
+            break;
+        case 'object':
+            if (time.constructor === Date) time = time.getTime();
+            break;
+        default:
+            time = +new Date();
     }
-  return time;
+    var time_formats = [
+        [60, 'seconds', 1], // 60
+        [120, '1 minute ago', '1 minute from now'], // 60*2
+        [3600, 'minutes', 60], // 60*60, 60
+        [7200, '1 hour ago', '1 hour from now'], // 60*60*2
+        [86400, 'hours', 3600], // 60*60*24, 60*60
+        [172800, 'Yesterday', 'Tomorrow'], // 60*60*24*2
+        [604800, 'days', 86400], // 60*60*24*7, 60*60*24
+        [1209600, 'Last week', 'Next week'], // 60*60*24*7*4*2
+        [2419200, 'weeks', 604800], // 60*60*24*7*4, 60*60*24*7
+        [4838400, 'Last month', 'Next month'], // 60*60*24*7*4*2
+        [29030400, 'months', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
+        [58060800, 'Last year', 'Next year'], // 60*60*24*7*4*12*2
+        [2903040000, 'years', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
+        [5806080000, 'Last century', 'Next century'], // 60*60*24*7*4*12*100*2
+        [58060800000, 'centuries', 2903040000] // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
+    ];
+    var seconds = (+new Date() - time) / 1000,
+        token = 'ago',
+        list_choice = 1;
+
+    if (seconds == 0) {
+        return 'Just now'
+    }
+    if (seconds < 0) {
+        seconds = Math.abs(seconds);
+        token = 'from now';
+        list_choice = 2;
+    }
+    var i = 0,
+        format;
+    while (format = time_formats[i++])
+        if (seconds < format[0]) {
+            if (typeof format[2] == 'string')
+                return format[list_choice];
+            else
+                return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token;
+        }
+    return time;
 }
 
 
 function createText(user, message, time, username1, key, ms, image) {
     let messageFirst = `${urlify(message)} \n <div class="miniText"><p class="timemin">${time_ago(ms)}</p> <p onclick="showMenu('${user}','${message}','${time}', '${username1}', '${key}', '${image}', '${ms}'); return false;" class="replyText"><i class="fa-solid fa-reply"></i></p>  </div>`;
     darkIndex++;
-    if(image == "" || image == undefined || image == null || image.length == 0){}
+    if (image == "" || image == undefined || image == null || image.length == 0) { }
     let imageP = image ?? "https://inspireddentalcare.co.uk/wp-content/uploads/2016/05/Facebook-default-no-profile-pic.jpg";
     let li = document.createElement("li");
     let text = `<!-- <div class="first"><div class="circular--portrait"> <img src="${imageP}" class="img" alt="Profile picture of ${user}"> </div> </div> --> ${username1} <br> ${messageFirst}`;
@@ -531,16 +552,16 @@ function createText(user, message, time, username1, key, ms, image) {
             li.setAttributeNode(attribute5);
         }
     }
-    if (inWebsite === true) {} else {
+    if (inWebsite === true) { } else {
         messagesNotSeen++;
         document.title = `(${messagesNotSeen}) unread messeges!`;
         setTimeout(() => {
             if (inWebsite) {
                 playAudio("newMessage");
-            } else {}
+            } else { }
         }, 750);
         if (music) {
-            if (localStorage.getItem(`message-${message}`) === true) {} else {
+            if (localStorage.getItem(`message-${message}`) === true) { } else {
                 let notify = new Notification(`New message from ${username1}`, {
                     body: message,
                     icon: image,
@@ -548,12 +569,12 @@ function createText(user, message, time, username1, key, ms, image) {
                 });
                 localStorage.setItem(`message-${message}`, true);
             }
-        } else {}
+        } else { }
     }
     $("#ulist").animate({
         scrollTop: $("#ulist").prop("scrollHeight")
     }, 0);
-    document.getElementById('ulist').scrollTop =  document.getElementById('ulist').scrollHeight;
+    document.getElementById('ulist').scrollTop = document.getElementById('ulist').scrollHeight;
 }
 
 function createText2(user, message, time, username1, key, ms) {
@@ -596,22 +617,22 @@ function createText2(user, message, time, username1, key, ms) {
             li.setAttributeNode(attribute5);
         }
     }
-    if (inWebsite === true) {} else {
+    if (inWebsite === true) { } else {
         messagesNotSeen++;
         document.title = `(${messagesNotSeen}) unread messeges!`;
         setTimeout(() => {
             if (inWebsite) {
                 playAudio("newMessage");
-            } else {}
+            } else { }
         }, 750);
         if (music) {
-            if (localStorage.getItem(`message-${message}`) === true) {} else {
+            if (localStorage.getItem(`message-${message}`) === true) { } else {
                 var notify = new Notification(`New message from ${username1}`, {
                     body: message,
                 });
                 localStorage.setItem(`message-${message}`, true);
             }
-        } else {}
+        } else { }
     }
 }
 
@@ -635,38 +656,38 @@ function hideRoomControls() {
     document.getElementById("chat").classList.remove("hidden");
 }
 
-function getTime(){
+function getTime() {
     let t = new Date();
-        let time;
-        if (t.getMonth() < 10) {
-            if (t.getHours() < 10) {
-                if (t.getMinutes() < 10) {
-                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
-                } else {
-                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
-                }
+    let time;
+    if (t.getMonth() < 10) {
+        if (t.getHours() < 10) {
+            if (t.getMinutes() < 10) {
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
             } else {
-                if (t.getMinutes() < 10) {
-                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":0" + t.getMinutes();
-                } else {
-                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":" + t.getMinutes();
-                }
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
             }
         } else {
-            if (t.getHours() < 10) {
-                if (t.getMinutes() < 10) {
-                    time = t.getDate() + "/" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
-                } else {
-                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
-                }
+            if (t.getMinutes() < 10) {
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":0" + t.getMinutes();
             } else {
-                if (t.getMinutes() < 10) {
-                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":0" + t.getMinutes();
-                } else {
-                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":" + t.getMinutes();
-                }
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":" + t.getMinutes();
             }
         }
+    } else {
+        if (t.getHours() < 10) {
+            if (t.getMinutes() < 10) {
+                time = t.getDate() + "/" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
+            } else {
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
+            }
+        } else {
+            if (t.getMinutes() < 10) {
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":0" + t.getMinutes();
+            } else {
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":" + t.getMinutes();
+            }
+        }
+    }
     return time;
 }
 
@@ -724,7 +745,7 @@ function sendMessage() {
             let textSCANb = String(bannedwords[i]).toUpperCase();
             if (textSCANs == name || textSCANb == name) {
                 message = message.replace(new RegExp(bannedwords[i], "g"), "****");
-                if(browserName == "Safari"){
+                if (browserName == "Safari") {
                     Swal.fire("Your message has been blocked for using bad words. Please remove them.");
                     return false;
                 }
@@ -735,7 +756,7 @@ function sendMessage() {
             let textSCANb = String(bannedwords[i]).toUpperCase();
             if (name.includes(textSCANs) || name.includes(textSCANb) == name) {
                 message = message.replace(new RegExp(bannedwords[i], "g"), "****");
-                if(browserName == "Safari"){
+                if (browserName == "Safari") {
                     return false;
                 }
             }
@@ -777,27 +798,27 @@ firebase.database().ref("rooms/" + room + "/chats").on("child_removed", function
 let browserName;
 fnBrowserDetect();
 
-function fnBrowserDetect(){
-                 
-         let userAgent = navigator.userAgent;
+function fnBrowserDetect() {
 
-         
-         if(userAgent.match(/chrome|chromium|crios/i)){
-             browserName = "Chrome";
-           }else if(userAgent.match(/firefox|fxios/i)){
-             browserName = "Firefox";
-           }  else if(userAgent.match(/safari/i)){
-             browserName = "Safari";
-           }else if(userAgent.match(/opr\//i)){
-             browserName = "Opera";
-           } else if(userAgent.match(/edg/i)){
-             browserName = "Edge";
-           }else{
-             browserName="No browser detection";
-           }
-         
-        return browserName + " browser";
-  }
+    let userAgent = navigator.userAgent;
+
+
+    if (userAgent.match(/chrome|chromium|crios/i)) {
+        browserName = "Chrome";
+    } else if (userAgent.match(/firefox|fxios/i)) {
+        browserName = "Firefox";
+    } else if (userAgent.match(/safari/i)) {
+        browserName = "Safari";
+    } else if (userAgent.match(/opr\//i)) {
+        browserName = "Opera";
+    } else if (userAgent.match(/edg/i)) {
+        browserName = "Edge";
+    } else {
+        browserName = "No browser detection";
+    }
+
+    return browserName + " browser";
+}
 
 function scrollWin() {
     window.scrollTo(300, 5000);
@@ -849,7 +870,7 @@ roomName.on("value", function (snapshot) {
         if (uuid === localStorage.getItem("chatOwner")) {
             // Only chat owner can do!
         }
-        if (done) {} else {
+        if (done) { } else {
             let html = ``;
             html2 = `<span id="chatname" onclick="chatInfo()">${chatname}</span>`;
             // html += `<button id="infoButton" class="btn-info" title="Info" onclick="chatInfo()"><i
@@ -925,24 +946,24 @@ function checkURL(url) {
     }
 
     Swal.fire({
-  title: 'Do you want to join this room?',
-  text: "You can always join back if you have the room code!",
-  icon: 'info',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Join!'
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire(
-      'Joined room!',
-      'Your have sucessfully join this room.',
-      'success'
-    );
-    joinRoom(b);
-    location.replace(c);
-  }
-})
+        title: 'Do you want to join this room?',
+        text: "You can always join back if you have the room code!",
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Join!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                'Joined room!',
+                'Your have sucessfully join this room.',
+                'success'
+            );
+            joinRoom(b);
+            location.replace(c);
+        }
+    })
 }
 
 function editRoom() {
@@ -1095,20 +1116,20 @@ function chatInfo() {
 }
 
 
-function defaultTheme(){
+function defaultTheme() {
 
     var isTrueSet = (theme == 'true');
 
-    if(isTrueSet){
+    if (isTrueSet) {
         changeTheme("dark");
     } else {
         changeTheme("light");
     }
 }
 
-function setUserTheme(){
+function setUserTheme() {
 
-    if(theme){ 
+    if (theme) {
         theme = false;
         changeTheme("light");
         localStorage.setItem("user-theme", false);
@@ -1234,7 +1255,7 @@ function deleteChat() {
                             showConfirmButton: false,
                             timer: 1500,
                         });
-                        
+
                     } else {
                         Swal.fire({
                             position: "top-end",
@@ -1551,45 +1572,45 @@ function translate(text){
 */
 var getFirstBrowserLanguage = function () {
     var nav = window.navigator,
-    browserLanguagePropertyKeys = ['language', 'browserLanguage', 'systemLanguage', 'userLanguage'],
-    i,
-    language;
+        browserLanguagePropertyKeys = ['language', 'browserLanguage', 'systemLanguage', 'userLanguage'],
+        i,
+        language;
 
     // support for HTML 5.1 "navigator.languages"
     if (Array.isArray(nav.languages)) {
-      for (i = 0; i < nav.languages.length; i++) {
-        language = nav.languages[i];
-        if (language && language.length) {
-          return language;
+        for (i = 0; i < nav.languages.length; i++) {
+            language = nav.languages[i];
+            if (language && language.length) {
+                return language;
+            }
         }
-      }
     }
 
     // support for other well known properties in browsers
     for (i = 0; i < browserLanguagePropertyKeys.length; i++) {
-      language = nav[browserLanguagePropertyKeys[i]];
-      if (language && language.length) {
-        return language;
-      }
+        language = nav[browserLanguagePropertyKeys[i]];
+        if (language && language.length) {
+            return language;
+        }
     }
 
     return null;
-  };
+};
 
 
-function getLanguage(){
+function getLanguage() {
     let shortLang = getFirstBrowserLanguage();
     if (shortLang.indexOf('-') !== -1)
         shortLang = shortLang.split('-')[0];
 
     if (shortLang.indexOf('_') !== -1)
         shortLang = shortLang.split('_')[0];
-        return shortLang;
-  }
+    return shortLang;
+}
 
 
-function showAlert(title, text){
-        Swal.fire({
+function showAlert(title, text) {
+    Swal.fire({
         title: title,
         html: text,
         timer: 1e3,
@@ -1606,8 +1627,8 @@ function showAlert(title, text){
 }
 
 
-function sendReply(){
-    if(messageKEY == false){
+function sendReply() {
+    if (messageKEY == false) {
         return false;
     }
 
@@ -1617,19 +1638,19 @@ function sendReply(){
     message = message.replace(/["']/g, ""); // Remove quotes
     message = removeTags(message); // Remove tags
 
-    if(message == "" || message.length < 0){
+    if (message == "" || message.length < 0) {
         Swal.fire("You can't send empty messages.")
         return false;
     }
-    
+
     let t = new Date();
     let time = getTime();
     if (t.getMonth() < 10) {
         if (t.getHours() < 10) {
             if (t.getMinutes() < 10) {
-                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
             } else {
-                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
             }
         } else {
             if (t.getMinutes() < 10) {
@@ -1639,59 +1660,59 @@ function sendReply(){
             }
         }
     } else {
-            if (t.getHours() < 10) {
-                if (t.getMinutes() < 10) {
-                    time = t.getDate() + "/" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
-                } else {
-                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
-                }
+        if (t.getHours() < 10) {
+            if (t.getMinutes() < 10) {
+                time = t.getDate() + "/" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
             } else {
-                if (t.getMinutes() < 10) {
-                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":0" + t.getMinutes();
-                } else {
-                    time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":" + t.getMinutes();
-                }
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "     0" + t.getHours() + ":" + t.getMinutes();
             }
-        }
-
-        const arrayBad = bannedwords.length;
-
-        for (let i = 0; i < arrayBad; i++) {
-            if (bannedwords[i] == name) {
-                message = message.replace(new RegExp(bannedwords[i], "g"), "****");
-                if(browserName == "Safari"){
-                    Swal.fire("Your message has been blocked for using bad words. Please remove them.");
-                    return false;
-                }
-            }
-        }
-        for (let i = 0; i < arrayBad; i++) {
-            if (name.includes(bannedwords[i])) {
-                message = message.replace(new RegExp(bannedwords[i], "g"), "****");
-                if(browserName == "Safari"){
-                    return false;
-                }
-            }
-        }
-        if (message.length >= messageLenght) {
-            Swal.fire(`You reached the maximun length limit of ${messageLenght} characters! (${message.length})`);
-            document.getElementById("message").value = "";
-            return false;
         } else {
-            firebase.database().ref("rooms/" + room + "/chats/" + messageKEY + "/reply").push().set({
-                message: message,
-                time: time,
-                user: localStorage.getItem("uName"),
-                username: username,
-                "timespan": t.getTime(),
-                image: localStorage.getItem("image") ?? "https://inspireddentalcare.co.uk/wp-content/uploads/2016/05/Facebook-default-no-profile-pic.jpg"
-            });
-            document.getElementById("replyMessage").value = "";
+            if (t.getMinutes() < 10) {
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":0" + t.getMinutes();
+            } else {
+                time = t.getDate() + "/0" + t.getMonth() + "/" + t.getFullYear() + "    " + t.getHours() + ":" + t.getMinutes();
+            }
         }
+    }
+
+    const arrayBad = bannedwords.length;
+
+    for (let i = 0; i < arrayBad; i++) {
+        if (bannedwords[i] == name) {
+            message = message.replace(new RegExp(bannedwords[i], "g"), "****");
+            if (browserName == "Safari") {
+                Swal.fire("Your message has been blocked for using bad words. Please remove them.");
+                return false;
+            }
+        }
+    }
+    for (let i = 0; i < arrayBad; i++) {
+        if (name.includes(bannedwords[i])) {
+            message = message.replace(new RegExp(bannedwords[i], "g"), "****");
+            if (browserName == "Safari") {
+                return false;
+            }
+        }
+    }
+    if (message.length >= messageLenght) {
+        Swal.fire(`You reached the maximun length limit of ${messageLenght} characters! (${message.length})`);
+        document.getElementById("message").value = "";
+        return false;
+    } else {
+        firebase.database().ref("rooms/" + room + "/chats/" + messageKEY + "/reply").push().set({
+            message: message,
+            time: time,
+            user: localStorage.getItem("uName"),
+            username: username,
+            "timespan": t.getTime(),
+            image: localStorage.getItem("image") ?? "https://inspireddentalcare.co.uk/wp-content/uploads/2016/05/Facebook-default-no-profile-pic.jpg"
+        });
+        document.getElementById("replyMessage").value = "";
+    }
 }
 
 
-function showReply(key){
+function showReply(key) {
     firebase.database().ref("rooms/" + room + "/chats/" + key + "/reply").orderByChild("ms").on("child_added", function (snapshot) {
         // Get the messages
         let owner = snapshot.val().user;
@@ -1710,18 +1731,21 @@ function createReply(user, message, time, username, postKey, ms, image) {
 
     let ul = document.getElementById("replies");
 
+
     let messageFirst = `${urlify(String(message))} \n <p class="timemin">${time_ago(ms)}</p>`;
     replyIndex++;
     let imageP;
     console.log(image);
 
-    if(image === undefined || image == null || image == ""){
+    let textF = breakIntoLines(messageFirst);
+
+    if (image === undefined || image == null || image == "") {
         imageP = "https://inspireddentalcare.co.uk/wp-content/uploads/2016/05/Facebook-default-no-profile-pic.jpg";
     } else {
         imageP = image;
     }
     let li = document.createElement("li");
-    let text = `<div class="first"><div><div class="circular--portrait"><img src="${imageP}" class="img" alt="Profile picture of ${user}"></div></div><div>${username} <br> ${messageFirst}</div></div>`;
+    let text = `<div class="first"><div><div class="circular--portrait"><img src="${imageP}" class="img" alt="Profile picture of ${user}"></div></div><div>${username} <br> ${textF}</div></div>`;
     li.innerHTML = text;
     ul.appendChild(li);
     let attribute1 = document.createAttribute("id");
@@ -1754,23 +1778,75 @@ function createReply(user, message, time, username, postKey, ms, image) {
             // li.setAttributeNode(attribute5);
         }
     }
-    if (inWebsite === true) {} else {
+    if (inWebsite === true) { } else {
         messagesNotSeen++;
         document.title = `(${messagesNotSeen}) unread messeges!`;
         setTimeout(() => {
             if (inWebsite) {
                 playAudio("newMessage");
-            } else {}
+            } else { }
         }, 750);
         if (music) {
             //
-        } else {}
+        } else { }
     }
     // No scrolling
     $("#replies").animate({
         scrollTop: $("#replies").prop("scrollHeight")
     }, 0);
-    document.getElementById('replies').scrollTop =  document.getElementById('replies').scrollHeight;
+    document.getElementById('replies').scrollTop = document.getElementById('replies').scrollHeight;
+}
+
+
+function breakIntoLines(str) {
+    // Split the string into an array of words
+    const words = str.split(" ");
+
+    // Initialize an empty array to store the lines
+    const lines = [];
+
+    // Initialize an empty string to store the current line
+    let currentLine = "";
+
+    // Loop through the array of words
+    for (let i = 0; i < words.length; i++) {
+        // Add the current word to the current line
+        currentLine += words[i] + " ";
+
+        // If the current line has 3-4 words, or if it is the last word in the array
+        if (currentLine.split(" ").length >= 3 || i === words.length - 1) {
+            // Push the current line to the array of lines
+            lines.push(currentLine.trim());
+
+            // Reset the current line to an empty string
+            currentLine = "";
+        }
+    }
+
+    // Return the array of lines, joined into a single string with newline characters
+    return lines.join("<br>");
+}
+
+
+function highlightCodeInText(text) {
+    const codeRegex = /(```(\w*)\n([\s\S]*?)\n```)|(`(.*?)`)/g;
+    return text.replace(codeRegex, (match, p1, p2, p3, p4, p5) => {
+        if (p1) {
+            const lang = p2 || "plaintext";
+            const code = p3.trim();
+            const codeElement = document.createElement("code");
+            codeElement.textContent = code;
+            codeElement.classList.add(lang);
+            hljs.highlightBlock(codeElement);
+            return `<pre><code class="${lang}">${codeElement.outerHTML}</code></pre>`;
+        } else {
+            const code = p5.trim();
+            const codeElement = document.createElement("code");
+            codeElement.textContent = code;
+            hljs.highlightBlock(codeElement);
+            return codeElement.outerHTML;
+        }
+    });
 }
 
 setInterval(checkFocus, 200);
