@@ -12,7 +12,7 @@ function makeCall(roomCode) {
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('id', 'iframe');
     // Allow camera and microphone access
-    iframe.setAttribute('allow', 'camera; microphone; autoplay; encrypted-media');
+    iframe.setAttribute('allow', 'camera; microphone; autoplay; display-capture; encrypted-media');
     // Allow fullscreen
     iframe.setAttribute('allowfullscreen', 'true');
     // Make the iframe responsive and scale it to the screen size  - 15% on all sides, and give a class
