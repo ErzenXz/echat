@@ -7,6 +7,7 @@
   <title>eChat • Messeges</title>
   <link rel="stylesheet" media="screen and (min-width: 1400px)" href="css/messeges.css" />
   <link rel="stylesheet" media="screen and (max-width: 1399px)" href="css/mobile.css" />
+  <link rel="stylesheet" href="css/video.css">
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
@@ -37,6 +38,7 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-database.js"></script>
   <script defer src="js/messeges.js"></script>
   <script defer src="js/theme.js"></script>
+  <script defer src="js/video.js"></script>
   <script type="text/javascript" src="https://www.termsfeed.com/public/cookie-consent/4.0.0/cookie-consent.js"
     charset="UTF-8" defer></script>
 
@@ -155,6 +157,10 @@
                   --fa-animation-duration: 10s;
                   --fa-animation-iteration-count: 100;
                 "></i>
+          </button>
+          <button id="videoButton" class="btn-video" title="Video Call"
+            onclick="makeCall(localStorage.getItem('room'))">
+            <i class="fa-solid fa-video"></i>
           </button>
           <button id="emoji-button" class="btn-emoji" title="Emojis" onclick="showEmoji()">
             <i class="fas fa-icons"></i>
