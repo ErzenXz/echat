@@ -14,13 +14,31 @@
     transform: translate(-50%, -50%);
     border-radius: 12px;
     z-index: 9999;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
     padding: 10px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
     width: 80%;
     height: 80%;
     overflow: hidden;
 }
+
+/* A really really smoth zoom popup animation */
+
+@keyframes popup {
+    0% {
+        transform: scale(0.5);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+
+
+
 
 /* Style the close and minimize buttons */
 
@@ -72,4 +90,32 @@
     transition: transform 0.5s ease !important;
     width: 650px;
     height: 350px;
+}
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 100000;
+}
+
+
+.loading-spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+.hidden {
+    display: none;
 }

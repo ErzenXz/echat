@@ -3,6 +3,7 @@
 // A function that takes the room code, and makes a iframe
 
 function makeCall(roomCode) {
+    document.getElementById("loading1").classList.remove("hidden");
     let div = document.createElement('div');
     var iframe = document.createElement('iframe');
     iframe.setAttribute('src', 'https://video.erzen.tk/room/' + roomCode);
@@ -11,6 +12,7 @@ function makeCall(roomCode) {
     iframe.setAttribute('allowfullscreen', 'true');
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('id', 'iframe');
+    iframe.setAttribute('onload', 'document.getElementById("loading1").classList.add("hidden");');
     // Allow camera and microphone access
     iframe.setAttribute('allow', 'camera; microphone; autoplay; display-capture; encrypted-media');
     // Allow fullscreen

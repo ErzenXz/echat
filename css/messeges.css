@@ -373,12 +373,13 @@ body {
 }
 
 ul {
+    /* display: flex;
+    flex-direction: column; */
     list-style: none;
     height: 500px;
     max-height: 500px;
     overflow-y: scroll;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    gap: 0px;
 }
 
 li {
@@ -387,9 +388,8 @@ li {
     min-width: 175px;
     width: fit-content;
     height: auto;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 10px;
-    margin: 10px;
     margin-bottom: 25px;
     color: var(--text-color);
     font-size: 16px;
@@ -504,12 +504,12 @@ li:active {
     cursor: pointer;
 }
 
-.usernameColor {
+/* .usernameColor {
     width: fit-content;
     background-color: #0099ff;
     padding: 5px;
     border-radius: 10px;
-}
+} */
 
 .share-menu {
     width: 80vw;
@@ -948,10 +948,11 @@ iframe {
     font-size: 55px;
 }
 
-/* .myMessage {
-    background-color: #333;
-} */
-
+/* Make this place into the right side */
+.myMessage {
+    margin-left: auto;
+    margin-right: 20px;
+}
 
 .myMessage::first-line {
     color: #3b73bb;

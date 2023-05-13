@@ -851,10 +851,15 @@ iframe {
     font-size: 55px;
 }
 
+.myMessage {
+    margin-left: auto;
+    margin-right: 20px;
+}
 
+/* 
 .myMessage::first-line {
     color: #3b73bb;
-}
+} */
 
 .timemin {
     font-size: 12px;
