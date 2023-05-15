@@ -16,6 +16,18 @@ let t = false;
 let u;
 let messageKEY = false;
 
+let startTime;
+// Event listener when body fully loads
+
+document.body.onload = function () {
+    startTime = new Date().getTime();
+};
+
+// Enable client-side prediction
+firebase.database().goOnline();
+
+// Get the start time
+
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         uuid = user.uid;
@@ -386,6 +398,30 @@ function joinRoom(code) {
     }
 }
 
+
+function badWordFilter(badWords, text) {
+    const goodWords = ["*potato*", "*tomato*", "*love*", "*banana*", "*sugar*", "*noob*", "*bighead*", "*pp*"];
+
+    // Split the text into an array of words
+    const words = text.split(/\b/);
+
+    // Loop through each word and check if it's a bad word
+    for (let i = 0; i < words.length; i++) {
+        let word = words[i];
+
+        // Check if the word is a bad word
+        if (badWords.includes(word.toLowerCase().replace(/[^a-zA-Z0-9]/g, ""))) {
+
+            // Replace the bad word with a good word
+            const goodWord = goodWords[Math.floor(Math.random() * goodWords.length)];
+            words[i] = goodWord;
+        }
+    }
+
+    // Join the array of words back into a string
+    return words.join("");
+}
+
 function isImage(url) {
     return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
 }
@@ -506,9 +542,20 @@ function time_ago(time) {
     return time;
 }
 
+function updateTime(element) {
+    const timestamp = Number(element.getAttribute('id').replace('time-', ''));
+    const formattedTime = time_ago(timestamp);
+    element.textContent = formattedTime;
+}
+function updateTime2(element) {
+    const timestamp = Number(element.getAttribute('id').replace('times-', ''));
+    const formattedTime = time_ago(timestamp);
+    element.textContent = formattedTime;
+}
+
 
 function createText(user, message, time, username1, key, ms, image) {
-    let messageFirst = `${urlify(message)} \n <div class="miniText"><p class="timemin">${time_ago(ms)}</p> <p onclick="showMenu('${user}','${message}','${time}', '${username1}', '${key}', '${image}', '${ms}'); return false;" class="replyText"><i class="fa-solid fa-reply"></i></p>  </div>`;
+    let messageFirst = `${urlify(message)} \n <div class="miniText"><p id="time-${ms}" class="timemin">${time_ago(ms)}</p> <p onclick="showMenu('${user}','${message}','${time}', '${username1}', '${key}', '${image}', '${ms}'); return false;" class="replyText"><i class="fa-solid fa-reply"></i></p>  </div>`;
     darkIndex++;
     if (image == "" || image == undefined || image == null || image.length == 0) { }
     let imageP = image ?? "https://inspireddentalcare.co.uk/wp-content/uploads/2016/05/Facebook-default-no-profile-pic.jpg";
@@ -575,6 +622,14 @@ function createText(user, message, time, username1, key, ms, image) {
         scrollTop: $("#ulist").prop("scrollHeight")
     }, 0);
     document.getElementById('ulist').scrollTop = document.getElementById('ulist').scrollHeight;
+
+    // Get the timestamp element that was just added to the DOM
+    let timestampElement = document.getElementById(`time-${ms}`);
+
+    // Set an interval to update the timestamp every second
+    setInterval(() => {
+        updateTime(timestampElement);
+    }, 1000);
 }
 
 function createText2(user, message, time, username1, key, ms) {
@@ -738,29 +793,33 @@ function sendMessage() {
             return false;
         }
 
-        const arrayBad = bannedwords.length;
+        // const arrayBad = bannedwords.length;
 
-        for (let i = 0; i < arrayBad; i++) {
-            let textSCANs = String(bannedwords[i]).toLowerCase();
-            let textSCANb = String(bannedwords[i]).toUpperCase();
-            if (textSCANs == name || textSCANb == name) {
-                message = message.replace(new RegExp(bannedwords[i], "g"), "****");
-                if (browserName == "Safari") {
-                    Swal.fire("Your message has been blocked for using bad words. Please remove them.");
-                    return false;
-                }
-            }
-        }
-        for (let i = 0; i < arrayBad; i++) {
-            let textSCANs = String(bannedwords[i]).toLowerCase();
-            let textSCANb = String(bannedwords[i]).toUpperCase();
-            if (name.includes(textSCANs) || name.includes(textSCANb) == name) {
-                message = message.replace(new RegExp(bannedwords[i], "g"), "****");
-                if (browserName == "Safari") {
-                    return false;
-                }
-            }
-        }
+        // for (let i = 0; i < arrayBad; i++) {
+        //     let textSCANs = String(bannedwords[i]).toLowerCase();
+        //     let textSCANb = String(bannedwords[i]).toUpperCase();
+        //     if (textSCANs == name || textSCANb == name) {
+        //         message = message.replace(new RegExp(bannedwords[i], "g"), "****");
+        //         if (browserName == "Safari") {
+        //             Swal.fire("Your message has been blocked for using bad words. Please remove them.");
+        //             return false;
+        //         }
+        //     }
+        // }
+        // for (let i = 0; i < arrayBad; i++) {
+        //     let textSCANs = String(bannedwords[i]).toLowerCase();
+        //     let textSCANb = String(bannedwords[i]).toUpperCase();
+        //     if (name.includes(textSCANs) || name.includes(textSCANb) == name) {
+        //         message = message.replace(new RegExp(bannedwords[i], "g"), "****");
+        //         if (browserName == "Safari") {
+        //             return false;
+        //         }
+        //     }
+        // }
+
+        message = badWordFilter(bannedwords, message);
+
+
         if (message.length >= messageLenght) {
             Swal.fire(`You reached the maximun length limit! (${message.length})`);
             document.getElementById("message").value = "";
@@ -823,7 +882,15 @@ function fnBrowserDetect() {
 function scrollWin() {
     window.scrollTo(300, 5000);
 }
+
+let latency1 = [];
+
 query.on("child_added", function (snapshot) {
+    var endTime = new Date().getTime();
+    var latency = endTime - startTime;
+    startTime = new Date().getTime();
+    latency1.push(latency);
+
     // Get the messages
     let owner = snapshot.val().user;
     let message = snapshot.val().message;
@@ -834,9 +901,22 @@ query.on("child_added", function (snapshot) {
     let image = snapshot.val().image;
     others.push(postKey);
     createText(owner, message, times, username, postKey, ms, image);
+
     document.getElementById("loading").style.display = "none";
     enableChat();
 });
+
+function calculateLatency(array) {
+    let sum = 0;
+    for (let i = 0; i < array.length; i++) {
+        sum += array[i];
+    }
+
+    let avg = sum / array.length;
+    avg = Math.round(avg);
+
+    return avg;
+}
 
 rooms.on("child_added", function (snapshot) {
     // Get the messages
@@ -862,6 +942,7 @@ roomName.on("value", function (snapshot) {
     } else {
         let chatname = snapshot.val().roomRealName;
         document.getElementById("chatname").innerText = chatname;
+        document.getElementById("chatname").title = chatname;
         localStorage.setItem("chatOwner", snapshot.val().owner);
         localStorage.setItem("chat-joins", snapshot.val().joins);
         localStorage.setItem("chat-time", snapshot.val().time);
@@ -1190,7 +1271,15 @@ function showMenu(email, message, time, username, key, image, ms) {
     document.getElementById("emailMessage").innerText = `(${email})`;
     document.getElementById("usernameMessage").innerText = username;
     document.getElementById("timeMessage").innerText = time;
-    document.getElementById("secondsAgo").innerText = time_ago(Number(ms));
+    document.getElementById("secondsAgo").innerHTML = `<p id="times-${Number(ms)}">${time_ago(Number(ms))}</p>`;
+
+    let timestampElement = document.getElementById(`times-${ms}`);
+
+    // Set an interval to update the timestamp every second
+    setInterval(() => {
+        updateTime2(timestampElement);
+    }, 1000);
+
     document.getElementById("profileIMG").src = image;
     let mm = urlify(message);
     document.getElementById("messageMessage").innerHTML = mm;
@@ -1747,7 +1836,7 @@ function createReply(user, message, time, username, postKey, ms, image) {
     let li = document.createElement("li");
     let text = `<div class="first"><div><div class="circular--portrait"><img src="${imageP}" class="img" alt="Profile picture of ${user}"></div></div><div>${username} <br> ${textF}</div></div>`;
     li.innerHTML = text;
-    ul.appendChild(li);
+
     let attribute1 = document.createAttribute("id");
     let attribute2 = document.createAttribute("class");
     let attribute3 = document.createAttribute("title");
@@ -1790,6 +1879,7 @@ function createReply(user, message, time, username, postKey, ms, image) {
             //
         } else { }
     }
+    ul.appendChild(li);
     // No scrolling
     $("#replies").animate({
         scrollTop: $("#replies").prop("scrollHeight")
@@ -1852,3 +1942,6 @@ function highlightCodeInText(text) {
 setInterval(checkFocus, 200);
 
 
+setTimeout(() => {
+    console.log("The latency is " + calculateLatency(latency1) + "ms." + "\nFirst connection: " + latency1[0] + "ms");
+}, 2577);

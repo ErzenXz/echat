@@ -28,7 +28,7 @@
 
 
 body.dark {
-    --text-color: rgba(255, 255, 255, 0.7);
+    --text-color: rgba(238, 238, 238, 0.7);
     --body-background-color: #242526;
     --div-background-color: #2a2c2d;
 
@@ -395,7 +395,8 @@ li {
     font-size: 16px;
     overflow-wrap: break-word;
     position: relative;
-    transition: all 0.4s ease-in-out;
+    border: var(--border);
+    transition: all 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 li::after {
@@ -461,7 +462,8 @@ li:active {
     max-width: 50px;
     transition: all 0.3s ease-in-out;
     overflow-x: hidden;
-    animation: rainboxAnimation 5s ease-in-out infinite;
+    color: var(--text-color) !important;
+    /* animation: rainboxAnimation 5s ease-in-out infinite; */
 }
 
 #chatname:hover {
@@ -471,7 +473,6 @@ li:active {
 
 .no-password-email {
     outline: none;
-    border: 1px solid transparent;
     box-shadow: 0px 0px 20px -20px;
     padding: 20px;
     border-radius: 10px;
@@ -486,6 +487,7 @@ li:active {
     color: var(--li-color);
     user-select: none;
     box-shadow: 0px 0px 20px -20px;
+    border: var(--border);
 }
 
 .no-password-email:hover {
@@ -633,6 +635,11 @@ li:active {
     border: 1px solid black;
     color: var(--li-color);
     background-color: var(--div-background-color);
+    animation: fadein 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+#replies {
+    height: 250px;
 }
 
 .info {
@@ -646,6 +653,10 @@ li:active {
 #emailMessage {
     font-size: 14px;
     transition: all 0.3s ease-in-out 0ms;
+}
+
+#messageMessage {
+    white-space: pre-wrap;
 }
 
 .time {
@@ -666,6 +677,7 @@ li:active {
 #messageSize {
     font-size: 12px;
 }
+
 
 .buttonMenu {
     background-color: var(--input);
@@ -949,12 +961,12 @@ iframe {
 }
 
 /* Make this place into the right side */
-.myMessage {
+#ulist>.myMessage {
     margin-left: auto;
     margin-right: 20px;
 }
 
-.myMessage::first-line {
+#ulist>.myMessage::first-line {
     color: #3b73bb;
 }
 
@@ -1102,7 +1114,31 @@ iframe {
 
 #replies {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#replies>li>.first {
+    max-width: 500px;
+}
+
+#replies>li>.first>:nth-child(2) {
+    background-color: var(--body-background-color);
+    max-width: 500px;
+    min-width: 100px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 50px;
+    color: var(--text-color);
+    font-size: 12px;
+    overflow-wrap: break-word;
+    position: relative;
+    transition: all 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#replies>li>.first>:nth-child(2)::first-line {
+    font-weight: bold;
 }
 
 .miniText {
@@ -1153,4 +1189,20 @@ iframe {
 
 .btn-video:active {
     transform: scale(0.95);
+}
+
+
+
+/* Smooth pop up like fade animation */
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+        scale: 0.7;
+    }
+
+    to {
+        opacity: 1;
+        scale: 1;
+    }
 }
