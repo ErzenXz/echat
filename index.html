@@ -17,7 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito&family=Poppins:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js" defer></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js" defer></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.1.1/dist/index.js" defer></script>
   <link rel="stylesheet" href="css/lightbox.css" />
   <link id="css-file" rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
@@ -155,12 +156,15 @@
             <i class="fa-solid fa-microphone"></i>
           </button>
 
+
           <button id="settingButton" class="btn-settings" title="Settings" onclick="changeSettings()">
             <i class="fas fa-cog fa-spin" style="
                   --fa-animation-duration: 10s;
                   --fa-animation-iteration-count: 100;
                 "></i>
           </button>
+
+
           <button id="videoButton" class="btn-video" title="Video Call"
             onclick="makeCall(localStorage.getItem('room'))">
             <i class="fa-solid fa-video"></i>
@@ -168,7 +172,9 @@
           <button id="emoji-button" class="btn-emoji" title="Emojis" onclick="showEmoji()">
             <i class="fas fa-icons"></i>
           </button>
-
+          <button id="openFile" class="btn-video" title="Upload file" onclick="showFileUploadPopup()">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+          </button>
           <span id="chatname">Loading</span>
         </div>
         <ul id="ulist">

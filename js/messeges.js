@@ -1,4 +1,5 @@
 /*                                        Variables */
+
 //                  Constant variables (Variables that never change)
 var uuid = localStorage.getItem("uID"); // User ID
 const room = localStorage.getItem("room"); // Room Code
@@ -15,6 +16,7 @@ let theme = localStorage.getItem("user-theme") ?? false;
 let t = false;
 let u;
 let messageKEY = false;
+let menuOpen = false;
 
 let startTime;
 // Event listener when body fully loads
@@ -192,9 +194,13 @@ let messagesNotSeen = 0;
 let darkMode = false;
 
 //                  Emoji support
+
+
 const eButton = document.getElementById("#emoji-button");
 const ePicker = new EmojiButton({
-    theme: localStorage.getItem("mode") ?? "light"
+    theme: localStorage.getItem("mode") ?? "light",
+    recentsCount: 7,
+    // style: 'twemoji',
 });
 
 function showEmoji() {
@@ -203,6 +209,9 @@ function showEmoji() {
 ePicker.on("emoji", (emoji) => {
     document.getElementById("message").value += emoji;
 });
+
+
+
 
 // Check the user system theme and aplies it
 
@@ -243,7 +252,7 @@ function createRoom() {
         }
 
         if (String(document.getElementById("roomname").value) == "") {
-            Swal.fire("You  can't create rooms without adding a name!");
+            toast("You must provide a name to create rooms.");
             return false;
         }
 
@@ -289,7 +298,7 @@ function createRoom() {
                 dt: time + " " + t.getHours() + ":" + t.getMinutes() + ":" + t.getSeconds()
             }
         });
-        Swal.fire("This is your room code:                    " + roomName);
+        toast("This is your room code: " + roomName);
         localStorage.setItem("room", roomName);
         addRoom(realName, roomName);
         setTimeout(() => {
@@ -301,7 +310,7 @@ function createRoom() {
         }
 
         if (String(document.getElementById("roomname").value) == "") {
-            Swal.fire("You  can't create rooms without adding a name!");
+            toast("You must provide a name to create rooms.");
             return false;
         }
 
@@ -351,18 +360,18 @@ function joinRoom(code) {
             if (n) {
                 localStorage.setItem("room", realName);
                 firebase.database().ref("rooms/" + realName + "/chats").push().set({
-                    message: " joined the room! 👋",
+                    message: " joined the room! &#8203;          (+)",
                     time: time,
                     user: localStorage.getItem("uName"),
                     username: username,
                     "timespan": t.getTime(),
                     image
                 });
-                Swal.fire(`You successfully joined the chat room!`);
+                toast(`You successfully joined the chat room!`);
                 location.reload();
                 return true;
             } else {
-                Swal.fire("Error", `You're chat room code was not found!`, "error");
+                toast(`Your chat room couldn't be found!`);
                 document.getElementById("join-room-name").value = "";
                 return false;
             }
@@ -379,18 +388,18 @@ function joinRoom(code) {
             if (n) {
                 localStorage.setItem("room", realName);
                 firebase.database().ref("rooms/" + realName + "/chats").push().set({
-                    message: " joined the room! 👋",
+                    message: " joined the room! &#8203;          (+)",
                     time: time,
                     user: localStorage.getItem("uName"),
                     username: username,
                     "timespan": t.getTime(),
                     image
                 });
-                Swal.fire(`You successfully joined the chat room!`);
+                toast(`You successfully joined the chat room!`);
                 location.reload();
                 return true;
             } else {
-                Swal.fire("Error", `You're chat room code was not found!`, "error");
+                toast(`Your chat room code was not found!`);
                 document.getElementById("join-room-name").value = "";
                 return false;
             }
@@ -399,8 +408,32 @@ function joinRoom(code) {
 }
 
 
+// function badWordFilter(badWords, text) {
+//     const goodWords = ["duck", "bigfoot", "love", "have a crush on you", "be my sugar daddy", "potato", "pp", "3inch"];
+
+//     // Split the text into an array of words
+//     const words = text.split(/\b/);
+
+//     // Loop through each word and check if it's a bad word
+//     for (let i = 0; i < words.length; i++) {
+//         let word = words[i];
+
+//         // Check if the word is a bad word
+//         if (badWords.includes(word.toLowerCase().replace(/[^a-zA-Z0-9]/g, ""))) {
+
+//             // Replace the bad word with a good word
+//             const goodWord = goodWords[Math.floor(Math.random() * goodWords.length)];
+//             words[i] = goodWord;
+//         }
+//     }
+
+//     // Join the array of words back into a string
+//     let result = words.join("") + " &nbsp;";
+//     return result;
+// }
+
 function badWordFilter(badWords, text) {
-    const goodWords = ["*potato*", "*tomato*", "*love*", "*banana*", "*sugar*", "*noob*", "*bighead*", "*pp*"];
+    const goodWords = ["duck", "bigfoot", "love", "have a crush on you", "be my sugar daddy", "potato", "pp", "3inch"];
 
     // Split the text into an array of words
     const words = text.split(/\b/);
@@ -412,14 +445,15 @@ function badWordFilter(badWords, text) {
         // Check if the word is a bad word
         if (badWords.includes(word.toLowerCase().replace(/[^a-zA-Z0-9]/g, ""))) {
 
-            // Replace the bad word with a good word
+            // Replace the bad word with a good word followed by &nbsp;
             const goodWord = goodWords[Math.floor(Math.random() * goodWords.length)];
-            words[i] = goodWord;
+            words[i] = goodWord + " &nbsp;";
         }
     }
 
     // Join the array of words back into a string
-    return words.join("");
+    let result = words.join("");
+    return result;
 }
 
 function isImage(url) {
@@ -439,8 +473,19 @@ function isYouTube(url) {
     return result;
 }
 
+function isFile(url) {
+    let result = url.includes("file");
+    return result;
+}
+
+function isGjirafa(url) {
+    let result = url.includes("video.gjirafa");
+    return result;
+}
+
+
 function isWeather(url) {
-    let result = url.includes("/weather");
+    let result = url.includes("chat.weather");
     return result;
 }
 
@@ -460,16 +505,56 @@ function urlify(text) {
         let isVideoT = isVideo(url);
         let isAudioT = isAudio(url);
         let isYouTubeT = isYouTube(url);
+        let isFileT = isFile(url);
+        let isGjirafaT = isGjirafa(url);
         let isWeatherT = isWeather(url);
+        // if (isImageT) {
+        //     var url2 = c == "www." ? "http://" + url : url;
+        //     return ('\n\n <br> <a href="' + url2 + '" data-lightbox="image-1" data-title="' + url2 + '"> <img src="' + url2 + '" target="_blank" width="320px" height="auto" alt="Image" class="imageChat">' + "</img> </a><br>");
+        // } else if (isVideoT) {
+        //     let url2 = c == "www." ? "http://" + url : url;
+        //     return ('\n\n <br> <video class="videoChat lazy" width="320px" height="240px"  controls playsinline id="player1">  <source src="' + url2 + '"/></video><br>');
+        // } else if (isAudioT) {
+        //     let url2 = c == "www." ? "http://" + url : url;
+        //     return ('\n\n <audio class="audioChat" controls id="player1">  <source src="' + url2 + '"></audio><br>');
+        // } else if (isYouTubeT) {
+        //     let url2 = c == "www." ? "http://" + url : url;
+        //     if (url2.includes("embed")) {
+        //         // Ok
+        //         return ('\n\n <br> <iframe class="iframeChat" width="320px" height="240px" allowpaymentrequest="false" allowfullscreen="true" loading="lazy" src="' + url2 + '"></iframe><br>');
+        //     } else {
+        //         let r = url2.replace("watch?v=", "embed/");
+        //         r = r.split("&ab_channel")[0];
+        //         return ('\n\n <br> <iframe class="iframeChat" width="320px" height="240px" allowpaymentrequest="false" allowfullscreen="true" loading="lazy" src="' + r + '"></iframe><br>');
+        //     }
+        // } else {
+        //     var url2 = c == "www." ? "http://" + url : url;
+        //     return (`<a href="#${url2}" onclick="openLink('${url2}')" class="aChat">${url2}</a>`);
+        // }
+
         if (isImageT) {
             var url2 = c == "www." ? "http://" + url : url;
             return ('\n\n <br> <a href="' + url2 + '" data-lightbox="image-1" data-title="' + url2 + '"> <img src="' + url2 + '" target="_blank" width="320px" height="auto" alt="Image" class="imageChat">' + "</img> </a><br>");
         } else if (isVideoT) {
             let url2 = c == "www." ? "http://" + url : url;
             return ('\n\n <br> <video class="videoChat lazy" width="320px" height="240px"  controls playsinline id="player1">  <source src="' + url2 + '"/></video><br>');
+        } else if (isFileT) {
+            let url2 = c == "www." ? "http://" + url : url;
+            return (`
+            <div class="download-box">
+            <span>File: ${url2}</span>
+            <span><a href="${url2}" target="_blank" download="download">Download <i class="fa-solid fa-download"></i></a></span>
+          </div>
+          `);
         } else if (isAudioT) {
             let url2 = c == "www." ? "http://" + url : url;
             return ('\n\n <audio class="audioChat" controls id="player1">  <source src="' + url2 + '"></audio><br>');
+        } else if (isGjirafaT) {
+            let url2 = c == "www." ? "http://" + url : url;
+            let url3 = convertLink(url2);
+            return (`
+            <div style="padding-top:56.25%; position:relative; width:300px;"><iframe class="no-margin" style="position:absolute; left:0; top:0; width: 100%; height:100%;" src="${url3}" frameborder="0" allowfullscreen></iframe></div>
+            `);
         } else if (isYouTubeT) {
             let url2 = c == "www." ? "http://" + url : url;
             if (url2.includes("embed")) {
@@ -480,11 +565,21 @@ function urlify(text) {
                 r = r.split("&ab_channel")[0];
                 return ('\n\n <br> <iframe class="iframeChat" width="320px" height="240px" allowpaymentrequest="false" allowfullscreen="true" loading="lazy" src="' + r + '"></iframe><br>');
             }
+        } else if (isWeatherT) {
+            let url2 = c == "www." ? "http://" + url : url;
+            return (`\n\n<iframe src="https://s.apps.erzen.tk/weather" allow="geolocation" width="auto" height="240px" allowpaymentrequest="false" allowfullscreen="true" loading="lazy"></iframe>`);
+
         } else {
             var url2 = c == "www." ? "http://" + url : url;
-            return (`<a href="#${url2}" onclick="openLink('${url2}')" class="aChat">${url2}</a>`);
+            return (`<a href="${url2}?utm_source=${location.origin}&source=${location.origin}" target="_blank">${url2}</a>`);
         }
     });
+}
+
+function convertLink(originalLink) {
+    const baseURL = "https://video.gjirafa.com/";
+    const modifiedLink = originalLink.replace(baseURL, baseURL + "embed/");
+    return modifiedLink;
 }
 
 function time_ago(time) {
@@ -555,12 +650,39 @@ function updateTime2(element) {
 
 
 function createText(user, message, time, username1, key, ms, image) {
-    let messageFirst = `${urlify(message)} \n <div class="miniText"><p id="time-${ms}" class="timemin">${time_ago(ms)}</p> <p onclick="showMenu('${user}','${message}','${time}', '${username1}', '${key}', '${image}', '${ms}'); return false;" class="replyText"><i class="fa-solid fa-reply"></i></p>  </div>`;
+
+    let ms2 = String(message);
+    let hdn = "no";
+    let bdw = "no";
+
+    if (ms2.includes("&#8203;")) {
+        hdn = "yes";
+    } else {
+        hdn = "no";
+    }
+
+    if (ms2.includes("&nbsp;")) {
+        bdw = "yes2";
+    } else {
+        bdw = "no";
+    }
+
+
+    let messageFirst = `<span class="${bdw}">${urlify(message)}</span> \n <div class="miniText"><p id="time-${ms}" class="timemin">${time_ago(ms)}</p> <p onclick="showMenu('${user}','${message}','${time}', '${username1}', '${key}', '${image}', '${ms}'); return false;" class="replyText"><i class="fa-solid fa-reply"></i></p>  </div>`;
     darkIndex++;
     if (image == "" || image == undefined || image == null || image.length == 0) { }
     let imageP = image ?? "https://inspireddentalcare.co.uk/wp-content/uploads/2016/05/Facebook-default-no-profile-pic.jpg";
     let li = document.createElement("li");
-    let text = `<!-- <div class="first"><div class="circular--portrait"> <img src="${imageP}" class="img" alt="Profile picture of ${user}"> </div> </div> --> ${username1} <br> ${messageFirst}`;
+
+    let text;
+
+    if (hdn == "yes") {
+        text = `${username1} ${urlify(message)} <p id="time-${ms}" class="timemin2">${time_ago(ms)}</p>`;
+    } else {
+        text = `${username1} <br> ${messageFirst}`;
+    }
+
+
     li.innerHTML = text;
     ul.appendChild(li);
     let attribute1 = document.createAttribute("id");
@@ -574,13 +696,18 @@ function createText(user, message, time, username1, key, ms, image) {
     let attribute9 = document.createAttribute("ontouchend");
     let info = `${user} \n\n ${time}`;
     attribute1.value = `message-id-${key}`;
-    attribute2.value = "message-class animate__bounceIn";
-    attribute3.value = `${user} \n\n ${time}`;
+    attribute2.value = `message-class animate__bounceIn ${hdn}`;
+    if (bdw == "yes2") {
+        attribute3.value = `This message was flagged for containing bad words.`;
+    } else {
+        attribute3.value = `${user} \n\n ${time}`;
+    }
+
     attribute4.value = `You are mentioned in this message!\n\n ${info}`;
     attribute5.value = "notify";
     attribute6.value = `showMenu("${user}","${message}","${time}", "${username1}", "${key}", "${image}", "${ms}"); return false;`;
     attribute7.value = key;
-    attribute8.value = "myMessage";
+    attribute8.value = `myMessage  ${hdn}`;
     attribute9.value = `showMenu("${user}","${message}","${time}", "${username1}", "${key}", "${image}", "${ms}"); return false;`;
     li.setAttributeNode(attribute1);
     li.setAttributeNode(attribute2);
@@ -746,6 +873,8 @@ function getTime() {
     return time;
 }
 
+let usedMessages = [];
+
 function sendMessage() {
     const image = localStorage.getItem("image");
     if (chat === true) {
@@ -789,39 +918,22 @@ function sendMessage() {
 
 
         if (message == "") {
-            Swal.fire("You can't send empty messeges.");
+            toast("You can't send empty messeges.");
             return false;
         }
 
-        // const arrayBad = bannedwords.length;
+        let tt = String(message).toLowerCase().trim();
 
-        // for (let i = 0; i < arrayBad; i++) {
-        //     let textSCANs = String(bannedwords[i]).toLowerCase();
-        //     let textSCANb = String(bannedwords[i]).toUpperCase();
-        //     if (textSCANs == name || textSCANb == name) {
-        //         message = message.replace(new RegExp(bannedwords[i], "g"), "****");
-        //         if (browserName == "Safari") {
-        //             Swal.fire("Your message has been blocked for using bad words. Please remove them.");
-        //             return false;
-        //         }
-        //     }
-        // }
-        // for (let i = 0; i < arrayBad; i++) {
-        //     let textSCANs = String(bannedwords[i]).toLowerCase();
-        //     let textSCANb = String(bannedwords[i]).toUpperCase();
-        //     if (name.includes(textSCANs) || name.includes(textSCANb) == name) {
-        //         message = message.replace(new RegExp(bannedwords[i], "g"), "****");
-        //         if (browserName == "Safari") {
-        //             return false;
-        //         }
-        //     }
-        // }
+        if (usedMessages.includes(tt)) {
+            toast("You can't send the same message twice.");
+            return false;
+        }
 
         message = badWordFilter(bannedwords, message);
 
 
         if (message.length >= messageLenght) {
-            Swal.fire(`You reached the maximun length limit! (${message.length})`);
+            toast(`You reached the maximun length limit! (${message.length}/${messageLenght})`);
             document.getElementById("message").value = "";
             return false;
         } else {
@@ -833,6 +945,7 @@ function sendMessage() {
                 "timespan": t.getTime(),
                 image: image
             });
+            usedMessages.push(message);
             document.getElementById("message").value = "";
             playAudio("sendMessage");
             disableChat();
@@ -884,6 +997,15 @@ function scrollWin() {
 }
 
 let latency1 = [];
+
+let startTime1 = new Date().getTime();
+
+query.on("value", function (snapshot) {
+    var endTime = new Date().getTime();
+    document.getElementById("loading").style.display = "none";
+    var latency = endTime - startTime1;
+    console.log(`Latency: ${latency}ms`);
+});
 
 query.on("child_added", function (snapshot) {
     var endTime = new Date().getTime();
@@ -973,10 +1095,10 @@ function leaveRoom() {
         confirmButtonText: "Yes",
     }).then((result) => {
         if (result.value) {
-            document.getElementById("message").value = " left the room! 👋";
+            document.getElementById("message").value = " left the room! &#8203;          (-)";
             sendMessage();
             localStorage.removeItem("room");
-            Swal.fire(`You successfully left the chat room!`);
+            toast(`You successfully left the chat room!`);
             location.reload();
             document.getElementById("message").value = "";
         }
@@ -989,7 +1111,7 @@ function shareRoom() {
         document.getElementById("main").classList.add("hidden");
         shareQR();
     } else {
-        Swal.fire("Error!", `You don't have permission to share this chat room!`, "error");
+        toast(`You don't have permission to share this chat room!`);
     }
 }
 
@@ -1000,7 +1122,11 @@ function closeShareMenu() {
 checkRoom();
 document.addEventListener("keydown", function (event) {
     if (event.which === 13) {
-        sendMessage();
+        if (menuOpen == true) {
+            sendReply();
+        } else {
+            sendMessage();
+        }
     }
 });
 let chat = true;
@@ -1036,11 +1162,7 @@ function checkURL(url) {
         confirmButtonText: 'Join!'
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire(
-                'Joined room!',
-                'Your have sucessfully join this room.',
-                'success'
-            );
+            toast(`You successfully joined the chat room!`);
             joinRoom(b);
             location.replace(c);
         }
@@ -1264,6 +1386,7 @@ let em, mess, tim, use, keyy;
 
 function showMenu(email, message, time, username, key, image, ms) {
     messageKEY = key;
+    menuOpen = true;
     let uu = firebase.auth().currentUser;
     let menu = document.querySelector(".menus");
     menu.classList.remove("hidden");
@@ -1310,6 +1433,7 @@ function closeMenu() {
     document.getElementById("menus").classList.add("hidden");
     document.getElementById("chat").classList.remove("hidden");
     document.getElementById("page").classList.remove("hidden");
+    menuOpen = false;
     window.speechSynthesis.cancel();
 }
 let utter = new SpeechSynthesisUtterance();
@@ -1318,6 +1442,12 @@ utter.text = "";
 utter.volume = 0.75;
 
 function ttsMessage() {
+    // Check if it's already speaking
+    if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        return false;
+    }
+
     utter.text = mess;
     window.speechSynthesis.speak(utter);
 }
@@ -1337,22 +1467,11 @@ function deleteChat() {
                 if (user) {
                     if (user.email == em) {
                         firebase.database().ref("rooms/" + room + "/chats").child(keyy).remove();
-                        Swal.fire({
-                            position: "top-end",
-                            icon: "success",
-                            title: "The message (" + mess + ") was deleted.",
-                            showConfirmButton: false,
-                            timer: 1500,
-                        });
+
+                        toast("The message (" + mess + ") was deleted.");
 
                     } else {
-                        Swal.fire({
-                            position: "top-end",
-                            icon: "error",
-                            title: "You don't have permission to delete this message.",
-                            showConfirmButton: false,
-                            timer: 1500,
-                        });
+                        toast("You don't have permission to delete this message.");
                         return false;
                     }
                 }
@@ -1371,13 +1490,8 @@ function copyText() {
     /* Copy the text inside the text field */
     navigator.clipboard.writeText(copyText.value);
     document.getElementById("tt").classList.add("hidden");
-    Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "The text is copied to your clipboard.",
-        showConfirmButton: false,
-        timer: 1500,
-    });
+
+    toast("The text is copied to your clipboard.");
 }
 
 window.addEventListener("load", function (e) {
@@ -1728,7 +1842,7 @@ function sendReply() {
     message = removeTags(message); // Remove tags
 
     if (message == "" || message.length < 0) {
-        Swal.fire("You can't send empty messages.")
+        toast("You can't send empty replies.")
         return false;
     }
 
@@ -1770,7 +1884,7 @@ function sendReply() {
         if (bannedwords[i] == name) {
             message = message.replace(new RegExp(bannedwords[i], "g"), "****");
             if (browserName == "Safari") {
-                Swal.fire("Your message has been blocked for using bad words. Please remove them.");
+                toast("Your message has been blocked for using bad words. Please remove them.");
                 return false;
             }
         }
@@ -1784,7 +1898,7 @@ function sendReply() {
         }
     }
     if (message.length >= messageLenght) {
-        Swal.fire(`You reached the maximun length limit of ${messageLenght} characters! (${message.length})`);
+        toast(`You reached the maximun length limit of ${messageLenght} characters! (${message.length})`);
         document.getElementById("message").value = "";
         return false;
     } else {
@@ -1835,7 +1949,9 @@ function createReply(user, message, time, username, postKey, ms, image) {
     }
     let li = document.createElement("li");
     let text = `<div class="first"><div><div class="circular--portrait"><img src="${imageP}" class="img" alt="Profile picture of ${user}"></div></div><div>${username} <br> ${textF}</div></div>`;
-    li.innerHTML = text;
+    let text2 = `<div class="first">${username}: ${messageFirst}</div>`
+
+    li.innerHTML = text2;
 
     let attribute1 = document.createAttribute("id");
     let attribute2 = document.createAttribute("class");
@@ -1939,8 +2055,183 @@ function highlightCodeInText(text) {
     });
 }
 
-setInterval(checkFocus, 200);
+function showFileUploadPopup() {
+    const popupContainer = document.createElement('div');
+    popupContainer.classList.add('popup-container');
 
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.classList.add('file-input');
+
+    // Close button
+
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Close';
+    closeButton.classList.add('close-button');
+    closeButton.addEventListener('click', () => {
+        document.body.removeChild(popupContainer);
+    });
+    popupContainer.appendChild(closeButton);
+
+
+    const progressBar = document.createElement('progress');
+    progressBar.classList.add('progress-bar');
+    progressBar.classList.add('hidden');
+    progressBar.value = 0;
+    progressBar.max = 100;
+    progressBar.id = 'progressBar';
+
+    // Size text
+
+    const sizeText = document.createElement('p');
+    sizeText.textContent = 'File size: ';
+    sizeText.classList.add('size-text');
+
+    // uploaded vs total
+
+    const uploadedText = document.createElement('p');
+    uploadedText.textContent = 'Uploaded: ';
+    uploadedText.classList.add('uploaded-text');
+
+
+
+    const uploadButton = document.createElement('button');
+    uploadButton.textContent = 'Upload';
+    uploadButton.classList.add('upload-button');
+
+    popupContainer.appendChild(fileInput);
+    popupContainer.appendChild(sizeText);
+    popupContainer.appendChild(progressBar);
+    popupContainer.appendChild(uploadedText);
+    popupContainer.appendChild(uploadButton);
+    document.body.appendChild(popupContainer);
+
+    uploadButton.addEventListener('click', () => {
+        const file = fileInput.files[0];
+
+        if (file) {
+
+            sizeText.textContent = `File size: ${formatBytes(file.size)}`;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const xhr = new XMLHttpRequest();
+            document.getElementById("progressBar").classList.remove("hidden");
+
+            xhr.upload.addEventListener('progress', (event) => {
+                if (event.lengthComputable) {
+                    const percentage = (event.loaded / event.total) * 100;
+                    progressBar.value = percentage;
+                    uploadedText.textContent = `Uploaded: ${formatBytes(event.loaded)}/${formatBytes(event.total)}`;
+                }
+            });
+
+            xhr.addEventListener('load', () => {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    toast("File uploaded successfully!");
+                    document.getElementById("message").value = response.link;
+                    sendMessage();
+                    closePopup();
+                } else {
+                    console.error('Upload failed. Status:', xhr.status);
+                    toast("File upload failed!");
+                    closePopup();
+                }
+            });
+
+            xhr.addEventListener('error', () => {
+                console.error('Upload failed. An error occurred.');
+                toast("File upload failed!");
+                closePopup();
+            });
+
+            xhr.open('POST', 'https://file.io/?expires=1d', true);
+            xhr.send(formData);
+        } else {
+            console.error('No file selected.');
+            toast("No file selected!");
+            closePopup();
+        }
+    });
+
+    function closePopup() {
+        document.body.removeChild(popupContainer);
+    }
+}
+
+function formatBytes(bytes, decimals = 2) {
+    if (!+bytes) return '0 Bytes'
+
+    const k = 1024
+    const dm = decimals < 0 ? 0 : decimals
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
+}
+
+function toast(message, duration = 4500, delay = 0) {
+
+    // Check for existing toast class elements
+
+    const existingToast = document.querySelector('.toast');
+
+    if (existingToast) {
+        existingToast.remove();
+    }
+
+
+    const toastContainer = document.createElement('div');
+    toastContainer.style.position = 'fixed';
+    toastContainer.style.top = '1rem';
+    toastContainer.style.right = '1rem';
+    toastContainer.style.display = 'flex';
+    toastContainer.style.alignItems = 'center';
+    toastContainer.style.justifyContent = 'center';
+    toastContainer.style.width = '16rem';
+    toastContainer.style.padding = '1rem';
+    toastContainer.style.backgroundColor = '#1F2937';
+    toastContainer.style.color = '#FFF';
+    toastContainer.style.borderRadius = '0.25rem';
+    toastContainer.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.25)';
+    toastContainer.style.overflow = 'auto';
+    toastContainer.style.maxHeight = '500px';
+    toastContainer.style.minWidth = '200px';
+    toastContainer.style.width = 'fit-content';
+    toastContainer.style.zIndex = '9999';
+    toastContainer.setAttribute('class', 'toast');
+
+    const toastText = document.createElement('span');
+    toastText.style.whiteSpace = 'nowrap';
+    toastText.style.overflow = 'hidden';
+    toastText.style.textOverflow = 'ellipsis';
+    toastText.textContent = message;
+    toastContainer.appendChild(toastText);
+
+    document.body.appendChild(toastContainer);
+
+    setTimeout(() => {
+        toastContainer.style.opacity = '0';
+        setTimeout(() => {
+            toastContainer.remove();
+        }, 300);
+    }, duration + delay);
+
+    toast.dismiss = function () {
+        toastContainer.style.opacity = '0';
+        setTimeout(() => {
+            toastContainer.remove();
+        }, 300);
+    };
+}
+
+
+
+
+setInterval(checkFocus, 200);
 
 setTimeout(() => {
     console.log("The latency is " + calculateLatency(latency1) + "ms." + "\nFirst connection: " + latency1[0] + "ms");
