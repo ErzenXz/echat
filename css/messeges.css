@@ -213,6 +213,7 @@ body {
     transform: scale(0.95);
 }
 
+
 #btn-send-reply {
     padding: 5px;
     outline: none;
@@ -946,20 +947,24 @@ img {
 #menuItems {
     width: 9vw;
     height: 50px;
-    background-color: transparent;
+    background-color: var(--button-bg);
     color: var(--text-color);
     border: var(--border);
     border-radius: 10px;
     padding: 5px;
     margin-top: 30%;
     margin-right: 10px;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.25s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 #menuItems:hover {
-    background-color: var(--div-background-color);
+    background-color: var(--button-bg-hover);
     box-shadow: 0px 0px 10px -10px;
     cursor: pointer;
+}
+
+#menuItems:active {
+    transform: scale(0.95);
 }
 
 .te {

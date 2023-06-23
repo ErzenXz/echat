@@ -164,7 +164,7 @@ function addRoom(name, room) {
         }
     }
     if (t == true) {
-        console.log("This room is alerdy added!");
+        // console.log("This room is alerdy added!");
         return false;
     }
     let data = {
@@ -173,14 +173,14 @@ function addRoom(name, room) {
     };
     roomsArray.push(data);
     localStorage.setObj("roomss", roomsArray);
-    console.log("Succesfully added a room!");
+    // console.log("Succesfully added a room!");
 }
 for (let i = 2; i < roomsArray.length; i++) {
     createRoomList(roomsArray[i].name, roomsArray[i].room);
 }
 
 function openMenu() {
-    console.log(event.target.id);
+    // console.log(event.target.id);
 }
 
 //                  Variables that can be changed
@@ -245,7 +245,7 @@ function removeUnwantedChars(text) {
     return newText;
 }
 
-function createRoom() {
+async function createRoom() {
     if (userLocation) {
         if (uuid !== u.uid) {
             return false;
@@ -271,8 +271,14 @@ function createRoom() {
         var t = new Date();
         let time = t.getDate() + " " + t.getMonth() + " " + t.getFullYear();
         let roomNameOLD = "room-" + t.getTime() + uuid + "-" + document.getElementById("roomname").value + time + "-ww-server" + Math.floor(Math.random() * 10000000000);
-        let roomName = roomNameOLD.replace(/\s+/g, "");
-        roomName = removeUnwantedChars(roomName);
+        let roomName = String(roomNameOLD.replace(/\s+/g, ""));
+
+        // Hash roomName to make it shorter
+        roomName = await hash(String(roomName));
+
+        roomName = removeUnwantedChars(String(roomName));
+
+        console.log(roomName);
         let private_date;
 
         // Create the room
@@ -346,13 +352,32 @@ function createRoom() {
     }
 }
 
+async function hash(str) {
+    const hash = await hashWithSalt(str, "ww-server-" + Math.floor(Math.random() * 10000000000));
+
+    return hash;
+}
+
+async function hashWithSalt(text, salt) {
+    // Concatenate the salt and text
+    const saltedText = salt + text;
+
+    // Create a SHA-256 hash object
+    const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(saltedText));
+
+    // Convert the hash result to a hexadecimal string
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashedText = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+    return hashedText;
+}
+
 function joinRoom(code) {
     const image = localStorage.getItem("image");
     if (typeof code === "undefined") {
         let realName = document.getElementById("join-room-name").value;
         let t = new Date();
         let time = t.getDate() + " " + t.getMonth() + " " + t.getFullYear();
-        addRoom(realName, realName);
         if (realName === "") {
             return false;
         } else {
@@ -368,6 +393,7 @@ function joinRoom(code) {
                     image
                 });
                 toast(`You successfully joined the chat room!`);
+                addRoom(realName, realName);
                 location.reload();
                 return true;
             } else {
@@ -380,7 +406,6 @@ function joinRoom(code) {
         let realName = code;
         let t = new Date();
         let time = t.getDate() + " " + t.getMonth() + " " + t.getFullYear();
-        addRoom(realName, realName);
         if (realName === "") {
             return false;
         } else {
@@ -396,11 +421,13 @@ function joinRoom(code) {
                     image
                 });
                 toast(`You successfully joined the chat room!`);
+                addRoom(realName, realName);
                 location.reload();
                 return true;
             } else {
                 toast(`Your chat room code was not found!`);
                 document.getElementById("join-room-name").value = "";
+
                 return false;
             }
         }
@@ -499,7 +526,7 @@ function urlify(text) {
     var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
     //var urlRegex = /(https?:\/\/[^\s]+)/g;
     let t = removeTags(text);
-    t = highlightCodeInText(t);
+    //t = highlightCodeInText(t);
     return t.replace(urlRegex, function (url, b, c) {
         let isImageT = isImage(url);
         let isVideoT = isVideo(url);
@@ -1000,11 +1027,15 @@ let latency1 = [];
 
 let startTime1 = new Date().getTime();
 
-query.on("value", function (snapshot) {
+
+
+query.once("value", function (snapshot) {
     var endTime = new Date().getTime();
     document.getElementById("loading").style.display = "none";
     var latency = endTime - startTime1;
     console.log(`Latency: ${latency}ms`);
+    let url = location.href;
+    checkURL(url);
 });
 
 query.on("child_added", function (snapshot) {
@@ -1148,12 +1179,13 @@ function disableChat() {
 function checkURL(url) {
     let b = url.split("?url=")[1];
     let c = url.split("?url=")[0];
+
     if (b === undefined || b === null || b == localStorage.getItem("room")) {
         return false;
     }
 
     Swal.fire({
-        title: 'Do you want to join this room?',
+        title: `Do you want to join (${b})?`,
         text: "You can always join back if you have the room code!",
         icon: 'info',
         showCancelButton: true,
@@ -1199,22 +1231,17 @@ function editRoom() {
       location.reload();
       */
 }
-let url;
 let music = false;
 
 function allowMusic() {
-    url = location.href;
-    setTimeout(() => {
-        checkURL(url);
-    }, 2000);
     //setBrowserTheme();
     setTimeout(() => {
         music = true;
         notifyMe();
     }, 7500);
-    setTimeout(() => {
-        document.getElementById("total-chats").innerText = `Chats created ${roomID.length}`;
-    }, 2500);
+    // setTimeout(() => {
+    //     //document.getElementById("total-chats").innerText = `Chats created ${roomID.length}`;
+    // }, 2500);
 }
 
 function playAudio(id) {
@@ -1270,7 +1297,6 @@ function shareQR() {
     let url = location.href;
     url = url.split("?url=")[0];
     let qrValue = url + "?url=" + localStorage.getItem("room");
-    console.log(qrValue);
     if (!qrValue || preValue === qrValue) return;
     preValue = qrValue;
     qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${qrValue}`;
@@ -1344,44 +1370,11 @@ function setUserTheme() {
 }
 
 
-// function changeTheme(mode) {
-
-//     if(mode == "dark"){
-//         // Enable Dark Mode
-//         document.documentElement.style.setProperty("--li-color", "white");
-//         document.documentElement.style.setProperty("--li-background", "#343536");
-//         document.documentElement.style.setProperty("--li-chat-bubbles", "#343536");
-//         document.documentElement.style.setProperty("--buttons", "#00ADB5");
-//         document.documentElement.style.setProperty("--button-color", "white");
-//         document.documentElement.style.setProperty("--button-border", "none");
-//         document.documentElement.style.setProperty("--button-hover", "#18191A");
-//         document.body.classList.toggle("darkmode");
-//         document.getElementById("chat").style.backgroundColor = "#242526";
-//         document.getElementById("chat").classList.add("darkchat");
-//         document.getElementById("message").style.backgroundColor = "#343536";
-//         document.getElementById("chat").style.color = "white";
-
-//     } else if (mode == "light"){
-//         // Disable Dark Mode
-//         document.documentElement.style.setProperty("--li-color", "rgba(0, 0, 0, 0.85)");
-//         document.documentElement.style.setProperty("--li-background", "#F1F0F0");
-//         document.documentElement.style.setProperty("--li-chat-bubbles", "#efefef");
-//         document.documentElement.style.setProperty("--buttons", "white");
-//         document.documentElement.style.setProperty("--button-color", "black");
-//         document.documentElement.style.setProperty("--button-border", "#E0E1E4");
-//         document.documentElement.style.setProperty("--button-hover", "#F2F2F2");
-//         document.body.classList.remove("darkmode");
-//         document.getElementById("chat").style.backgroundColor = "white";
-//         document.getElementById("message").style.backgroundColor = "transparent";
-//         document.getElementById("chat").style.color = "black";
-//     } else {
-//         return false;
-//     }
-// }
 
 function changeSettings() {
-    location.replace("settings.html");
+    location.href = "../settings.html";
 }
+
 let em, mess, tim, use, keyy;
 
 function showMenu(email, message, time, username, key, image, ms) {
@@ -1436,6 +1429,7 @@ function closeMenu() {
     menuOpen = false;
     window.speechSynthesis.cancel();
 }
+
 let utter = new SpeechSynthesisUtterance();
 utter.lang = "en-US";
 utter.text = "";
@@ -1660,12 +1654,15 @@ function printMessage(divName) {
 }
 
 function joinVideo() {
-    location.href = "https://evideo.vercel.app/";
+    let a = document.createElement("a");
+    a.href = "https://video.erzen.tk";
+    a.target = "_blank";
+    a.click();
+    a.remove();
 }
 
 function openLink(url) {
     let u = url;
-    console.log(u);
     if (document.getElementById("chat").classList.contains("hidden")) {
         // Do nothing
     } else {
@@ -1938,7 +1935,6 @@ function createReply(user, message, time, username, postKey, ms, image) {
     let messageFirst = `${urlify(String(message))} \n <p class="timemin">${time_ago(ms)}</p>`;
     replyIndex++;
     let imageP;
-    console.log(image);
 
     let textF = breakIntoLines(messageFirst);
 
@@ -2230,8 +2226,9 @@ function toast(message, duration = 4500, delay = 0) {
 
 
 
-
 setInterval(checkFocus, 200);
+
+// allowMusic();  // Uncomment to allow sound effects
 
 setTimeout(() => {
     console.log("The latency is " + calculateLatency(latency1) + "ms." + "\nFirst connection: " + latency1[0] + "ms");

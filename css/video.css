@@ -21,6 +21,12 @@
     width: 80%;
     height: 80%;
     overflow: hidden;
+    cursor: grab;
+}
+
+
+.dragging {
+    cursor: grabbing;
 }
 
 /* A really really smoth zoom popup animation */
@@ -34,9 +40,6 @@
         transform: scale(1);
     }
 }
-
-
-
 
 
 
@@ -57,13 +60,33 @@
     border-radius: 12px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
     outline: none;
+    transition: all 0.24s ease-in-out 0ms;
+    color: black;
 }
 
 .minimize {
     padding: 5.5px;
     width: 50px;
     height: 30px;
-    font-size: 14px;
+    font-size: 12px;
+    z-index: 10000;
+    position: absolute;
+    top: 0;
+    right: 100px;
+    cursor: pointer;
+    background-color: #fff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    outline: none;
+    transition: all 0.24s 0ms;
+}
+
+.fullscreen {
+    padding: 5.5px;
+    width: 50px;
+    height: 30px;
+    font-size: 12px;
     z-index: 10000;
     position: absolute;
     top: 0;
@@ -74,6 +97,24 @@
     border-radius: 12px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
     outline: none;
+    transition: all 0.24s 0ms;
+}
+
+/* Style the close button on hover */
+
+.close:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+.minimize:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+.fullscreen:hover {
+    background-color: #f44336;
+    color: white;
 }
 
 .mini {

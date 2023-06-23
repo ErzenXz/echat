@@ -26,18 +26,30 @@ function makeCall(roomCode) {
     var close = document.createElement('button');
     close.setAttribute('class', 'close');
     close.setAttribute('onclick', 'closeVideo()');
-    close.innerHTML = 'X';
+    close.innerHTML = '<i title="Close" class="fa-solid fa-xmark"></i>';
     var minimize = document.createElement('button');
     minimize.setAttribute('class', 'minimize');
     minimize.setAttribute('onclick', 'minimizeVideo()');
-    minimize.innerHTML = '_';
+    minimize.innerHTML = `<i title="Minimize" class="fa-solid fa-window-minimize"></i>`;//'_';
+
+    // Fullscreen button
+    var fullscreen = document.createElement('button');
+    fullscreen.setAttribute('class', 'fullscreen');
+    fullscreen.setAttribute('onclick', 'fullscreenVideo()');
+    fullscreen.innerHTML = '<i title="Fullscreen" class="fa-solid fa-expand"></i>';
+
     div.appendChild(close);
     div.appendChild(minimize);
+    div.appendChild(fullscreen);
+
     div.appendChild(iframe);
 
     // Append the iframe to the body
 
     document.body.appendChild(div);
+
+    var video = document.getElementsByClassName('divVideo')[0];
+    dragElement(video);
 }
 
 
@@ -55,9 +67,9 @@ function minimizeVideo() {
     var video = document.getElementsByClassName('divVideo')[0];
     var minimize = document.getElementsByClassName('minimize')[0];
     var iframe = document.getElementsByClassName('video')[0];
-    if (minimize.innerHTML == '_') {
+    if (minimize.innerHTML == '<i title="Minimize" class="fa-solid fa-window-minimize"></i>') {
         video.classList.add('mini');
-        minimize.innerHTML = '^';
+        minimize.innerHTML = '<i title="Maximize" class="fa-solid fa-maximize"></i>';
 
         // When minimied, make the video draggable
         dragElement(video);
@@ -68,7 +80,7 @@ function minimizeVideo() {
     else {
         video.classList.remove('mini');
         iframe.classList.remove('scaleVideo');
-        minimize.innerHTML = '_';
+        minimize.innerHTML = '<i title="Minimize" class="fa-solid fa-window-minimize"></i>';
     }
 
 
@@ -125,6 +137,10 @@ function dragElement(elmnt) {
         elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
         elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
 
+        // Add grabb to the cursor when the video is being dragged
+        // elmnt.style.cursor = 'grabbing';
+
+
     }
 
     function closeDragElement() {
@@ -134,5 +150,18 @@ function dragElement(elmnt) {
 
         // Remove the class when the video is no longer being dragged
         elmnt.classList.remove('dragging');
+    }
+}
+
+// Implement the fullscreen button
+
+function fullscreenVideo() {
+    var iframe = document.getElementsByClassName('video')[0];
+    if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+    } else if (iframe.webkitRequestFullscreen) { /* Safari */
+        iframe.webkitRequestFullscreen();
+    } else if (iframe.msRequestFullscreen) { /* IE11 */
+        iframe.msRequestFullscreen();
     }
 }
