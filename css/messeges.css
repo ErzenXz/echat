@@ -65,7 +65,7 @@ body {
 
 ::selection {
     background-color: #c1daf3;
-    color: var(--text-color);
+    color: #141824;
 }
 
 /*     Mobile Support     */
@@ -329,8 +329,23 @@ body {
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     background-color: var(--navbar-blur);
-
 }
+
+/* 
+.controls {
+    position: fixed;
+    width: 75%;
+    background-color: var(--navbar-blur);
+    padding: 4px;
+    backdrop-filter: blur(10px);
+    z-index: 999999;
+    border-radius: 12px;
+    height: 40px;
+    border: 1px solid var(--border);
+    top: 0;
+    margin-left: -20px;
+} */
+
 
 ul {
     /* display: flex;
@@ -1365,4 +1380,70 @@ img {
     margin-bottom: 10px;
     /* Add margin to the bottom */
     font-size: 14px;
+}
+
+.emoji-picker {
+    background-color: var(--navbar-blur) !important;
+    backdrop-filter: blur(10px);
+    color: var(--text-color) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.emoji-picker__search {
+    background-color: var(--navbar-blur) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border) !important;
+    color: var(--text-color) !important;
+}
+
+.emoji-picker__search-input {
+    background-color: var(--navbar-blur) !important;
+    backdrop-filter: blur(10px);
+}
+
+.emoji-picker__category {
+    background-color: var(--navbar-blur) !important;
+    backdrop-filter: blur(10px);
+}
+
+.emoji-picker__category-label {
+    background-color: var(--navbar-blur) !important;
+    backdrop-filter: blur(10px);
+}
+
+.emoji-picker__category-buttons {
+    background-color: var(--navbar-blur) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.emoji-picker__category-button {
+    background-color: var(--navbar-blur) !important;
+    backdrop-filter: blur(10px);
+}
+
+.emoji-picker__emoji:hover {
+    background-color: var(--navbar-blur) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.emoji-picker__category-button {
+    background-color: var(--navbar-blur) !important;
+    backdrop-filter: blur(10px);
+    color: var(--text-color) !important;
+}
+
+.emoji-picker__category-button svg {
+    color: var(--text-color) !important;
+}
+
+.emoji-picker__preview {
+    background-color: var(--navbar-blur) !important;
+    color: var(--text-color) !important;
+    border-top: 1px solid var(--border) !important;
+    height: 45px !important;
+    color: var(--text-color) !important;
+}
+
+.emoji-picker__preview-name {
+    color: var(--text-color) !important;
 }

@@ -1,57 +1,71 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
-
 * {
   padding: 0;
   margin: 0;
-  font-family: "Noto Sans", sans-serif;
-  font-size: 14px;
+  box-sizing: border-box;
+  font-display: swap;
 }
+
+
 
 :root {
-    --li-color: rgba(0, 0, 0, 0.85);
-    --li-background: #efefef;
-    --li-chat-bubbles: #efefef;
-    --buttons: white;
-    --button-color: white;
-    --button-border: #e0e1e4;
-    --button-hover: #f2f2f2;
-    --background-color: #f0f2f5;
-    --message-input: transparent;
-    --chat-color: white;
-    --select-color: #000;
-    --select-background-color: #c1daf3;
-    --scrollbar-track: #eeeff1;
-    --scrollbar-thumb: #e0e1e4;
-    --scrollbar-thumb-hover: #b6b7b9;
+  --white-color: #fff;
+  --blue-color: #eff2f6;
+  --grey-color: #707070;
+  --grey-color-light: #aaa;
+  --blue-color-hover: #e3e6ed;
+  --link-hover: #333;
+  --text-color: #141824;
+  --border: #cbd0dd;
+  --border-hover: #333;
+  --sidebar: #fff;
+  --navbar: #fff;
+  --navbar-blur: rgba(255, 255, 255, 0.5);
+  --button: #f5f7fa;
+  --button-hover: #cbd0dd;
+  --scrollbar: #fff;
+  --scrollbar-thumb: rgb(170, 175, 186);
+  --scrollbar-thumb-hover: #d3d6de;
+  --body: #f5f7fa;
+  --toast: #777;
+  --toast-color: #e3e6ed;
+  --sidebar-blur: rgba(255, 255, 255, 0.5);
+  --selection: #141824;
 }
 
-body.dark{
-    --li-color: rgba(255, 255, 255, 0.77);
-    --li-background: rgba(36, 37, 38, 0.7);
-    --li-chat-bubbles: rgba(36, 37, 38, 0.7);
-    --buttons: #00ADB5;
-    --button-color: rgba(36, 37, 38, 0.7);
-    --button-border: none;
-    --button-hover: #18191A;
-    --background-color: #242526;
-    --message-input: #343536;
-    --chat-color: #3A3B3C;
-    --select-color: #000;
-    --select-background-color: #c1daf3;
-    --scrollbar-track: #343536;
-    --scrollbar-thumb: #242526;
-    --scrollbar-thumb-hover: #b6b7b9;
-
-
-    --box2-color: #3A3B3C;
-    --box3-color: #3A3B3C;
-    --title-icon-color: #CCC;
-    --input-color: #3A3B3C;
+body.dark {
+  --white-color: #333;
+  --blue-color: #31374a;
+  --grey-color: #f2f2f2;
+  --grey-color-light: #aaa;
+  --blue-color-hover: rgb(65, 73, 99);
+  --link-hover: white;
+  --text-color: #e3e6ed;
+  --border: #31374a;
+  --border-hover: #777;
+  --sidebar: #141824;
+  --navbar: #141824;
+  --navbar-blur: rgba(20, 24, 36, 0.5);
+  --button: #0f111a;
+  --button-hover: #141824;
+  --scrollbar: #141824;
+  --scrollbar-thumb: #31374a;
+  --scrollbar-thumb-hover: rgb(65, 73, 99);
+  --toast: #31374a;
+  --toast-color: #e3e6ed;
+  --sidebar-blur: rgba(20, 24, 36, 0.5);
+  --selection: #141824;
 }
 
 body {
-  color: var(--li-color);
-  background-color: var(--background-color);
+  font-family: lato, sans-serif;
+  color: var(--text-color) !important;
+  background-color: var(--button-hover);
+  transition: all .25s cubic-bezier(.25, .46, .45, .94) 0ms;
+}
+
+::selection {
+  background-color: #c1daf3;
+  color: #141824;
 }
 
 .mode-toggle {
@@ -59,12 +73,13 @@ body {
 }
 
 .settingsDIV {
-  background-color: var(--chat-color);
+  background-color: var(--navbar-blur);
   margin: 10px;
   height: fit-content;
   border-radius: 10px;
   padding: 30px;
   padding-bottom: 40px;
+  border: 1px solid var(--border);
 }
 
 #chat-title {
@@ -89,9 +104,9 @@ h3 {
 .settingsDIV button {
   padding: 17px 40px;
   border-radius: 50px;
-  border: 0;
-  color: var(--li-color);
-  background-color: var(--button-color);
+  border: 1px solid var(--border);
+  color: var(--text-color);
+  background-color: var(--button);
   box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -102,20 +117,9 @@ h3 {
 
 .item button:hover,
 .settingsDIV button:hover {
-  letter-spacing: 3px;
-  background-color: hsl(261deg 80% 48%);
-  color: hsl(0, 0%, 100%);
-  box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
-}
-
-.item button:active,
-.settingsDIV button:active {
-  letter-spacing: 3px;
-  background-color: hsl(261deg 80% 48%);
-  color: hsl(0, 0%, 100%);
-  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
-  transform: translateY(10px);
-  transition: 100ms;
+  background-color: var(--button-hover);
+  color: var(--text-color);
+  box-shadow: var(--navbar-blur) 0px 7px 29px 0px;
 }
 
 .container {
@@ -148,13 +152,14 @@ h3 {
   width: 320px;
   height: auto;
   border-radius: 0.4em;
-  border: rgb(250, 250, 250) 0.4em solid;
+  border: var(--button) 0.4em solid;
   transition: all 0.3s ease-in-out;
 
 }
+
 .img:hover {
-   border: #006fff 0.4em solid;
-   cursor: pointer;
+  border: var(--border) 0.4em solid;
+  cursor: pointer;
 }
 
 .imgs {
