@@ -2,128 +2,70 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: "Nunito", sans-serif, system-ui;
     font-display: swap;
 }
 
 
+
 :root {
-    --text-color: black;
-    --body-background-color: #f0f2f5;
-    --div-background-color: white;
-    --border: 1px solid lightgrey;
-
-    --input: white;
-    --button-txt: black;
-    --button-bg: #f0f2f5;
-    --button-bg-hover: rgba(149, 225, 211, 0.77);
-
-    --scrollbar-track: #eeeff1;
-    --scrollbar-thumb: #e0e1e4;
-    --scrollbar-thumb-hover: #b6b7b9;
-
-    --select-color: #000;
-    --select-background-color: #c1daf3;
+    --white-color: #fff;
+    --blue-color: #eff2f6;
+    --grey-color: #707070;
+    --grey-color-light: #aaa;
+    --blue-color-hover: #e3e6ed;
+    --link-hover: #333;
+    --text-color: #141824;
+    --border: #cbd0dd;
+    --border-hover: #333;
+    --sidebar: #fff;
+    --navbar: #fff;
+    --navbar-blur: rgba(255, 255, 255, 0.5);
+    --button: #f5f7fa;
+    --button-hover: #cbd0dd;
+    --scrollbar: #fff;
+    --scrollbar-thumb: rgb(170, 175, 186);
+    --scrollbar-thumb-hover: #d3d6de;
+    --body: #f5f7fa;
+    --toast: #777;
+    --toast-color: #e3e6ed;
+    --sidebar-blur: rgba(255, 255, 255, 0.5);
+    --selection: #141824;
 }
-
 
 body.dark {
-    --text-color: rgba(238, 238, 238, 0.7);
-    --body-background-color: #242526;
-    --div-background-color: #2a2c2d;
-
-    --border: 1px solid rgb(69, 66, 66);
-
-    --input: #232526;
-    --button-txt: white;
-    --button-bg: #242526;
-    --button-bg-hover: #343536;
-
-    --div-hover: #242526;
-    --scrollbar-track: #343536;
-    --scrollbar-thumb: #191a1b;
-    --scrollbar-thumb-hover: #b6b7b9;
-
-    --select-color: #000;
-    --select-background-color: #c1daf3;
-}
-
-body.teal {
-    --text-color: #333333;
-    --body-background-color: #f7f7f7;
-    --div-background-color: #ffffff;
-    --border: 1px solid #e8e8e8;
-
-    --input: #ffffff;
-    --button-txt: #ffffff;
-    --button-bg: #4b93a2;
-    --button-bg-hover: #1e7d6a;
-
-    --scrollbar-track: #f2f2f2;
-    --scrollbar-thumb: #d1d1d1;
-    --scrollbar-thumb-hover: #a0a0a0;
-
-    --select-color: #ffffff;
-    --select-background-color: #5789b8;
+    --white-color: #333;
+    --blue-color: #31374a;
+    --grey-color: #f2f2f2;
+    --grey-color-light: #aaa;
+    --blue-color-hover: rgb(65, 73, 99);
+    --link-hover: white;
+    --text-color: #e3e6ed;
+    --border: #31374a;
+    --border-hover: #777;
+    --sidebar: #141824;
+    --navbar: #141824;
+    --navbar-blur: rgba(20, 24, 36, 0.5);
+    --button: #0f111a;
+    --button-hover: #141824;
+    --scrollbar: #141824;
+    --scrollbar-thumb: #31374a;
+    --scrollbar-thumb-hover: rgb(65, 73, 99);
+    --toast: #31374a;
+    --toast-color: #e3e6ed;
+    --sidebar-blur: rgba(20, 24, 36, 0.5);
+    --selection: #141824;
 }
 
 body {
-    background-color: var(--body-background-color);
-    color: var(--text-color);
+    font-family: lato, sans-serif;
+    color: var(--text-color) !important;
+    background-color: var(--button-hover);
+    transition: all .25s cubic-bezier(.25, .46, .45, .94) 0ms;
 }
-
-
-
-
-
-
-/* :root {
-    --li-color: rgba(0, 0, 0, 0.85);
-    --li-background: #efefef;
-    --li-chat-bubbles: #efefef;
-    --buttons: white;
-    --button-color: black;
-    --button-border: #e0e1e4;
-    --button-hover: #f2f2f2;
-    --background-color: #f0f2f5;
-    --message-input: transparent;
-    --chat-color: white;
-    --select-color: #000;
-    --select-background-color: #c1daf3;
-    --scrollbar-track: #eeeff1;
-    --scrollbar-thumb: #e0e1e4;
-    --scrollbar-thumb-hover: #b6b7b9;
-}
- */
-
-
-/* body.dark{
-    --li-color: rgba(255, 255, 255, 0.77);
-    --li-background: rgba(36, 37, 38, 0.7);
-    --li-chat-bubbles: rgba(36, 37, 38, 0.7);
-    --buttons: #00ADB5;
-    --button-color: whitesmoke;
-    --button-border: none;
-    --button-hover: #18191A;
-    --background-color: #242526;
-    --message-input: #343536;
-    --chat-color: #3A3B3C;
-    --select-color: #000;
-    --select-background-color: #c1daf3;
-    --scrollbar-track: #343536;
-    --scrollbar-thumb: #242526;
-    --scrollbar-thumb-hover: #b6b7b9;
-
-
-    --box2-color: #3A3B3C;
-    --box3-color: #3A3B3C;
-    --title-icon-color: #CCC;
-    --input-color: #3A3B3C;
-} */
 
 ::selection {
-    color: var(--select-color);
-    background-color: var(--select-background-color);
+    background-color: #c1daf3;
+    color: var(--text-color);
 }
 
 /*     Mobile Support     */
@@ -164,14 +106,14 @@ body {
 }
 
 .darkchat {
-    border: 1px solid #101011;
-    background-color: white;
+    border: 1px solid var(--border);
+    background-color: var(--sidebar);
 }
 
 #roomname,
 #join-room-name {
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     padding: 10px;
     border-radius: 10px;
@@ -180,7 +122,7 @@ body {
     height: 55px;
     margin: 5px;
     margin-top: 10px;
-    background-color: var(--input);
+    background-color: var(--navbar);
     color: var(--text-color);
 }
 
@@ -192,20 +134,20 @@ body {
 #btn-send {
     padding: 10px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     width: 6.7vw;
     height: 50px;
-    background-color: var(--button-bg);
+    background-color: var(--button);
     transition: all 0.3s ease-in-out;
     font-size: 16px;
     user-select: none;
-    color: var(--button-txt);
+    color: var(--text-color);
 }
 
 #btn-send:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -217,12 +159,12 @@ body {
 #btn-send-reply {
     padding: 5px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     width: 7vw;
     height: 30px;
-    background-color: var(--button-bg);
+    background-color: var(--button);
     color: var(--text-color);
     transition: all 0.3s ease-in-out;
     font-size: 15px;
@@ -231,7 +173,7 @@ body {
 }
 
 #btn-send-reply:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -241,7 +183,7 @@ body {
 
 #replyMessage {
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     padding: 10px;
     transition: all 0.3s ease-in-out;
@@ -254,19 +196,19 @@ body {
     margin-bottom: 5px;
     display: inline-block;
     color: var(--text-color);
-    background-color: var(--input);
+    background-color: var(--navbar);
 }
 
 .btn-share {
     width: 5%;
     padding: 5px;
-    color: var(--button-txt);
+    color: var(--text-color);
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     height: 30px;
-    background-color: var(--buttons-bg);
+    background-color: var(--buttons);
     transition: all 0.3s ease-in-out;
     margin-bottom: 10px;
     margin-left: 5px;
@@ -275,9 +217,9 @@ body {
 }
 
 .btn-share:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
-    color: var(--button-txt);
+    color: var(--text-color);
 }
 
 .btn-share:active {
@@ -285,14 +227,14 @@ body {
 }
 
 .btn-info {
-    color: var(--button-txt);
+    color: var(--text-color);
     padding: 5px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     height: 30px;
-    background-color: var(--buttons-bg);
+    background-color: var(--buttons);
     transition: all 0.3s ease-in-out;
     margin-bottom: 10px;
     user-select: none;
@@ -300,19 +242,19 @@ body {
 }
 
 .btn-info:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
 .btn-settings {
-    color: var(--button-txt);
+    color: var(--text-color);
     padding: 5px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     height: 30px;
-    background-color: var(--buttons-bg);
+    background-color: var(--buttons);
     transition: all 0.3s ease-in-out;
     margin-left: 10px;
     margin-bottom: 10px;
@@ -321,7 +263,7 @@ body {
 }
 
 .btn-settings:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -330,14 +272,14 @@ body {
 }
 
 .btn-emoji {
-    color: var(--button-txt);
+    color: var(--text-color);
     padding: 5px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     height: 30px;
-    background-color: var(--button-bg);
+    background-color: var(--buttons);
     transition: all 0.3s ease-in-out;
     margin-left: 10px;
     margin-bottom: 10px;
@@ -345,7 +287,7 @@ body {
 }
 
 .btn-emoji:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -359,7 +301,7 @@ body {
 
 #message {
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     padding: 10px;
     transition: all 0.3s ease-in-out;
@@ -372,7 +314,7 @@ body {
     margin-bottom: 5px;
     display: inline-block;
     color: var(--text-color);
-    background-color: var(--input);
+    background-color: var(--navbar-blur);
 }
 
 #message:focus {
@@ -383,10 +325,11 @@ body {
     width: 75%;
     margin: auto;
     padding: 20px;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
-    background-color: var(--div-background-color);
+    background-color: var(--navbar-blur);
+
 }
 
 ul {
@@ -400,7 +343,7 @@ ul {
 }
 
 li {
-    background-color: var(--body-background-color);
+    background-color: var(--sidebar-blur);
     max-width: 375px;
     min-width: 175px;
     width: fit-content;
@@ -412,19 +355,11 @@ li {
     font-size: 16px;
     overflow-wrap: break-word;
     position: relative;
-    border: var(--border);
+    border: 1px solid var(--border);
     transition: all 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
     animation: fade 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-li::after {
-    border-right: 20px solid transparent;
-    border-top: 20px solid var(--li-chat-bubbles);
-    bottom: -20px;
-    content: "";
-    position: absolute;
-    left: 10px;
-}
 
 li::first-line {
     font-weight: 600;
@@ -440,7 +375,7 @@ li:active {
 }
 
 #list1 li:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
 }
 
 /*Smooth popup fade animation */
@@ -461,22 +396,22 @@ li:active {
 #createroom {
     padding: 10px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -18px;
     border-radius: 10px;
     width: 125px;
     height: 50px;
-    background-color: var(--input);
-    transition: all 0.3s ease-in-out 0ms;
+    background-color: var(--button);
+    transition: all 0.2s cubic-bezier(0.215, 0.610, 0.355, 1) 0ms;
     color: var(--text-color);
 }
 
 #joinroom:hover,
 #createroom:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     box-shadow: 0px 0px 20px -15px;
     cursor: pointer;
-    color: var(--button-txt);
+    color: var(--text-color);
 }
 
 #joinroom:active,
@@ -514,27 +449,27 @@ li:active {
     margin: 5px;
     margin-bottom: 10px;
     font-size: 16px;
-    background-color: var(--body-background-color);
+    background-color: var(--navbar-blur);
     font-weight: 500;
-    color: var(--li-color);
+    color: var(--text-color);
     user-select: none;
     box-shadow: 0px 0px 20px -20px;
-    border: var(--border);
+    border: 1px solid var(--border);
 }
 
 .no-password-email:hover {
-    background-color: var(--body-background-color);
+    background-color: var(--navbar);
     color: black;
     cursor: pointer;
 }
 
 .notify {
     transition: all 0.2s ease-in-out 0ms;
-    border: var(--border);
+    border: 1px solid var(--border);
 }
 
 .notify:hover {
-    border: var(--border);
+    border: 1px solid var(--border);
     cursor: pointer;
 }
 
@@ -551,10 +486,10 @@ li:active {
     margin-left: 10vw;
     margin-right: 10vw;
     border-radius: 10px;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     z-index: 25;
-    background-color: var(--div-background-color);
+    background-color: var(--sidebar);
     color: var(--text-color);
     padding: 15px;
     margin-top: 25px;
@@ -588,7 +523,7 @@ li:active {
     padding-right: 10px;
     transition: all 0.3s ease-in-out 0ms;
     border-radius: 5px;
-    color: black;
+    color: var(--text-color);
     margin: auto;
 }
 
@@ -605,7 +540,7 @@ li:active {
     margin: 10px;
     transition: all 0.3s ease-in-out 0ms;
     border-radius: 5px;
-    color: black;
+    color: var(--text-color);
     margin: auto;
 }
 
@@ -617,12 +552,12 @@ li:active {
 
 .share {
     width: 75%;
-    background-color: var(--button-bg);
+    background-color: var(--button);
     transition: all 0.4s ease-in-out;
     height: 75px;
     cursor: pointer;
     border-radius: 5px;
-    color: var(--button-txt);
+    color: var(--text-color);
     font-weight: 500;
     font-size: 18px;
     border: none;
@@ -632,7 +567,7 @@ li:active {
 }
 
 .share:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     transform: scale(1.05);
 }
 
@@ -653,7 +588,7 @@ li:active {
 }
 
 #total-chats {
-    color: rgba(0, 0, 0, 0.85);
+    color: var(--text-color);
     padding-left: 5px;
 }
 
@@ -664,10 +599,11 @@ li:active {
     margin-bottom: 50px;
     overflow-y: scroll;
     padding: 20px;
-    border: 1px solid black;
+    border: 2px solid var(--border);
     color: var(--li-color);
-    background-color: var(--div-background-color);
+    background-color: var(--navbar-blur);
     animation: fadein 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
+    backdrop-filter: blur(10px);
 }
 
 #replies {
@@ -712,7 +648,7 @@ li:active {
 
 
 .buttonMenu {
-    background-color: var(--input);
+    background-color: var(--blue-color);
     color: var(--text-color);
     border: 1px solid rgba(27, 31, 35, 0.15);
     border-radius: 6px;
@@ -733,20 +669,20 @@ li:active {
 }
 
 .buttonMenu:hover {
-    background-color: var(--body-background-color);
+    background-color: var(--blue-color-hover);
     text-decoration: none;
     transition-duration: 0.1s;
 }
 
 .buttonMenu:disabled {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button);
     border-color: rgba(27, 31, 35, 0.15);
     color: #959da5;
     cursor: default;
 }
 
 .buttonMenu:active {
-    background-color: var(--button-bg);
+    background-color: var(--button-hover);
     box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
     transform: scale(0.95);
     scale: 0.95;
@@ -789,9 +725,9 @@ li:active {
     width: 650px;
     height: 80vh;
     max-height: 80vh;
-    background-color: var(--div-background-color);
+    background-color: var(--sidebar);
     color: var(--text-color);
-    border: var(--border);
+    border: 1px solid var(--border);
     border-radius: 10px;
 }
 
@@ -832,18 +768,18 @@ li:active {
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: var(--body-background-color);
+    background-color: var(--sidebar);
     margin: 15% auto;
     /* 15% from the top and centered */
     padding: 20px;
-    border: var(--border);
+    border: 1px solid var(--border);
     width: 80%;
     /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
 .close {
-    color: #aaa;
+    color: var(--text-color);
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -851,7 +787,7 @@ li:active {
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: var(--text-color);
     text-decoration: none;
     cursor: pointer;
 }
@@ -880,8 +816,8 @@ iframe {
 }
 
 #tooltip {
-    background: var(--div-background-color);
-    border: 1px solid grey;
+    background: var(--sidebar-blur);
+    border: 1px solid var(--border);
     min-width: 75px;
     text-align: center;
     border-radius: 7px;
@@ -890,6 +826,7 @@ iframe {
     box-shadow: 0px 0px 12.5px -10px;
     cursor: pointer;
     transition: all 0.15s ease 0ms;
+    backdrop-filter: blur(10px);
 }
 
 .qr-code {
@@ -900,7 +837,7 @@ iframe {
     align-items: center;
     pointer-events: none;
     justify-content: center;
-    border: var(--border);
+    border: 1px solid var(--border);
     margin-top: 20px;
 }
 
@@ -927,7 +864,7 @@ img {
 #videochat {
     padding: 10px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     margin-top: 100px;
@@ -940,16 +877,16 @@ img {
 }
 
 #videochat:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
 #menuItems {
     width: 9vw;
     height: 50px;
-    background-color: var(--button-bg);
+    background-color: var(--button);
     color: var(--text-color);
-    border: var(--border);
+    border: 1px solid var(--border);
     border-radius: 10px;
     padding: 5px;
     margin-top: 30%;
@@ -958,7 +895,7 @@ img {
 }
 
 #menuItems:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     box-shadow: 0px 0px 10px -10px;
     cursor: pointer;
 }
@@ -979,7 +916,7 @@ img {
     margin-bottom: 15px;
     margin-top: 10px;
     border-radius: 10px;
-    border: var(--border);
+    border: 1px solid var(--border);
     z-index: 25000;
 }
 
@@ -991,7 +928,7 @@ img {
     margin-left: 35vw;
     margin-right: 35vw;
     z-index: 100000000;
-    border: var(--border);
+    border: 1px solid var(--border);
     border-radius: 10px;
     padding: 5px;
     text-align: center;
@@ -1035,7 +972,7 @@ img {
 
 .first {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
@@ -1071,7 +1008,8 @@ img {
     width: 6px;
     height: 18px;
     border-radius: 20%;
-    background: darkgray;
+    background: var(--button-hover);
+    border: 1px solid var(--border);
 }
 
 .lds-spinner div:nth-child(1) {
@@ -1160,46 +1098,32 @@ img {
     gap: 10px;
 }
 
-#replies>li>.first {
-    all: unset;
-}
-
-.first {
-    min-width: 75px;
-    max-width: 175px;
-    width: fit-content;
-    height: auto;
-    word-wrap: break-word;
-}
-
-/* #replies>li>.first {
-    max-width: 300px;
-}
-
-#replies>li>.first>:nth-child(2) {
-    background-color: var(--body-background-color);
+#replies>li {
+    background-color: var(--sidebar-blur);
     max-width: 500px;
-    min-width: 100px;
+    min-width: 175px;
     width: fit-content;
     height: fit-content;
-    display: flex;
-    flex-direction: column;
-    border-radius: 50px;
+    border-radius: 20px;
+    margin-bottom: 0 !important;
+    padding: 10px;
     color: var(--text-color);
-    font-size: 12px;
+    font-size: 16px;
+    border: 1px solid var(--border);
     overflow-wrap: break-word;
     word-wrap: break-word;
-    position: relative;
+    word-break: break-word;
+    white-space: pre-line;
     transition: all 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation: fade 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+    display: flex !important;
+    flex-direction: column !important;
 }
 
-#replies>li>.first>:nth-child(2)::first-line {
-    font-weight: bold;
-} */
 
 .miniText {
     display: flex;
-    flex-direction: row;
+    flex-direction: row !important;
     justify-content: space-between;
 }
 
@@ -1213,23 +1137,16 @@ img {
     transform: rotate(10deg)
 }
 
-/* :focus {
-    z-index: 10;
-    outline: 2px solid black;
-    outline-offset: 10px;
-} */
-
-
 
 .btn-video {
-    color: var(--button-txt);
+    color: var(--text-color);
     padding: 5px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     height: 30px;
-    background-color: var(--buttons-bg);
+    background-color: var(--buttons);
     transition: all 0.3s ease-in-out;
     margin-left: 10px;
     margin-bottom: 10px;
@@ -1238,7 +1155,7 @@ img {
 }
 
 .btn-video:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -1268,13 +1185,13 @@ img {
     justify-content: center;
     align-items: center;
     font-size: 12px;
-    background-color: var(--div-background-color);
+    background-color: var(--navbar-blur);
     width: 95%;
     margin: 10px;
     border-radius: 50px;
     height: 20px;
-    border: var(--border);
-    color: var(--li-color);
+    border: 1px solid var(--border);
+    color: var(--text-color);
 }
 
 .timemin2 {
@@ -1292,8 +1209,8 @@ img {
     height: 50%;
     margin: auto;
     padding: 20px;
-    border: var(--border);
-    background-color: var(--div-background-color);
+    border: 1px solid var(--border);
+    background-color: var(--navbar);
     border-radius: 12px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     z-index: 9999;
@@ -1307,8 +1224,8 @@ img {
 .file-input {
     margin-bottom: 10px;
     color: var(--text-color);
-    background-color: var(--body-background-color);
-    border: var(--border);
+    background-color: var(--navbar);
+    border: 1px solid var(--border);
     padding: 10px;
     width: 100%;
 }
@@ -1317,7 +1234,7 @@ img {
     margin-top: 20px !important;
     padding: 10px 20px;
     color: var(--button-txt);
-    background-color: var(--button-bg);
+    background-color: var(--button);
     border: none;
     border-radius: 3px;
     cursor: pointer;
@@ -1325,7 +1242,7 @@ img {
 }
 
 .upload-button:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
 }
 
 /* Custom scrollbar */
@@ -1362,7 +1279,7 @@ img {
     padding: 5px;
     border: none;
     outline: none;
-    background-color: var(--div-background-color);
+    background-color: var(--sidebar-blur);
     color: var(--text-color);
     border-radius: 50px;
     cursor: pointer;
@@ -1370,7 +1287,7 @@ img {
 }
 
 .close-button:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
 }
 
 #bytes {
@@ -1380,7 +1297,7 @@ img {
 
 
 .download-box {
-    background-color: var(--div-background-color);
+    background-color: var(--navbar-blur);
     padding: 10px;
     border-radius: 8px;
     display: flex;
@@ -1389,7 +1306,7 @@ img {
     justify-content: space-between;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border);
     margin-top: 4px;
     margin-bottom: 4px;
 }
@@ -1401,7 +1318,7 @@ img {
 
 .download-box a {
     text-decoration: none;
-    color: #007bff;
+    color: var(--link-hover);
     display: flex;
     align-items: center;
     transition: color 0.3s ease;
@@ -1429,7 +1346,7 @@ img {
 }
 
 .yes2 {
-    background-color: #ffcccc;
+    background-color: var(--navbar-blur);
     /* Light pink background */
     color: #ff0000;
     /* Red text color */

@@ -2,7 +2,6 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: "Nunito", sans-serif, system-ui;
     font-display: swap;
 }
 
@@ -11,56 +10,64 @@ html {
 }
 
 :root {
-    --text-color: black;
-    --body-background-color: #f0f2f5;
-    --div-background-color: white;
-    --border: 1px solid lightgrey;
-
-    --input: white;
-    --button-txt: black;
-    --button-bg: #f0f2f5;
-    --button-bg-hover: rgba(149, 225, 211, 0.77);
-
-    --scrollbar-track: #eeeff1;
-    --scrollbar-thumb: #e0e1e4;
-    --scrollbar-thumb-hover: #b6b7b9;
-
-    --select-color: #000;
-    --select-background-color: #c1daf3;
+    --white-color: #fff;
+    --blue-color: #eff2f6;
+    --grey-color: #707070;
+    --grey-color-light: #aaa;
+    --blue-color-hover: #e3e6ed;
+    --link-hover: #333;
+    --text-color: #141824;
+    --border: #cbd0dd;
+    --border-hover: #333;
+    --sidebar: #fff;
+    --navbar: #fff;
+    --navbar-blur: rgba(255, 255, 255, 0.5);
+    --button: #f5f7fa;
+    --button-hover: #cbd0dd;
+    --scrollbar: #fff;
+    --scrollbar-thumb: rgb(170, 175, 186);
+    --scrollbar-thumb-hover: #d3d6de;
+    --body: #f5f7fa;
+    --toast: #777;
+    --toast-color: #e3e6ed;
+    --sidebar-blur: rgba(255, 255, 255, 0.5);
+    --selection: #141824;
 }
-
 
 body.dark {
-    --text-color: rgba(255, 255, 255, 0.7);
-    --body-background-color: #242526;
-    --div-background-color: #2a2c2d;
-
-    --border: 1px solid rgb(69, 66, 66);
-
-    --input: #232526;
-    --button-txt: white;
-    --button-bg: #242526;
-    --button-bg-hover: #343536;
-
-    --div-hover: #242526;
-    --scrollbar-track: #343536;
-    --scrollbar-thumb: #191a1b;
-    --scrollbar-thumb-hover: #b6b7b9;
-
-    --select-color: #000;
-    --select-background-color: #c1daf3;
+    --white-color: #333;
+    --blue-color: #31374a;
+    --grey-color: #f2f2f2;
+    --grey-color-light: #aaa;
+    --blue-color-hover: rgb(65, 73, 99);
+    --link-hover: white;
+    --text-color: #e3e6ed;
+    --border: #31374a;
+    --border-hover: #777;
+    --sidebar: #141824;
+    --navbar: #141824;
+    --navbar-blur: rgba(20, 24, 36, 0.5);
+    --button: #0f111a;
+    --button-hover: #141824;
+    --scrollbar: #141824;
+    --scrollbar-thumb: #31374a;
+    --scrollbar-thumb-hover: rgb(65, 73, 99);
+    --toast: #31374a;
+    --toast-color: #e3e6ed;
+    --sidebar-blur: rgba(20, 24, 36, 0.5);
+    --selection: #141824;
 }
 
-
-
 body {
-    background-color: var(--body-background-color);
-    color: var(--text-color);
+    font-family: lato, sans-serif;
+    color: var(--text-color) !important;
+    background-color: var(--button);
+    transition: all .25s cubic-bezier(.25, .46, .45, .94) 0ms
 }
 
 ::selection {
-    color: var(--select-color);
-    background-color: var(--select-background-color);
+    background-color: var(--blue-color);
+    color: var(--text-color);
 }
 
 /*     Mobile Support     */
@@ -95,7 +102,7 @@ body {
 #roomname,
 #join-room-name {
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     padding: 20px;
     border-radius: 10px;
@@ -104,7 +111,7 @@ body {
     height: fit-content;
     max-height: 40px;
     margin-bottom: 10px;
-    background-color: var(--input);
+    background-color: var(--navbar);
     color: var(--text-color);
 }
 
@@ -121,7 +128,7 @@ body {
 #createroom {
     padding: 10px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     width: 100%;
@@ -130,13 +137,13 @@ body {
     background-color: transparent;
     transition: all 0.3s ease-in-out;
     margin-bottom: 50px;
-    background-color: var(--input);
+    background-color: var(--navbar);
     color: var(--text-color);
 }
 
 #joinroom:hover,
 #createroom:hover {
-    background-color: #f2f2f2;
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -148,10 +155,10 @@ body {
 
 .roomSelection {
     padding: 10px;
-    border: var(--border);
+    border: 1px solid var(--border);
     margin: 10px;
     border-radius: 10px;
-    background-color: var(--div-background-color);
+    background-color: var(--navbar);
 }
 
 #chat-title {
@@ -174,10 +181,10 @@ body {
 
 .chat {
     padding: 10px;
-    border: var(--border);
+    border: 1px solid var(--border);
     margin: 10px;
     border-radius: 10px;
-    background-color: var(--div-background-color);
+    background-color: var(--button);
     height: 97vh;
     min-height: 97vh;
 }
@@ -192,7 +199,7 @@ ul {
 }
 
 li {
-    background-color: var(--body-background-color);
+    background-color: var(--navbar);
     max-width: 73vw;
     min-width: 35vw;
     width: fit-content;
@@ -202,7 +209,7 @@ li {
     margin: 10px;
     margin-bottom: 25px;
     color: var(--text-color);
-    border: var(--border);
+    border: 1px solid var(--border);
     font-size: 16px;
     overflow-wrap: break-word;
     position: relative;
@@ -219,7 +226,7 @@ li:hover {
 
 #message {
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     padding: 10px;
     transition: all 0.3s ease-in-out;
@@ -230,7 +237,7 @@ li:hover {
     border-radius: 20px;
     display: inline-block;
     color: var(--text-color);
-    background-color: var(--input);
+    background-color: var(--navbar);
 }
 
 #message:focus {
@@ -238,22 +245,22 @@ li:hover {
 }
 
 #btn-send {
-    color: var(--button-txt);
+    color: var(--text-color);
     padding: 10px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     width: 45%;
     height: 50px;
-    background-color: var(--button-bg);
+    background-color: var(--button);
     transition: all 0.3s ease-in-out;
     font-size: 16px;
     user-select: none;
 }
 
 #btn-send:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -264,12 +271,12 @@ li:hover {
 #btn-send-reply {
     padding: 5px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     width: 25%;
     height: 30px;
-    background-color: var(--input);
+    background-color: var(--navbar);
     color: var(--text-color);
     transition: all 0.3s ease-in-out;
     font-size: 15px;
@@ -278,7 +285,7 @@ li:hover {
 }
 
 #btn-send-reply:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -288,7 +295,7 @@ li:hover {
 
 #replyMessage {
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     padding: 10px;
     transition: all 0.3s ease-in-out;
@@ -301,18 +308,18 @@ li:hover {
     margin-bottom: 5px;
     display: inline-block;
     color: var(--text-color);
-    background-color: var(--input);
+    background-color: var(--navbar);
 }
 
 .btn-share {
     padding: 5px;
-    color: var(--button-txt);
+    color: var(--text-color);
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     height: 30px;
-    background-color: var(--button-bg);
+    background-color: var(--button);
     transition: all 0.3s ease-in-out;
     margin-bottom: 10px;
     margin-left: 5px;
@@ -321,7 +328,7 @@ li:hover {
 }
 
 .btn-share:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -330,14 +337,14 @@ li:hover {
 }
 
 .btn-info {
-    color: var(--button-txt);
+    color: var(--text-color);
     padding: 5px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     height: 30px;
-    background-color: var(--button-bg);
+    background-color: var(--button);
     transition: all 0.3s ease-in-out;
     margin-bottom: 10px;
     user-select: none;
@@ -345,7 +352,7 @@ li:hover {
 }
 
 .btn-info:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -354,14 +361,14 @@ li:hover {
 }
 
 .btn-settings {
-    color: var(--button-txt);
+    color: var(--text-color);
     padding: 5px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     height: 30px;
-    background-color: var(--button-bg);
+    background-color: var(--button);
     transition: all 0.3s ease-in-out;
     margin-left: 10px;
     margin-bottom: 10px;
@@ -370,7 +377,7 @@ li:hover {
 }
 
 .btn-settings:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -379,14 +386,14 @@ li:hover {
 }
 
 .btn-emoji {
-    color: var(--button-txt);
+    color: var(--text-color);
     padding: 5px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     height: 30px;
-    background-color: var(--button-bg);
+    background-color: var(--button);
     transition: all 0.3s ease-in-out;
     margin-left: 5px;
     margin-bottom: 10px;
@@ -394,7 +401,7 @@ li:hover {
 }
 
 .btn-emoji:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -414,7 +421,7 @@ li:hover {
 
 .notify {
     transition: all 0.2s ease-in-out 0ms;
-    border: var(--border);
+    border: 1px solid var(--border);
 }
 
 .notify:hover {
@@ -428,10 +435,10 @@ li:hover {
     margin-left: 10vw;
     margin-right: 10vw;
     border-radius: 10px;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     z-index: 25;
-    background-color: var(--div-background-color);
+    background-color: var(--sidebar);
     padding: 15px;
     margin-top: 25px;
     color: var(--text-color);
@@ -461,12 +468,12 @@ li:hover {
 
 .share {
     width: 75%;
-    background-color: var(--button-bg);
+    background-color: var(--button);
     transition: all 0.4s ease-in-out;
     height: 75px;
     cursor: pointer;
     border-radius: 5px;
-    color: var(--button-txt);
+    color: var(--text-color);
     font-weight: 500;
     font-size: 18px;
     border: none;
@@ -477,7 +484,7 @@ li:hover {
 }
 
 .share:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     transform: scale(1.05);
 }
 
@@ -500,9 +507,9 @@ li:hover {
     margin-top: 10px;
     margin-bottom: 10px;
     color: var(--text-color);
-    background-color: var(--div-background-color);
+    background-color: var(--sidebar);
     padding: 20px;
-    border: var(--border);
+    border: 1px solid var(--border);
 }
 
 
@@ -542,7 +549,7 @@ li:hover {
 
 .buttonMenu {
     appearance: none;
-    background-color: #fafbfc;
+    background-color: var(--navbar);
     border: 1px solid rgba(27, 31, 35, 0.15);
     border-radius: 6px;
     box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
@@ -568,20 +575,20 @@ li:hover {
 }
 
 .buttonMenu:hover {
-    background-color: #f3f4f6;
+    background-color: var(--button-hover);
     text-decoration: none;
     transition-duration: 0.1s;
 }
 
 .buttonMenu:disabled {
-    background-color: #fafbfc;
+    background-color: var(--border-hover);
     border-color: rgba(27, 31, 35, 0.15);
     color: #959da5;
     cursor: default;
 }
 
 .buttonMenu:active {
-    background-color: #edeff2;
+    background-color: var(--button-hover);
     box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
     transition: none 0s;
 }
@@ -622,9 +629,9 @@ li:hover {
     width: 80vw;
     height: fit-content;
     max-height: 95vh;
-    background-color: var(--div-background-color);
+    background-color: var(--sidebar);
     color: var(--text-color);
-    border: var(--border);
+    border: 1px solid var(--border);
     border-radius: 10px;
 }
 
@@ -685,7 +692,7 @@ li:hover {
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: var(--text-color);
     text-decoration: none;
     cursor: pointer;
 }
@@ -709,8 +716,8 @@ iframe {
 }
 
 #tooltip {
-    background: var(--body-background-color);
-    border: var(--border);
+    background: var(--navbar-blur);
+    border: 1px solid var(--border);
     border-radius: 10px;
     padding: 7px;
     color: var(--text-color);
@@ -727,7 +734,7 @@ iframe {
     align-items: center;
     pointer-events: none;
     justify-content: center;
-    border: var(--border);
+    border: 1px solid var(--border);
     margin-top: 20px;
 }
 
@@ -748,7 +755,7 @@ iframe {
 #videochat {
     padding: 10px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     margin-top: 50px;
@@ -761,7 +768,7 @@ iframe {
 }
 
 #videochat:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -771,7 +778,7 @@ iframe {
     padding-right: 10px;
     transition: all 0.3s ease-in-out 0ms;
     border-radius: 5px;
-    color: black;
+    color: var(--text-color);
     margin: auto;
 }
 
@@ -789,7 +796,7 @@ iframe {
     margin-bottom: 15px;
     margin-top: 10px;
     border-radius: 10px;
-    border: var(--border);
+    border: 1px solid var(--border);
     z-index: 25000;
 }
 
@@ -802,9 +809,9 @@ iframe {
 #menuItems {
     width: 30vw;
     height: 50px;
-    background-color: var(--input);
+    background-color: var(--sidebar);
     color: var(--li-color);
-    border: var(--border);
+    border: 1px solid var(--border);
     border-radius: 10px;
     padding: 10px;
     transition: all 0.3s ease-in-out;
@@ -813,7 +820,7 @@ iframe {
 }
 
 #menuItems:hover {
-    background-color: var(--div-background-color);
+    background-color: var(--navbar-blur);
     box-shadow: 0px 0px 10px -10px;
     cursor: pointer;
 }
@@ -832,7 +839,7 @@ iframe {
     margin: auto;
     margin-top: 20vh;
     z-index: 100000000;
-    border: var(--border);
+    border: 1px solid var(--border);
     border-radius: 10px;
     padding: 5px;
     text-align: center;
@@ -909,7 +916,7 @@ iframe {
     width: 6px;
     height: 18px;
     border-radius: 20%;
-    background: darkgray;
+    background: var(--button);
 }
 
 .lds-spinner div:nth-child(1) {
@@ -1017,14 +1024,14 @@ iframe {
 }
 
 .btn-video {
-    color: var(--button-txt);
+    color: var(--text-color);
     padding: 5px;
     outline: none;
-    border: var(--border);
+    border: 1px solid var(--border);
     box-shadow: 0px 0px 20px -20px;
     border-radius: 10px;
     height: 30px;
-    background-color: var(--buttons-bg);
+    background-color: var(--button);
     transition: all 0.3s ease-in-out;
     margin-left: 10px;
     margin-bottom: 10px;
@@ -1033,7 +1040,7 @@ iframe {
 }
 
 .btn-video:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
     cursor: pointer;
 }
 
@@ -1047,19 +1054,19 @@ iframe {
     justify-content: center;
     align-items: center;
     font-size: 10px;
-    background-color: var(--div-background-color);
+    background-color: var(--button);
     width: 95%;
     margin: 10px;
     border-radius: 22px 35px;
     height: 20px;
-    border: var(--border);
-    color: var(--li-color);
+    border: 1px solid var(--border);
+    color: var(--text-color);
     transition: all 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95) 0ms;
     user-select: none;
 }
 
 .yes:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
 }
 
 .timemin2 {
@@ -1078,8 +1085,8 @@ iframe {
     height: 50%;
     margin: auto;
     padding: 20px;
-    border: var(--border);
-    background-color: var(--div-background-color);
+    border: 1px solid var(--border);
+    background-color: var(--navbar);
     border-radius: 12px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     z-index: 9999;
@@ -1093,8 +1100,8 @@ iframe {
 .file-input {
     margin-bottom: 10px;
     color: var(--text-color);
-    background-color: var(--body-background-color);
-    border: var(--border);
+    background-color: var(--navbar);
+    border: 1px solid var(--border);
     padding: 10px;
     width: 100%;
 }
@@ -1102,8 +1109,8 @@ iframe {
 .upload-button {
     margin-top: 20px !important;
     padding: 10px 20px;
-    color: var(--button-txt);
-    background-color: var(--button-bg);
+    color: var(--text-color);
+    background-color: var(--button);
     border: none;
     border-radius: 3px;
     cursor: pointer;
@@ -1111,7 +1118,7 @@ iframe {
 }
 
 .upload-button:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
 }
 
 /* Custom scrollbar */
@@ -1149,7 +1156,7 @@ iframe {
     padding: 5px;
     border: none;
     outline: none;
-    background-color: var(--div-background-color);
+    background-color: var(--navbar);
     color: var(--text-color);
     border-radius: 50px;
     cursor: pointer;
@@ -1157,7 +1164,7 @@ iframe {
 }
 
 .close-button:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--button-hover);
 }
 
 #bytes {
@@ -1167,7 +1174,7 @@ iframe {
 
 
 .download-box {
-    background-color: #f4f4f4;
+    background-color: var(--navbar);
     padding: 10px;
     border-radius: 8px;
     display: flex;
@@ -1180,7 +1187,7 @@ iframe {
 }
 
 .download-box span {
-    color: #333;
+    color: var(--text-color);
 }
 
 

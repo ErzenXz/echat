@@ -68,7 +68,6 @@ function doDynamic() {
         }
         others.push(postKey);
         createText2(owner, message, times, username, postKey, ms);
-
     })
 }
 
@@ -76,26 +75,6 @@ function doDynamic() {
 var network = navigator.onLine;
 let chatCreated = localStorage.getItem("chat-time");
 
-
-
-// navigator.serviceWorker.register('./js/service-worker.js')
-//     .then(function(registration) {
-//       console.log('Service worker registered: ', registration);
-//     })
-//     .catch(function(error) {
-//       console.error('Error registering service worker: ', error);
-//     });
-
-
-//     var chatRoomRef = firebase.database().ref(`rooms/${room}/chats`);
-
-//     chatRoomRef.on('child_added', function(snapshot) {
-//       var message = snapshot.val();
-//       self.registration.showNotification(message.user, {
-//         body: message.message,
-//         icon: message.image
-//       });
-//     });
 
 const proxy = "";
 
@@ -185,7 +164,7 @@ function openMenu() {
 
 //                  Variables that can be changed
 
-let roomID = [];
+
 let darkIndex = 0;
 let replyIndex = 0;
 let joined = localStorage.getItem("joined");
@@ -336,6 +315,23 @@ async function createRoom() {
         let roomName = roomNameOLD.replace(/\s+/g, "");
         let private_date;
 
+        // Check if the roomName is already taken
+
+        checkRoomExists(roomName)
+            .then(async (exists) => {
+                if (exists) {
+                    roomName = roomName + Math.floor(Math.random() * 10000000000);
+
+                    roomName = await hash(String(roomName));
+
+                    roomName = removeUnwantedChars(String(roomName));
+                }
+            })
+            .catch((error) => {
+                // Handle any potential errors
+                console.error(error);
+            });
+
         // Create the room
         firebase.database().ref("rooms/" + roomName).set({
             owner: uuid,
@@ -372,6 +368,24 @@ async function hashWithSalt(text, salt) {
     return hashedText;
 }
 
+
+function checkRoomExists(roomId) {
+    return new Promise((resolve) => {
+        const databaseRef = firebase.database().ref(`rooms/${roomId}`);
+
+        databaseRef.once('value', (snapshot) => {
+            if (snapshot.exists()) {
+                console.log(`Room ${roomId} exists.`);
+                resolve(true);
+            } else {
+                console.log(`Room ${roomId} does not exist.`);
+                resolve(false);
+            }
+        });
+    });
+}
+
+
 function joinRoom(code) {
     const image = localStorage.getItem("image");
     if (typeof code === "undefined") {
@@ -381,26 +395,35 @@ function joinRoom(code) {
         if (realName === "") {
             return false;
         } else {
-            var n = roomID.includes(realName);
-            if (n) {
-                localStorage.setItem("room", realName);
-                firebase.database().ref("rooms/" + realName + "/chats").push().set({
-                    message: " joined the room! &#8203;          (+)",
-                    time: time,
-                    user: localStorage.getItem("uName"),
-                    username: username,
-                    "timespan": t.getTime(),
-                    image
+            // Check if the room exists
+
+            checkRoomExists(realName)
+                .then((exists) => {
+                    if (exists) {
+                        localStorage.setItem("room", realName);
+                        firebase.database().ref("rooms/" + realName + "/chats").push().set({
+                            message: " joined the room! &#8203;          (+)",
+                            time: time,
+                            user: localStorage.getItem("uName"),
+                            username: username,
+                            "timespan": firebase.database.ServerValue.TIMESTAMP,
+                            image
+                        });
+                        toast(`You successfully joined the chat room!`);
+                        addRoom(realName, realName);
+                        location.reload();
+                        return true;
+                    } else {
+                        toast(`Your chat room couldn't be found!`);
+                        document.getElementById("join-room-name").value = "";
+                        return false;
+                    }
+                })
+                .catch((error) => {
+                    // Handle any potential errors
+                    console.error(error);
                 });
-                toast(`You successfully joined the chat room!`);
-                addRoom(realName, realName);
-                location.reload();
-                return true;
-            } else {
-                toast(`Your chat room couldn't be found!`);
-                document.getElementById("join-room-name").value = "";
-                return false;
-            }
+
         }
     } else {
         let realName = code;
@@ -409,55 +432,36 @@ function joinRoom(code) {
         if (realName === "") {
             return false;
         } else {
-            var n = roomID.includes(realName);
-            if (n) {
-                localStorage.setItem("room", realName);
-                firebase.database().ref("rooms/" + realName + "/chats").push().set({
-                    message: " joined the room! &#8203;          (+)",
-                    time: time,
-                    user: localStorage.getItem("uName"),
-                    username: username,
-                    "timespan": t.getTime(),
-                    image
+            checkRoomExists(realName)
+                .then((exists) => {
+                    if (exists) {
+                        localStorage.setItem("room", realName);
+                        firebase.database().ref("rooms/" + realName + "/chats").push().set({
+                            message: " joined the room! &#8203;          (+)",
+                            time: time,
+                            user: localStorage.getItem("uName"),
+                            username: username,
+                            "timespan": firebase.database.ServerValue.TIMESTAMP,
+                            image
+                        });
+                        toast(`You successfully joined the chat room!`);
+                        addRoom(realName, realName);
+                        location.reload();
+                        return true;
+                    } else {
+                        toast(`Your chat room couldn't be found!`);
+                        document.getElementById("join-room-name").value = "";
+                        return false;
+                    }
+                })
+                .catch((error) => {
+                    // Handle any potential errors
+                    console.error(error);
                 });
-                toast(`You successfully joined the chat room!`);
-                addRoom(realName, realName);
-                location.reload();
-                return true;
-            } else {
-                toast(`Your chat room code was not found!`);
-                document.getElementById("join-room-name").value = "";
-
-                return false;
-            }
         }
     }
 }
 
-
-// function badWordFilter(badWords, text) {
-//     const goodWords = ["duck", "bigfoot", "love", "have a crush on you", "be my sugar daddy", "potato", "pp", "3inch"];
-
-//     // Split the text into an array of words
-//     const words = text.split(/\b/);
-
-//     // Loop through each word and check if it's a bad word
-//     for (let i = 0; i < words.length; i++) {
-//         let word = words[i];
-
-//         // Check if the word is a bad word
-//         if (badWords.includes(word.toLowerCase().replace(/[^a-zA-Z0-9]/g, ""))) {
-
-//             // Replace the bad word with a good word
-//             const goodWord = goodWords[Math.floor(Math.random() * goodWords.length)];
-//             words[i] = goodWord;
-//         }
-//     }
-
-//     // Join the array of words back into a string
-//     let result = words.join("") + " &nbsp;";
-//     return result;
-// }
 
 function badWordFilter(badWords, text) {
     const goodWords = ["duck", "bigfoot", "love", "have a crush on you", "be my sugar daddy", "potato", "pp", "3inch"];
@@ -748,7 +752,7 @@ function createText(user, message, time, username1, key, ms, image) {
         let n = message.toString().includes("@" + username);
         if (n) {
             playAudio("myAudio");
-            document.getElementById(`message-id-${darkIndex}`).style.color = "#DD4132";
+            document.getElementById(`message-id-${key}`).style.color = "#DD4132";
             li.setAttributeNode(attribute4);
             li.setAttributeNode(attribute5);
         }
@@ -821,7 +825,7 @@ function createText2(user, message, time, username1, key, ms) {
         let n = message.toString().includes("@" + username);
         if (n) {
             playAudio("myAudio");
-            document.getElementById(`message-id-${darkIndex}`).style.color = "#DD4132";
+            document.getElementById(`message-id-${key}`).style.color = "#DD4132";
             li.setAttributeNode(attribute4);
             li.setAttributeNode(attribute5);
         }
@@ -969,12 +973,12 @@ function sendMessage() {
                 time: time,
                 user: localStorage.getItem("uName"),
                 username: username,
-                "timespan": t.getTime(),
+                "timespan": firebase.database.ServerValue.TIMESTAMP,
                 image: image
             });
             usedMessages.push(message);
             document.getElementById("message").value = "";
-            playAudio("sendMessage");
+            // playAudio("sendMessage"); // Play sound
             disableChat();
             setTimeout(() => {
                 enableChat();
@@ -1071,11 +1075,11 @@ function calculateLatency(array) {
     return avg;
 }
 
-rooms.on("child_added", function (snapshot) {
-    // Get the messages
-    let postKey = snapshot.key;
-    roomID.push(postKey);
-});
+// rooms.on("child_added", function (snapshot) {
+//     // Get the messages
+//     let postKey = snapshot.key;
+//     roomID.push(postKey);
+// });
 
 rooms.on("child_removed", function (snapshot) {
     if (snapshot.key === room) {
@@ -1945,7 +1949,7 @@ function createReply(user, message, time, username, postKey, ms, image) {
     }
     let li = document.createElement("li");
     let text = `<div class="first"><div><div class="circular--portrait"><img src="${imageP}" class="img" alt="Profile picture of ${user}"></div></div><div>${username} <br> ${textF}</div></div>`;
-    let text2 = `<div class="first">${username}: ${messageFirst}</div>`
+    let text2 = `<div class="first"><p>${username}: ${messageFirst}</p></div>`
 
     li.innerHTML = text2;
 
@@ -2051,124 +2055,6 @@ function highlightCodeInText(text) {
     });
 }
 
-function showFileUploadPopup() {
-    const popupContainer = document.createElement('div');
-    popupContainer.classList.add('popup-container');
-
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.classList.add('file-input');
-
-    // Close button
-
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'Close';
-    closeButton.classList.add('close-button');
-    closeButton.addEventListener('click', () => {
-        document.body.removeChild(popupContainer);
-    });
-    popupContainer.appendChild(closeButton);
-
-
-    const progressBar = document.createElement('progress');
-    progressBar.classList.add('progress-bar');
-    progressBar.classList.add('hidden');
-    progressBar.value = 0;
-    progressBar.max = 100;
-    progressBar.id = 'progressBar';
-
-    // Size text
-
-    const sizeText = document.createElement('p');
-    sizeText.textContent = 'File size: ';
-    sizeText.classList.add('size-text');
-
-    // uploaded vs total
-
-    const uploadedText = document.createElement('p');
-    uploadedText.textContent = 'Uploaded: ';
-    uploadedText.classList.add('uploaded-text');
-
-
-
-    const uploadButton = document.createElement('button');
-    uploadButton.textContent = 'Upload';
-    uploadButton.classList.add('upload-button');
-
-    popupContainer.appendChild(fileInput);
-    popupContainer.appendChild(sizeText);
-    popupContainer.appendChild(progressBar);
-    popupContainer.appendChild(uploadedText);
-    popupContainer.appendChild(uploadButton);
-    document.body.appendChild(popupContainer);
-
-    uploadButton.addEventListener('click', () => {
-        const file = fileInput.files[0];
-
-        if (file) {
-
-            sizeText.textContent = `File size: ${formatBytes(file.size)}`;
-
-            const formData = new FormData();
-            formData.append('file', file);
-
-            const xhr = new XMLHttpRequest();
-            document.getElementById("progressBar").classList.remove("hidden");
-
-            xhr.upload.addEventListener('progress', (event) => {
-                if (event.lengthComputable) {
-                    const percentage = (event.loaded / event.total) * 100;
-                    progressBar.value = percentage;
-                    uploadedText.textContent = `Uploaded: ${formatBytes(event.loaded)}/${formatBytes(event.total)}`;
-                }
-            });
-
-            xhr.addEventListener('load', () => {
-                if (xhr.status === 200) {
-                    const response = JSON.parse(xhr.responseText);
-                    toast("File uploaded successfully!");
-                    document.getElementById("message").value = response.link;
-                    sendMessage();
-                    closePopup();
-                } else {
-                    console.error('Upload failed. Status:', xhr.status);
-                    toast("File upload failed!");
-                    closePopup();
-                }
-            });
-
-            xhr.addEventListener('error', () => {
-                console.error('Upload failed. An error occurred.');
-                toast("File upload failed!");
-                closePopup();
-            });
-
-            xhr.open('POST', 'https://file.io/?expires=1d', true);
-            xhr.send(formData);
-        } else {
-            console.error('No file selected.');
-            toast("No file selected!");
-            closePopup();
-        }
-    });
-
-    function closePopup() {
-        document.body.removeChild(popupContainer);
-    }
-}
-
-function formatBytes(bytes, decimals = 2) {
-    if (!+bytes) return '0 Bytes'
-
-    const k = 1024
-    const dm = decimals < 0 ? 0 : decimals
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-
-    const i = Math.floor(Math.log(bytes) / Math.log(k))
-
-    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
-}
-
 function toast(message, duration = 4500, delay = 0) {
 
     // Check for existing toast class elements
@@ -2228,8 +2114,9 @@ function toast(message, duration = 4500, delay = 0) {
 
 setInterval(checkFocus, 200);
 
-// allowMusic();  // Uncomment to allow sound effects
+allowMusic();  // Uncomment to allow sound effects
 
 setTimeout(() => {
     console.log("The latency is " + calculateLatency(latency1) + "ms." + "\nFirst connection: " + latency1[0] + "ms");
 }, 2577);
+
